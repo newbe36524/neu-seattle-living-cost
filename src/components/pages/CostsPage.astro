@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CostTable from '../CostTable.astro';
+import { categories, profiles } from '../../data/costs';
+import { createT, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = createT(locale);
+---
+
+<BaseLayout locale={locale} path="/costs/" title={t('pages.costs.title')}>
+  <h1>{t('pages.costs.title')}</h1>
+  <p class="muted">{t('pages.costs.intro')}</p>
+  {profiles.map((p) => {
+    const pr = `data.profiles.${p.id}`;
+    return (
+      <section id={p.id}>
+        <h2>{t(`${pr}.area`)} · {t(`${pr}.contributor`)}</h2>
+        <p class="muted">{t('pages.home.collected', { summary: t(`${pr}.summary`), updated: p.updated })}</p>
+        {categories.map((c) => <CostTable category={c} profile={p} locale={locale} />)}
+      </section>
+    );
+  })}
+</BaseLayout>
