@@ -4,26 +4,37 @@ import Footer from '@hagicode/hagilight/Footer';
 import SEOHead from '@hagicode/hagilight/SEOHead';
 import GoogleAnalytics from '@hagicode/hagilight-core/GoogleAnalytics';
 import Analytics51LA from '@hagicode/hagilight-core/Analytics51LA';
+import { createT, defaultLocale, localeNames, localePath, locales, type Locale } from '../i18n';
 
 interface Props {
+  locale: Locale;
+  /** 页面在站内的路径(不含语言前缀),以 / 开头并以 / 结尾,例如 "/costs/" */
+  path: string;
   title: string;
   description?: string;
 }
 
-const { title, description = '为东北大学西雅图校区学生整理的西雅图居住成本参考。' } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { locale, path, title } = Astro.props;
+const t = createT(locale);
+const description = Astro.props.description ?? t('common.site.description');
 const current = Astro.url.pathname;
-const siteName = '西雅图居住成本参考';
+const siteName = t('common.site.name');
 const fullTitle = `${title} · ${siteName}`;
-const locale = 'zh-CN';
+// 每种语言的同一页面,供 hreflang 与语言切换器使用。
+const alternates = locales.map((l) => ({
+  locale: l,
+  name: localeNames[l],
+  href: localePath(l, path),
+  url: new URL(localePath(l, path), Astro.site).href,
+}));
 // HagiCode 共享的统计项目;仅生产构建渲染。本站不展示隐私同意弹窗,统计直接加载。
 const GOOGLE_ANALYTICS_ID = 'G-EN03FMT2Q4';
 const FIFTY_ONE_LA_ID = 'L6b88a5yK4h2Xnci';
 
 const nav = [
-  { href: `${base}/`, label: '首页' },
-  { href: `${base}/costs/`, label: '成本明细' },
-  { href: `${base}/about/`, label: '关于与数据来源' },
+  { href: localePath(locale, '/'), label: t('common.nav.home') },
+  { href: localePath(locale, '/costs/'), label: t('common.nav.costs') },
+  { href: localePath(locale, '/about/'), label: t('common.nav.about') },
 ];
 ---
 
@@ -40,17 +51,29 @@ const nav = [
       page={{ url: Astro.url, title: fullTitle, description }}
       locale={locale}
     />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={a.url} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.locale === defaultLocale)?.url} />
     <GoogleAnalytics measurementId={GOOGLE_ANALYTICS_ID} />
     <Analytics51LA siteId={FIFTY_ONE_LA_ID} />
   </head>
   <body>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href={`${base}/`}>西雅图居住成本参考</a>
-        <nav class="site-nav" aria-label="主导航">
+        <a class="brand" href={localePath(locale, '/')}>{siteName}</a>
+        <nav class="site-nav" aria-label={t('common.nav.label')}>
           {nav.map((n) => (
             <a href={n.href} aria-current={current === n.href ? 'page' : undefined}>{n.label}</a>
           ))}
+          <details class="lang-switch">
+            <summary aria-label={t('common.language.label')}>{localeNames[locale]}</summary>
+            <ul>
+              {alternates.map((a) => (
+                <li>
+                  <a href={a.href} lang={a.locale} hreflang={a.locale} aria-current={a.locale === locale ? 'true' : undefined}>{a.name}</a>
+                </li>
+              ))}
+            </ul>
+          </details>
         </nav>
       </div>
     </header>
@@ -59,7 +82,7 @@ const nav = [
     </main>
     <div class="site-disclaimer">
       <div class="container muted">
-        数据仅供参考,实际费用因区域、户型与时间而异。
+        {t('common.site.disclaimer')}
       </div>
     </div>
     {/* 本站不展示 HagiLight 的悬浮 promotion 卡片:不要在此引入 PromotoBanner。 */}

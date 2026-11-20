@@ -61,3 +61,25 @@ th, td { text-align: left; padding: 0.55rem 0.75rem; border-bottom: 1px solid va
 th { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
 td.amount { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .pending { color: var(--muted); font-style: italic; }
+
+/* 语言切换器:无脚本的 <details> 菜单 */
+.lang-switch { position: relative; }
+.lang-switch summary {
+  cursor: pointer; list-style: none; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.1rem 0.6rem;
+}
+.lang-switch summary::-webkit-details-marker { display: none; }
+.lang-switch summary::after { content: ' ▾'; }
+.lang-switch[open] summary { color: var(--fg); }
+.lang-switch ul {
+  position: absolute; right: 0; z-index: 10; margin: 0.35rem 0 0; padding: 0.35rem; list-style: none;
+  min-width: 11rem; background: var(--card); border: 1px solid var(--border); border-radius: 0.6rem;
+}
+.lang-switch li a { display: block; padding: 0.3rem 0.6rem; border-radius: 0.4rem; text-decoration: none; color: var(--fg); }
+.lang-switch li a:hover, .lang-switch li a:focus-visible { background: var(--border); }
+.lang-switch li a[aria-current='true'] { font-weight: 600; color: var(--accent); }
+
+/* 各语言的系统字体回退:CJK 语言按各自字形选字体 */
+body:lang(zh-Hant) { font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang TC', 'Noto Sans CJK TC', sans-serif; }
+body:lang(ja) { font-family: system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans CJK JP', sans-serif; }
+body:lang(ko) { font-family: system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans CJK KR', sans-serif; }
