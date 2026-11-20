@@ -17,8 +17,28 @@ targetLocales:
   - ru-RU
 
 # 刻意与基准语言相同的值(专有名词、不翻译的规格),按 文件 → 键路径 列出。
+# 繁体中文、日语与简体中文共用的汉字词(如「每月」「押金」)也在这里列出。
 auditIdenticalAllowlist:
+  common.yml:
+    - units.month
+    - units.year
+    - units.one-time
+    - status.estimate
+    - listSeparator
+  pages.yml:
+    - home.pendingItems
   data.yml:
-    - profiles.author-downtown.area
+    - categories.housing.title
+    - categories.transport.title
+    - categories.other.title
+    - items.rent.label
+    - items.deposit.label
+    - items.groceries.hint
+    - items.daily-supplies.label
+    - items.bed-frame.label
+    - items.shelf.label
+    - items.tableware.label
+    - items.tableware.hint
     - items.mattress.hint
     - items.bed-frame.hint
+    - profiles.author-downtown.area
