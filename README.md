@@ -25,10 +25,10 @@ src/
 ## 本地开发
 
 ```bash
-npm install
-npm run dev      # http://localhost:4321/neu-seattle-living-cost/
-npm run build    # 类型检查 + 构建到 dist/
-npm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运行
+pnpm install
+pnpm run dev      # http://localhost:4321/neu-seattle-living-cost/
+pnpm run build    # 类型检查 + 构建到 dist/
+pnpm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运行
 ```
 
 ## 填写数据
@@ -40,7 +40,7 @@ npm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运�
   (可复制 `author-downtown.yaml` 当模板,文件头有字段说明);没给出的项目不写,页面自动显示「待补充」。
 - 提供者只给出合计时,用一条记录覆盖多个 `items`(合并项),金额只计一次。
 - 参考价格推算的数字写 `basis: estimate`,页面会标「估算」并与实报分开统计。
-- 字段写错、引用不存在的项目、重复记录、基准语言缺文案都会让 `npm run build` 失败,并指出文件与原因。
+- 字段写错、引用不存在的项目、重复记录、基准语言缺文案都会让 `pnpm run build` 失败,并指出文件与原因。
 
 ## 多语言
 
@@ -48,9 +48,9 @@ npm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运�
 `de-DE`、`fr-FR`、`es-ES`、`pt-BR`、`ru-RU`,页面在 `/<语言>/` 下,例如 `/en-US/costs/`。
 
 - 文案只在 `src/locales/<语言>/*.yml`,按 `文件名.键路径` 取用(如 `common.nav.home`)。**简体中文是基准语言**。
-- `hagi18n.yaml` 配置 [`@hagicode/hagi18n`](https://www.npmjs.com/package/@hagicode/hagi18n):`npm run i18n:check`
+- `hagi18n.yaml` 配置 [`@hagicode/hagi18n`](https://www.npmjs.com/package/@hagicode/hagi18n):`pnpm run i18n:check`
   审计缺文件、缺键、多余键、占位符 `{{x}}` 不一致,以及与基准完全相同(疑似漏译)的值;刻意相同的值列在 `auditIdenticalAllowlist`。
-- 新增文案:先写 `zh-CN`,运行 `npm run i18n:sync` 预演、`npm run i18n:sync -- --write` 把新键补到其他语言,再逐个翻译。
+- 新增文案:先写 `zh-CN`,运行 `pnpm run i18n:sync` 预演、`pnpm run i18n:sync -- --write` 把新键补到其他语言,再逐个翻译。
 - 新增成本项/分类/提供者:数据 YAML 只放 id、周期与金额;名称、说明和备注写在各语言的 `data.yml`
   (`items.<id>.label|hint`、`categories.<id>.title|description`、`profiles.<id>.contributor|area|summary|notes`)。
   备注的键是该条记录 `items` 里的第一个项目 id;估算记录不写备注时显示通用的估算说明。
