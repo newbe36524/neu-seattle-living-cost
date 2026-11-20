@@ -97,6 +97,15 @@ profiles:
       wardrobe: "{{estimate}}: guarda-roupa simples de tecido, preço comum de cerca de $25–30"
       monitor: "{{estimate}}: 27 polegadas 4K; modelos Philips equivalentes costumam custar cerca de $200–270"
     advice:
-      close-to-campus: "Muito perto do campus: leva apenas 3 minutos para chegar a qualquer ponto do campus, então sobra tempo para quase toda a vida no campus e todas as aulas."
-      time-saved: "Sem custo de tempo com deslocamento: em comparação com morar mais longe, economiza-se pelo menos uma hora de transporte por dia."
-      far-supermarkets: "Os grandes supermercados ficam bem longe, exceto o Target. O Whole Foods também é perto, mas os preços são relativamente altos; Trader Joe's e Walmart ficam mais distantes. No Walmart, o colaborador costuma comprar apenas online e receber em casa."
+      close-to-campus:
+        title: "A minutos do campus"
+        text: "Muito perto do campus: leva apenas 3 minutos para chegar a qualquer ponto do campus, então sobra tempo para quase toda a vida no campus e todas as aulas."
+      time-saved:
+        title: "Sem deslocamento"
+        text: "Sem custo de tempo com deslocamento: em comparação com morar mais longe, economiza-se pelo menos uma hora de transporte por dia."
+      city-events:
+        title: "Muitos eventos na cidade"
+        text: "Morar no centro permite participar de muitos eventos comunitários da cidade, porque vários acontecem por perto: AI House, a Space Needle e alguns museus ficam a pouca distância, e todos valem muito a pena."
+      far-supermarkets:
+        title: "Supermercados grandes longe"
+        text: "Os grandes supermercados ficam bem longe, exceto o Target. O Whole Foods também é perto, mas os preços são relativamente altos; Trader Joe's e Walmart ficam mais distantes. No Walmart, o colaborador costuma comprar apenas online e receber em casa."

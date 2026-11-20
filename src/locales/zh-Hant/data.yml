@@ -97,6 +97,15 @@ profiles:
       wardrobe: "{{estimate}}:簡易布衣櫃,常見價位約 $25–30"
       monitor: "{{estimate}}:27 吋 4K,Philips 同級型號常見價位約 $200–270"
     advice:
-      close-to-campus: "距離校園非常近,只要短短 3 分鐘就能到達校園的任何區域,因此有足夠的時間參加幾乎所有的校園生活和所有的校園課程。"
-      time-saved: "沒有通勤的時間成本:相比住得較遠的情況,每天至少可以省下一個小時的交通時間。"
-      far-supermarkets: "離大型超市比較遠,除了 Target 之外都不近。Whole Foods 也很近,但價格相對高一些;Trader Joe's 和 Walmart 就更遠一些。Walmart 通常只在線上下單、送貨到府。"
+      close-to-campus:
+        title: "離校園很近"
+        text: "距離校園非常近,只要短短 3 分鐘就能到達校園的任何區域,因此有足夠的時間參加幾乎所有的校園生活和所有的校園課程。"
+      time-saved:
+        title: "省下通勤時間"
+        text: "沒有通勤的時間成本:相比住得較遠的情況,每天至少可以省下一個小時的交通時間。"
+      city-events:
+        title: "城市活動多"
+        text: "住在 Downtown,可以參加很多城市裡的社區活動,因為不少活動就在附近:不遠處有 AI House、Space Needle,還有一些博物館,都非常不錯。"
+      far-supermarkets:
+        title: "大超市較遠"
+        text: "離大型超市比較遠,除了 Target 之外都不近。Whole Foods 也很近,但價格相對高一些;Trader Joe's 和 Walmart 就更遠一些。Walmart 通常只在線上下單、送貨到府。"

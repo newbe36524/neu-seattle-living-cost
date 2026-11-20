@@ -13,7 +13,7 @@ import { createT, type Locale } from '../i18n';
 interface Props {
   ledger: LedgerProfile;
   locale: Locale;
-  /** 总月数可由用户在账本里调整(首页);成本明细页固定为默认值 */
+  /** 总月数可由用户在账本里调整(首页);其余场合固定为默认值 */
   months?: number;
 }
 
@@ -32,7 +32,7 @@ const i18n = Object.fromEntries(clientKeys.map((k) => [k, t(k)]));
 const alt = t('charts.year.alt', { months, upfront: money(state.once), monthly: money(fig.monthly), grand: money(fig.grand) });
 ---
 
-<section class="chart-card year" data-year data-chart={JSON.stringify(state)} data-i18n={JSON.stringify(i18n)} aria-labelledby={headingId}>
+<section class="chart-card year" data-reveal="rise" data-year data-chart={JSON.stringify(state)} data-i18n={JSON.stringify(i18n)} aria-labelledby={headingId}>
   <h3 id={headingId} data-year-heading>{t('charts.year.heading', { months })}</h3>
   <dl class="year-stats">
     <div>

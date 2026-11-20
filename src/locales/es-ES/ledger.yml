@@ -12,6 +12,15 @@ hero:
   hint: "Cada importe de abajo se puede cambiar por tu propia cifra. El valor de referencia queda debajo de cada fila y puedes restaurarlo cuando quieras."
   pending: "Aún no incluido ({{count}}): {{items}}."
   allFilled: "Todas las partidas mensuales están rellenadas."
+  yearLabel: "Total anual"
+  yearNote: "Total mensual × 12, más los costes únicos de {{once}}."
+  yearNoteEstimate: "Total mensual × 12, más los costes únicos de {{once}}; sin la estimación de compras de la mudanza de {{estimate}} (no es gasto real)."
+keyfig:
+  rent: "Alquiler mensual"
+first:
+  label: "Necesario al mudarte"
+  note: "Gastos únicos {{once}} + gastos mensuales del primer mes {{monthly}}."
+  noteEstimate: "Gastos únicos {{once}} + estimación de compras de instalación {{estimate}} (no es gasto real) + gastos mensuales del primer mes {{monthly}}."
 delta:
   same: "igual que la referencia"
   more: "{{amount}} más que la referencia"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "Partidas mensuales por añadir: {{count}}."
 source:
   text: "Datos de {{contributor}}, {{area}}, recopilados en {{updated}}."
-  link: "Los criterios y notas de cada partida están en el detalle de costes"
 dock:
   label: "Tu simulación, al mes"
 status:

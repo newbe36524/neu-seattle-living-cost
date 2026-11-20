@@ -12,6 +12,15 @@ hero:
   hint: "Every amount below can be edited into your own number. The reference value stays under each row, and you can restore it any time."
   pending: "Not yet included ({{count}}): {{items}}."
   allFilled: "All monthly items are filled in."
+  yearLabel: "Yearly total"
+  yearNote: "Monthly total × 12, plus one-time costs of {{once}}."
+  yearNoteEstimate: "Monthly total × 12, plus one-time costs of {{once}}; excludes the move-in purchase estimate of {{estimate}} (not actual spending)."
+keyfig:
+  rent: "Monthly rent"
+first:
+  label: "Needed at move-in"
+  note: "One-time costs {{once}} + first month's monthly costs {{monthly}}."
+  noteEstimate: "One-time costs {{once}} + move-in purchase estimate {{estimate}} (not actual spending) + first month's monthly costs {{monthly}}."
 delta:
   same: "same as the reference"
   more: "{{amount}} more than the reference"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "Monthly items still to be added: {{count}}."
 source:
   text: "Data from {{contributor}}, {{area}}, collected {{updated}}."
-  link: "See the cost details for each item's basis and notes"
 dock:
   label: "Your simulation, monthly"
 status:

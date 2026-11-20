@@ -5,7 +5,6 @@ site:
 nav:
   label: Hauptnavigation
   home: Startseite
-  costs: Kostendetails
   about: Über die Seite und Datenquellen
 language:
   label: Sprache
@@ -32,6 +31,19 @@ commute:
   label: "Pendelzeit"
   value: "Etwa {{minutes}} Min. pro Strecke"
   hint: "Zeit ist auch ein Kostenfaktor: Je kürzer der Weg, desto mehr Spielraum bleibt für das Campusleben und Aktivitäten in der Umgebung. Dieser Wert ist in den Dollar-Summen nicht enthalten."
+  leg: "{{mode}} {{minutes}} Min."
+  mode:
+    drive: "Auto"
+    transit: "Öffentliche Verkehrsmittel"
+    ferry: "Fähre"
+    walk: "zu Fuß"
+housing:
+  type:
+    apartment: "Wohnung"
+    studio: "Studio-Apartment"
+    shared: "WG"
+    house: "Haus oder Reihenhaus"
+    dorm: "Wohnheim"
 advice:
   heading: "Empfehlungen der Datengeberin bzw. des Datengebers"
   intro: "Das sind die persönlichen Eindrücke und Einschätzungen von {{contributor}}, keine statistischen Schlussfolgerungen."

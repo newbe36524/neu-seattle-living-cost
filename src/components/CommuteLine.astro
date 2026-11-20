@@ -1,7 +1,16 @@
 ---
-/** 通勤时间:住处到校园的单程分钟数。时间也是成本,但不是美元,所以单独一行,不进任何合计。 */
+/**
+ * 通勤时间:住处到校园的单程,可由多段不同方式组成(开车、公共交通、轮渡、步行)。
+ * 时间也是成本,但不是美元,所以单独呈现,不进任何合计。
+ *
+ * 有一条画出来的路线:起点是住处(用住房类型的图标),终点是校园;每一段按分钟数占宽度,
+ * 路线的样式和移动的节奏随方式不同:步行是一步一步、公共交通走走停停、开车一气呵成、轮渡缓慢摇晃。
+ * 路线是装饰,真正的信息在下面的文字清单里(屏幕阅读器只读清单)。进入视口时播放一次,reduced-motion 下直接显示终态。
+ */
 import type { LedgerProfile } from '../data/ledger';
+import type { CommuteMode } from '../data/costs';
 import { createT, type Locale } from '../i18n';
+import Glyph from './Glyph.astro';
 
 interface Props {
   ledger: LedgerProfile;
@@ -10,9 +19,21 @@ interface Props {
 
 const { ledger, locale } = Astro.props;
 const t = createT(locale);
+
+/** 每种方式走完一段所需的秒数:这就是它的节奏(开车最快,轮渡最慢)。 */
+const seconds: Record<CommuteMode, number> = { drive: 1, walk: 1.6, transit: 2, ferry: 2.6 };
+const LEAD = 0.35;
+let at = LEAD;
+const legs = (ledger.commute ?? []).map((leg) => {
+  const start = at;
+  at += seconds[leg.mode] + 0.1;
+  return { ...leg, d: seconds[leg.mode], delay: start };
+});
+const arrive = at - 0.1;
+const home = ledger.housingType ?? 'house';
 ---
 
-<div class="commute">
+<div class="commute" data-commute>
   <div class="sum-line">
     <span class="sum-label">{t('common.commute.label')}</span>
     <span class="sum-leader" aria-hidden="true"></span>
@@ -22,5 +43,32 @@ const t = createT(locale);
         : t('common.commute.value', { minutes: ledger.commuteMinutes })}
     </span>
   </div>
+
+  {legs.length > 0 && (
+    <>
+      <div class="route" data-route aria-hidden="true" style={`--arrive:${arrive}s`}>
+        <span class="stop stop-home"><Glyph kind={home} size={24} /></span>
+        {legs.map((l) => (
+          <div class="leg" data-mode={l.mode} style={`--m:${l.minutes};--d:${l.d}s;--delay:${l.delay}s`}>
+            <span class="leg-track"><span class="leg-fill"></span></span>
+            <span class="traveler"><Glyph kind={l.mode} size={26} /></span>
+          </div>
+        ))}
+        <span class="stop stop-campus"><Glyph kind="campus" size={24} /></span>
+      </div>
+      <ol class="legs">
+        {legs.map((l) => (
+          <li data-mode={l.mode}>
+            <Glyph kind={l.mode} size={18} />
+            <span>{t('common.commute.leg', { mode: t(`common.commute.mode.${l.mode}`), minutes: l.minutes })}</span>
+          </li>
+        ))}
+      </ol>
+    </>
+  )}
   <p class="muted commute-note">{t('common.commute.hint')}</p>
 </div>
+
+<script>
+  import '../scripts/motion';
+</script>

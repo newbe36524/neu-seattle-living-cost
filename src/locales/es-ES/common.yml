@@ -5,7 +5,6 @@ site:
 nav:
   label: Navegación principal
   home: Inicio
-  costs: Detalle de costos
   about: Acerca de y fuentes de datos
 language:
   label: Idioma
@@ -32,6 +31,19 @@ commute:
   label: "Tiempo de desplazamiento"
   value: "Unos {{minutes}} min por trayecto"
   hint: "El tiempo también es un coste: cuanto más corto es el trayecto, más margen queda para la vida del campus y las actividades de los alrededores. Este valor no se incluye en los totales en dólares."
+  leg: "{{mode}} {{minutes}} min"
+  mode:
+    drive: "Coche"
+    transit: "Transporte público"
+    ferry: "Ferri"
+    walk: "A pie"
+housing:
+  type:
+    apartment: "Apartamento"
+    studio: "Estudio"
+    shared: "Piso compartido"
+    house: "Casa o adosado"
+    dorm: "Residencia estudiantil"
 advice:
   heading: "Consejos del colaborador"
   intro: "Estas son las impresiones y opiniones personales de {{contributor}}, no conclusiones estadísticas."

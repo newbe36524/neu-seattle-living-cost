@@ -1,7 +1,12 @@
 ---
-/** 提供者本人的主观建议:积极 / 消极 / 中性三类。没有建议就不渲染。类别用文字标签 + 符号区分,不只靠颜色。 */
+/**
+ * 提供者本人的主观评价:积极 / 消极 / 中性三组。没有评价就不渲染。
+ * 它回答「值不值得住」,所以排在账本合计之后、明细之前。组与组之间用图标形状(竖拇指 / 倒拇指 / 天平)、
+ * 文字标签和底色三重区分,不只靠颜色。入场动效见 global.css(.verdict)。
+ */
 import type { LedgerProfile } from '../data/ledger';
 import { createT, type Locale } from '../i18n';
+import Glyph from './Glyph.astro';
 
 interface Props {
   ledger: LedgerProfile;
@@ -10,20 +15,42 @@ interface Props {
 
 const { ledger, locale } = Astro.props;
 const t = createT(locale);
-const glyph = { positive: '+', negative: '−', neutral: '○' } as const;
+const kinds = ['positive', 'negative', 'neutral'] as const;
+const groups = kinds
+  .map((kind) => ({ kind, items: ledger.advice.filter((a) => a.kind === kind) }))
+  .filter((g) => g.items.length > 0);
 ---
 
-{ledger.advice.length > 0 && (
+{groups.length > 0 && (
   <section class="advice" aria-labelledby={`advice-${ledger.id}`}>
     <h3 id={`advice-${ledger.id}`}>{t('common.advice.heading')}</h3>
     <p class="muted">{t('common.advice.intro', { contributor: ledger.contributor })}</p>
-    <ul class="advice-list">
-      {ledger.advice.map((a) => (
-        <li data-kind={a.kind}>
-          <span class="advice-kind"><span aria-hidden="true">{glyph[a.kind]}</span> {t(`common.advice.${a.kind}`)}</span>
-          <span>{a.text}</span>
-        </li>
+    <div class="verdicts">
+      {groups.map((g, gi) => (
+        <div class="verdict" data-kind={g.kind} data-reveal="verdict" style={`--i:${gi}`}>
+          <div class="verdict-head">
+            <span class="verdict-badge"><Glyph kind={g.kind} size={24} /></span>
+            <h4 class="verdict-title">{t(`common.advice.${g.kind}`)}</h4>
+            <span class="verdict-count" aria-hidden="true">{g.items.length}</span>
+          </div>
+          <ul class="advice-list">
+            {g.items.map((a, i) => (
+              <li data-reveal="advice" data-kind={g.kind} style={`--i:${i}`}>
+                <svg class="mark" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false">
+                  <circle cx="8" cy="8" r="7" />
+                  {g.kind === 'positive' && <path d="M4.8 8.3l2.2 2.2 4.2-4.6" pathLength="1" />}
+                  {g.kind === 'negative' && <><path d="M8 4.6v4" pathLength="1" /><path d="M8 11.2h.01" /></>}
+                  {g.kind === 'neutral' && <path d="M5 8h6" pathLength="1" />}
+                </svg>
+                <span class="advice-body">
+                  <strong class="advice-title">{a.title}</strong>
+                  <span class="advice-text">{a.text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
-    </ul>
+    </div>
   </section>
 )}

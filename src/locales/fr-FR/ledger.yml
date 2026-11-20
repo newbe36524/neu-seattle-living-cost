@@ -12,6 +12,15 @@ hero:
   hint: "Chaque montant ci-dessous peut être remplacé par votre propre chiffre. La valeur de référence reste sous chaque ligne et peut être rétablie à tout moment."
   pending: "Pas encore inclus ({{count}}) : {{items}}."
   allFilled: "Tous les postes mensuels sont renseignés."
+  yearLabel: "Total annuel"
+  yearNote: "Total mensuel × 12, plus les frais ponctuels de {{once}}."
+  yearNoteEstimate: "Total mensuel × 12, plus les frais ponctuels de {{once}} ; hors estimation des achats d'installation de {{estimate}} (dépenses non réelles)."
+keyfig:
+  rent: "Loyer mensuel"
+first:
+  label: "À prévoir à l'emménagement"
+  note: "Frais ponctuels {{once}} + dépenses mensuelles du premier mois {{monthly}}."
+  noteEstimate: "Frais ponctuels {{once}} + estimation des achats d'installation {{estimate}} (pas une dépense réelle) + dépenses mensuelles du premier mois {{monthly}}."
 delta:
   same: "identique à la référence"
   more: "{{amount}} de plus que la référence"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "Postes mensuels restant à renseigner : {{count}}."
 source:
   text: "Données de {{contributor}}, {{area}}, relevées en {{updated}}."
-  link: "Les hypothèses et notes de chaque poste figurent dans le détail des coûts"
 dock:
   label: "Votre simulation, par mois"
 status:

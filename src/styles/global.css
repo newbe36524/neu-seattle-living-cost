@@ -136,15 +136,30 @@ input { caret-color: var(--accent); }
 .ledger > h2 { margin: 0 0 1rem; font-size: 1.5rem; }
 .ledger > h2 .muted { font-weight: 400; font-size: 1.17rem; }
 
+/* 关键数字:房租、搬入时要备。与下方合计同一套「账本」语汇:无卡片阴影,上下各一条细线。 */
+.keyfigs { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0 2rem; margin: 0 0 1.25rem; padding: 0.75rem 0; border-block: 1px solid var(--border); }
+.keyfig { min-width: 0; padding-block: 0.25rem; }
+.keyfig dt { font-weight: 600; }
+.keyfig dd { margin: 0; }
+.keyfig strong { font-size: 2rem; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.keyfig strong.pending { font-size: 1.17rem; font-weight: 400; letter-spacing: 0; }
+.keyfig-note { margin-top: 0.1rem; font-size: 0.9rem; }
+.group-desc { margin: 0.5rem 0 0.25rem; font-size: 0.9rem; }
+
 .sum-line { display: flex; align-items: baseline; gap: 0.75rem; padding-block: 0.3rem; }
 .sum-label { font-weight: 600; }
 .sum-leader { flex: 1; min-width: 1rem; border-bottom: 1px dotted var(--muted); transform: translateY(-0.3em); }
 .sum-value { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
 .sum-line.is-off { color: var(--muted); }
 .sum-line.is-off .sum-value { font-weight: 400; }
-.sum-line.is-total { padding-bottom: 0.4rem; border-bottom: 3px double var(--accent); }
+.totals { padding-bottom: 0.5rem; border-bottom: 3px double var(--accent); }
+.sum-line.is-total { padding-bottom: 0; }
 .sum-line.is-total .sum-label { font-size: 1.17rem; }
 .sum-line.is-total .sum-value { font-size: 3rem; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+.sum-line.is-year { padding-block: 0.2rem 0; }
+.sum-line.is-year .sum-label { font-size: 1.17rem; font-weight: 700; }
+.sum-line.is-year .sum-value { font-size: 2rem; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
+.year-note { margin: 0.15rem 0 0; font-size: 0.9rem; }
 .sum-line.is-grand { margin-top: 0.4rem; padding-bottom: 0.4rem; border-top: 1px solid var(--accent); border-bottom: 3px double var(--accent); }
 .sum-line.is-grand .sum-label { font-size: 1.17rem; font-weight: 700; }
 .sum-line.is-grand .sum-value { font-size: 1.5rem; font-weight: 700; }
@@ -230,16 +245,31 @@ input { caret-color: var(--accent); }
 /* 通勤时间(时间成本,不计入美元合计)与提供者的主观建议 */
 .commute { margin: 1.25rem 0 0; }
 .commute-note { margin: 0; font-size: 0.9rem; }
+/* 评价区:排在合计之后、明细之前。积极 = 墨色实心徽章 + 竖拇指;消极 = 红色实心徽章 + 倒拇指 + 浅红底;中性 = 空心徽章 + 天平 + 虚线框。
+   颜色只是第三重提示,形状、文字标签与底色各自都能区分。红色在这里只是「注意」的提示,不是错误。 */
 .advice { margin: 2rem 0 0; }
-.advice h3 { margin: 0 0 0.25rem; }
-.advice > .muted { margin: 0 0 0.75rem; font-size: 0.9rem; }
-.advice-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-.advice-list li { display: grid; gap: 0.15rem 0.75rem; grid-template-columns: 5.5rem 1fr; align-items: baseline; padding: 0.6rem 0.75rem; background: var(--card); border: 1px solid var(--border); border-left-width: 4px; }
-.advice-list li[data-kind='positive'] { border-left-color: var(--fg); }
-.advice-list li[data-kind='negative'] { border-left-color: var(--accent); }
-.advice-list li[data-kind='neutral'] { border-left-style: dashed; border-left-color: var(--muted); }
-.advice-kind { font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
-@media (max-width: 36rem) { .advice-list li { grid-template-columns: 1fr; } }
+.advice h3 { margin: 0 0 0.25rem; font-size: 1.35rem; }
+.advice > .muted { margin: 0 0 1rem; font-size: 0.9rem; }
+.verdicts { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
+.verdict { --tone: var(--fg); background: var(--card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem 1.25rem 0.35rem; }
+.verdict[data-kind='negative'] { --tone: var(--accent); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 32%, #fff); }
+.verdict[data-kind='neutral'] { --tone: var(--muted); background: transparent; border-style: dashed; border-color: var(--muted); grid-column: 1 / -1; }
+.verdict-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem; }
+.verdict-badge { position: relative; flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--tone); color: #fff; }
+.verdict[data-kind='neutral'] .verdict-badge { background: transparent; color: var(--tone); box-shadow: inset 0 0 0 1.5px var(--tone); }
+.verdict-badge::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--tone); opacity: 0; pointer-events: none; }
+.verdict .glyph .thumb { transform-box: fill-box; transform-origin: 0% 70%; }
+.verdict-title { margin: 0; font-size: 1.17rem; }
+.verdict-count { margin-left: auto; font-size: 1.17rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--tone); }
+.advice-list { list-style: none; margin: 0; padding: 0; }
+.advice-list li { display: grid; grid-template-columns: 1.125rem 1fr; gap: 0.75rem; align-items: start; padding: 0.7rem 0; border-top: 1px solid color-mix(in srgb, var(--tone) 18%, transparent); }
+.advice-list li:first-child { border-top: 0; }
+.advice-body { display: grid; gap: 0.1rem; min-width: 0; }
+.advice-title { font-size: 1.08rem; line-height: 1.5; }
+.advice-text { color: var(--muted); font-size: 0.95rem; }
+.advice-list .mark { margin-top: 0.3rem; fill: none; stroke: var(--tone); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.advice-list .mark path { stroke-width: 1.7; }
+@media (max-width: 36rem) { .verdict { padding-inline: 1rem; } }
 
 .dock {
   position: fixed; inset: auto 0 0 0; z-index: 10; background: var(--bg); border-top: 3px solid var(--accent);
@@ -252,6 +282,7 @@ input { caret-color: var(--accent); }
 
 @media (max-width: 30rem) {
   .sum-line.is-total .sum-value { font-size: 2.5rem; }
+  .sum-line.is-year .sum-value { font-size: 1.75rem; }
   .row input[data-input] { width: 5.5ch; }
 }
 
@@ -334,4 +365,161 @@ input { caret-color: var(--accent); }
 }
 @media (prefers-reduced-motion: reduce) {
   .donut canvas, .donut-ring, .legend li, .lg-bar::before { transition: none; }
+}
+
+/* ───────── 住房类型徽标 ───────── */
+.housing {
+  display: inline-flex; align-items: center; gap: 0.4rem; vertical-align: middle;
+  padding: 0.1rem 0.7rem 0.1rem 0.5rem; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--bg); color: var(--fg); font-size: 0.9rem; font-weight: 600; line-height: 1.6; white-space: nowrap;
+}
+.housing .glyph { color: var(--accent); flex: none; }
+.pick-body .housing { justify-self: start; margin-top: 0.35rem; }
+.ledger-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin: -0.5rem 0 1rem; }
+
+/* ───────── 通勤路线:住处 → 各段交通方式 → 校园 ─────────
+   每一段的进度由一个会动画的数字 --p(0→1)驱动,移动的小图标与已走过的路线都从它推出来,所以两者永远同步。
+   节奏随方式不同:步行一步一步,公共交通走走停停,开车一气呵成,轮渡缓慢摇晃。 */
+@property --p { syntax: '<number>'; inherits: true; initial-value: 1; }
+
+.route { display: flex; align-items: center; gap: 0.5rem; margin: 1.5rem 0 0.75rem; }
+.stop {
+  position: relative; flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
+  border: 1px solid var(--border); border-radius: 50%; background: var(--card); color: var(--fg);
+}
+.stop-campus { border-color: var(--accent); background: var(--accent-wash); color: var(--accent); }
+.stop-home .glyph { color: var(--accent); }
+
+.leg { --p: 1; --w: 1.75rem; position: relative; flex: var(--m) 1 5.5rem; min-width: 0; height: 2.75rem; container-type: inline-size; }
+.leg-track { position: absolute; inset-inline: 0; top: 50%; height: 4px; translate: 0 -50%; background: var(--border); }
+.leg-fill { position: absolute; inset: 0; background: var(--accent); clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
+.traveler {
+  position: absolute; left: 0; bottom: calc(50% + 0.35rem); width: var(--w); height: var(--w);
+  display: grid; place-items: center; color: var(--accent);
+  translate: calc((100cqw - var(--w)) * var(--p)) 0;
+}
+
+/* 步行:一格一格的点,脚步小跳 */
+.leg[data-mode='walk'] .leg-track {
+  height: 8px; background: var(--border);
+  -webkit-mask: radial-gradient(circle, #000 1.7px, #0000 2.1px) 0 50% / 9px 100% repeat-x;
+          mask: radial-gradient(circle, #000 1.7px, #0000 2.1px) 0 50% / 9px 100% repeat-x;
+}
+/* 公共交通:实线加两个停靠站,车走走停停 */
+.leg[data-mode='transit']::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 5px at 30% 50%, var(--bg) 2.5px, var(--muted) 3px 5px, #0000 5.5px),
+    radial-gradient(circle 5px at 68% 50%, var(--bg) 2.5px, var(--muted) 3px 5px, #0000 5.5px);
+}
+/* 开车:粗路面,中间流动的虚线 */
+.leg[data-mode='drive'] .leg-track { height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 22%, var(--bg)); }
+.leg[data-mode='drive'] .leg-fill { border-radius: 4px; }
+.leg[data-mode='drive'] .leg-fill::after {
+  content: ''; position: absolute; inset: calc(50% - 1px) 4px auto; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--bg) 0 7px, #0000 7px 14px);
+}
+/* 轮渡:一条起伏的水线 */
+.leg[data-mode='ferry'] .leg-track {
+  height: 10px; background: var(--border);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10' viewBox='0 0 24 10'%3E%3Cpath d='M0 5C4 0 8 0 12 5S20 10 24 5' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") 0 50% / 24px 10px repeat-x;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10' viewBox='0 0 24 10'%3E%3Cpath d='M0 5C4 0 8 0 12 5S20 10 24 5' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") 0 50% / 24px 10px repeat-x;
+}
+.leg[data-mode='ferry'] .traveler { bottom: calc(50% + 0.1rem); transform-origin: 50% 90%; }
+
+.legs { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; list-style: none; margin: 0 0 0.5rem; padding: 0; font-size: 0.9rem; }
+.legs li { display: inline-flex; gap: 0.4rem; align-items: center; }
+.legs .glyph { color: var(--accent); }
+
+@media (max-width: 36rem) {
+  .route { gap: 0.3rem; }
+  .stop { width: 2.4rem; height: 2.4rem; }
+  .leg { flex-basis: 4rem; }
+}
+
+/* ───────── 入场与节奏:全部只在允许动效时才存在 ───────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* 通勤路线:等进入视口(data-play)才开始走;之前停在第 0 帧 */
+  @keyframes run { from { --p: 0; } }
+  @keyframes run-stops { 0% { --p: 0; } 24% { --p: 0.3; } 38% { --p: 0.3; } 66% { --p: 0.68; } 80% { --p: 0.68; } 100% { --p: 1; } }
+  @keyframes hop { to { transform: translateY(-3px); } }
+  @keyframes shake { to { transform: translateY(-1px); } }
+  @keyframes shuffle { to { transform: translateX(1.3px); } }
+  @keyframes roll { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-2px) rotate(4deg); } }
+  @keyframes road { to { background-position: -14px 0; } }
+  @keyframes waves { to { -webkit-mask-position: -24px 50%; mask-position: -24px 50%; } }
+  @keyframes arrive { 0% { scale: 0.9; background: var(--card); border-color: var(--border); color: var(--muted); } 60% { scale: 1.1; } 100% { scale: 1; } }
+  @keyframes ring { 0% { opacity: 0; scale: 1; } 1% { opacity: 0.7; } 100% { opacity: 0; scale: 1.8; } }
+
+  .route[data-motion] .leg { animation: run var(--d) var(--delay) both paused; }
+  .route[data-motion] .leg[data-mode='walk'] { animation-timing-function: steps(9, jump-end); }
+  .route[data-motion] .leg[data-mode='transit'] { animation-name: run-stops; animation-timing-function: ease-in-out; }
+  .route[data-motion] .leg[data-mode='drive'] { animation-timing-function: cubic-bezier(0.5, 0, 0.15, 1); }
+  .route[data-motion] .leg[data-mode='ferry'] { animation-timing-function: ease-in-out; }
+  .route[data-motion][data-play] .leg { animation-play-state: running; }
+
+  .route[data-motion] .leg[data-mode='walk'] .traveler { animation: hop 0.2s var(--delay) 8 alternate both paused; }
+  .route[data-motion] .leg[data-mode='walk'] .limb-a { animation: shuffle 0.2s var(--delay) 8 alternate both paused; }
+  .route[data-motion] .leg[data-mode='walk'] .limb-b { animation: shuffle 0.2s var(--delay) 8 alternate-reverse both paused; }
+  .route[data-motion] .leg[data-mode='drive'] .traveler { animation: shake 0.12s var(--delay) 8 alternate both paused; }
+  .route[data-motion] .leg[data-mode='drive'] .leg-fill::after { animation: road 0.5s linear infinite paused; }
+  .route[data-motion] .leg[data-mode='ferry'] .traveler { animation: roll 1.3s ease-in-out infinite alternate paused; }
+  .route[data-motion] .leg[data-mode='ferry'] .leg-track { animation: waves 2.4s linear infinite paused; }
+  .route[data-motion][data-play] .leg[data-mode='walk'] .traveler,
+  .route[data-motion][data-play] .leg[data-mode='walk'] .limb-a,
+  .route[data-motion][data-play] .leg[data-mode='walk'] .limb-b,
+  .route[data-motion][data-play] .leg[data-mode='drive'] .traveler { animation-play-state: running; }
+  /* 无限循环的环境动效只在看得见时运行 */
+  .route[data-motion][data-visible] .leg[data-mode='drive'] .leg-fill::after,
+  .route[data-motion][data-visible] .leg[data-mode='ferry'] .traveler,
+  .route[data-motion][data-visible] .leg[data-mode='ferry'] .leg-track { animation-play-state: running; }
+  .route[data-motion] .leg[data-mode='ferry'] .traveler { animation-delay: var(--delay); }
+
+  .route[data-motion] .stop-campus { animation: arrive 0.6s var(--arrive) both paused; }
+  .route[data-motion] .stop-campus::after { content: ''; position: absolute; inset: -1px; border: 2px solid var(--accent); border-radius: 50%; animation: ring 0.9s var(--arrive) both paused; }
+  .route[data-motion][data-play] .stop-campus, .route[data-motion][data-play] .stop-campus::after { animation-play-state: running; }
+
+  /* 入场:每种内容一种节奏,不是同一个淡入套在所有东西上。上膛(data-armed)到触发(data-in)之间过渡 */
+  [data-reveal][data-seen] { transition: opacity 0.5s ease-out, translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), scale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), clip-path 1s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i, 0) * 70ms); }
+  /* 图表与分组:稳稳升起 */
+  [data-reveal='rise'][data-armed]:not([data-in]) { opacity: 0; translate: 0 16px; }
+  /* 占比条:从左向右铺开 */
+  [data-reveal='sweep'][data-armed]:not([data-in]) { clip-path: inset(0 100% 0 0); }
+  /* 评价区:面板先升起(积极在前、消极稍后),图标徽章再各演各的,最后条目一条条跟上。
+     积极:徽章弹出、拇指向上一抬再落稳、光环向外一圈;消极:徽章从上方砸落、左右抖两下、拇指向下一沉;中性:天平摆几下后摆正。
+     条目:积极的向上弹起,消极的从左利落切入,中性的慢慢浮现;每条前面的小标记自己画一遍。 */
+  @keyframes badge-pop { 0% { scale: 0.4; opacity: 0; } 55% { scale: 1.16; opacity: 1; } 100% { scale: 1; opacity: 1; } }
+  @keyframes badge-drop { 0% { translate: 0 -18px; opacity: 0; } 40% { translate: 0 3px; opacity: 1; } 58% { translate: 0 -2px; } 100% { translate: 0 0; opacity: 1; } }
+  @keyframes badge-shake { 0%, 100% { translate: 0 0; } 20% { translate: -3px 0; } 45% { translate: 3px 0; } 70% { translate: -2px 0; } 88% { translate: 1px 0; } }
+  @keyframes badge-fade { from { opacity: 0; scale: 0.85; } to { opacity: 1; scale: 1; } }
+  @keyframes thumb-lift { 0% { rotate: 0deg; } 35% { rotate: -20deg; } 70% { rotate: 5deg; } 100% { rotate: 0deg; } }
+  @keyframes beam-tilt { 0% { rotate: -9deg; } 30% { rotate: 7deg; } 60% { rotate: -3deg; } 100% { rotate: 0deg; } }
+  @keyframes ring-out { 0% { opacity: 0.55; scale: 1; } 100% { opacity: 0; scale: 1.75; } }
+  @keyframes mark-pop { 0% { scale: 0.5; opacity: 0; } 60% { scale: 1.15; opacity: 1; } 100% { scale: 1; opacity: 1; } }
+  @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+  [data-reveal='verdict'][data-seen] { transition-delay: calc(var(--i, 0) * 140ms); }
+  [data-reveal='verdict'][data-armed]:not([data-in]) { opacity: 0; translate: 0 14px; }
+  .verdict[data-kind='negative'][data-armed]:not([data-in]) { translate: -14px 0; }
+  .verdict[data-in] { --d0: calc(var(--i, 0) * 140ms + 180ms); }
+  .verdict[data-in] .verdict-badge { animation: badge-pop 0.6s var(--d0) cubic-bezier(0.34, 1.4, 0.64, 1) both; }
+  .verdict[data-in] .verdict-badge::after { animation: ring-out 0.9s calc(var(--d0) + 0.25s) cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .verdict[data-in][data-kind='positive'] .thumb { animation: thumb-lift 0.8s calc(var(--d0) + 0.3s) ease-in-out both; }
+  .verdict[data-in][data-kind='negative'] .verdict-badge { animation: badge-drop 0.55s var(--d0) cubic-bezier(0.3, 0, 0.2, 1) both, badge-shake 0.5s calc(var(--d0) + 0.55s) ease-in-out both; }
+  .verdict[data-in][data-kind='negative'] .thumb { animation: thumb-lift 0.7s calc(var(--d0) + 0.45s) ease-in-out both; }
+  .verdict[data-in][data-kind='neutral'] .verdict-badge { animation: badge-fade 0.6s var(--d0) cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .verdict[data-in][data-kind='neutral'] .verdict-badge::after { animation: none; }
+  .verdict[data-in][data-kind='neutral'] .beam { transform-box: view-box; transform-origin: 12px 7px; animation: beam-tilt 1s calc(var(--d0) + 0.3s) ease-in-out both; }
+  [data-reveal='advice'][data-seen] { transition-delay: calc(var(--i, 0) * 90ms + 380ms); }
+  [data-reveal='advice'][data-kind='positive'][data-armed]:not([data-in]) { opacity: 0; translate: 0 12px; }
+  [data-reveal='advice'][data-kind='negative'][data-armed]:not([data-in]) { opacity: 0; translate: -16px 0; }
+  [data-reveal='advice'][data-kind='negative'][data-seen] { transition-duration: 0.3s, 0.35s; transition-timing-function: cubic-bezier(0.2, 0, 0, 1); }
+  [data-reveal='advice'][data-kind='neutral'][data-armed]:not([data-in]) { opacity: 0; }
+  [data-reveal='advice'][data-kind='neutral'][data-seen] { transition-duration: 1s; }
+  [data-reveal='advice'][data-in] .mark { animation: mark-pop 0.45s calc(var(--i, 0) * 90ms + 480ms) cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  [data-reveal='advice'][data-in] .mark path[pathLength] { stroke-dasharray: 1; animation: draw 0.4s calc(var(--i, 0) * 90ms + 600ms) ease-out both; }
+  /* 住房图标:窗灯一扇一扇亮起 */
+  .housing .win { transition: opacity 0.35s ease-out calc(var(--i, 0) * 90ms + 0.25s); }
+  .housing[data-armed]:not([data-in]) .win { opacity: 0.1; }
+  [data-reveal='lights'][data-seen] { transition: none; }
 }

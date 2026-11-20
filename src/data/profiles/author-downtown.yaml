@@ -12,18 +12,24 @@
 #           显示通用的「估算(…非实际支出)」。
 #
 # 除金额外还有两个可选的非金额字段(没提供就不写,页面会显示「待补充」或不显示):
-#   commuteMinutes  从住处到校园的单程通勤分钟数(时间也是成本)。
+#   housingType     住房类型:apartment(公寓)/ studio(单间)/ shared(合租)/ house(独栋或联排)/ dorm(学生宿舍)。
+#   commute         从住处到校园的单程通勤,按行程顺序分段,每段 { mode, minutes }:
+#                   mode 为 drive(开车)/ transit(公共交通)/ ferry(轮渡)/ walk(步行);总时长由各段相加(时间也是成本)。
 #   advice          提供者本人的主观建议,每条 { kind, id }:kind 为 positive(积极)/ negative(消极)/ neutral(中性),
-#                   正文在 data.yml 的 profiles.<id>.advice.<id>。这是个人感受,不是统计结论。
+#                   标题(一句话概括)与正文在 data.yml 的 profiles.<id>.advice.<id>.title / .text。这是个人感受,不是统计结论。
 
 id: author-downtown
 updated: "2026-11"
 
-commuteMinutes: 3
+housingType: apartment
+
+commute:
+  - { mode: walk, minutes: 3 }
 
 advice:
   - { kind: positive, id: close-to-campus }
   - { kind: positive, id: time-saved }
+  - { kind: positive, id: city-events }
   - { kind: negative, id: far-supermarkets }
 
 entries:

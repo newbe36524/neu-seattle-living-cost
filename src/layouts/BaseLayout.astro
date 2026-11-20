@@ -8,7 +8,7 @@ import { createT, defaultLocale, localeNames, localePath, locales, type Locale }
 
 interface Props {
   locale: Locale;
-  /** 页面在站内的路径(不含语言前缀),以 / 开头并以 / 结尾,例如 "/costs/" */
+  /** 页面在站内的路径(不含语言前缀),以 / 开头并以 / 结尾,例如 "/about/" */
   path: string;
   title: string;
   description?: string;
@@ -33,7 +33,6 @@ const FIFTY_ONE_LA_ID = 'L6b88a5yK4h2Xnci';
 
 const nav = [
   { href: localePath(locale, '/'), label: t('common.nav.home') },
-  { href: localePath(locale, '/costs/'), label: t('common.nav.costs') },
   { href: localePath(locale, '/about/'), label: t('common.nav.about') },
 ];
 ---

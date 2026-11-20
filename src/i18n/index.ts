@@ -108,7 +108,7 @@ export function rich(text: string): string {
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/** 站内路径(不含语言)→ 某语言下的路径。path 以 / 开头并以 / 结尾,例如 "/costs/"。 */
+/** 站内路径(不含语言)→ 某语言下的路径。path 以 / 开头并以 / 结尾,例如 "/about/"。 */
 export function localePath(locale: Locale, path = '/'): string {
   return `${BASE}/${locale}${path}`;
 }

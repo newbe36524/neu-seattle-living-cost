@@ -12,6 +12,15 @@ hero:
   hint: "아래 금액은 모두 직접 내 숫자로 바꿀 수 있습니다. 참고값은 각 행 아래에 남아 있으며 언제든 되돌릴 수 있습니다."
   pending: "아직 포함되지 않음({{count}}개 항목): {{items}}."
   allFilled: "매월 항목이 모두 입력되었습니다."
+  yearLabel: "연간 합계"
+  yearNote: "월 합계 × 12에 일회성 비용 {{once}}을(를) 더한 금액입니다."
+  yearNoteEstimate: "월 합계 × 12에 일회성 비용 {{once}}을(를) 더한 금액입니다. 입주 시 구매 추정액 {{estimate}}(실제 지출 아님)은 포함하지 않습니다."
+keyfig:
+  rent: "월세"
+first:
+  label: "입주 시 필요한 금액"
+  note: "일회성 비용 {{once}} + 첫 달 월 지출 {{monthly}}."
+  noteEstimate: "일회성 비용 {{once}} + 입주 시 구매 추정액 {{estimate}}(실제 지출 아님) + 첫 달 월 지출 {{monthly}}."
 delta:
   same: "참고값과 동일"
   more: "참고값보다 {{amount}} 많음"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "아직 입력되지 않은 매월 항목: {{count}}."
 source:
   text: "데이터 제공: {{contributor}}, {{area}}, {{updated}} 수집."
-  link: "항목별 기준과 설명은 비용 상세에서 확인하세요"
 dock:
   label: "나의 시뮬레이션 월"
 status:

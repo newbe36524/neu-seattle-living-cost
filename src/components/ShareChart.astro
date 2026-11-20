@@ -27,7 +27,7 @@ const headingId = `share-${ledger.id}`;
 const i18n = Object.fromEntries(['charts.share.tooltip'].map((k) => [k, t(k)]));
 ---
 
-<section class="chart-card share" data-share data-chart={JSON.stringify(state)} data-i18n={JSON.stringify(i18n)} aria-labelledby={headingId}>
+<section class="chart-card share" data-reveal="rise" data-share data-chart={JSON.stringify(state)} data-i18n={JSON.stringify(i18n)} aria-labelledby={headingId}>
   <h3 id={headingId}>{t('charts.share.heading')}</h3>
   <div class="share-body">
     <div class="donut" data-donut>

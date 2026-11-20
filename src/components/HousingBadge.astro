@@ -1,0 +1,21 @@
+---
+/** 住房类型徽标:手绘图标 + 类型名。没提供类型就不渲染。窗灯在进入视口时逐个点亮(见 global.css)。 */
+import type { HousingType } from '../data/costs';
+import { createT, type Locale } from '../i18n';
+import Glyph from './Glyph.astro';
+
+interface Props {
+  type: HousingType | null;
+  locale: Locale;
+}
+
+const { type, locale } = Astro.props;
+const t = createT(locale);
+---
+
+{type && (
+  <span class="housing" data-housing={type} data-reveal="lights">
+    <Glyph kind={type} size={20} />
+    <span class="housing-name">{t(`common.housing.type.${type}`)}</span>
+  </span>
+)}

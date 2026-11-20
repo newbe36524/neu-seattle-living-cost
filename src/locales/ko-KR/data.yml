@@ -97,6 +97,15 @@ profiles:
       wardrobe: "{{estimate}}: 간이 천 옷장, 일반적인 가격대는 약 $25–30"
       monitor: "{{estimate}}: 27인치 4K, 필립스 동급 모델의 일반적인 가격대는 약 $200–270"
     advice:
-      close-to-campus: "캠퍼스와 매우 가까워 캠퍼스 어디든 단 3분이면 도착하므로, 거의 모든 캠퍼스 생활과 모든 수업에 참여할 시간이 충분합니다."
-      time-saved: "통학에 드는 시간 비용이 없습니다. 멀리 사는 경우와 비교하면 매일 최소 한 시간의 이동 시간을 아낄 수 있습니다."
-      far-supermarkets: "대형 마트는 Target을 제외하면 다소 멉니다. Whole Foods도 가깝지만 가격이 상대적으로 높고, Trader Joe's와 Walmart는 더 멉니다. Walmart는 보통 온라인으로 주문해 집으로 배송받습니다."
+      close-to-campus:
+        title: "캠퍼스가 코앞"
+        text: "캠퍼스와 매우 가까워 캠퍼스 어디든 단 3분이면 도착하므로, 거의 모든 캠퍼스 생활과 모든 수업에 참여할 시간이 충분합니다."
+      time-saved:
+        title: "통학 시간 절약"
+        text: "통학에 드는 시간 비용이 없습니다. 멀리 사는 경우와 비교하면 매일 최소 한 시간의 이동 시간을 아낄 수 있습니다."
+      city-events:
+        title: "도시 행사가 풍부"
+        text: "다운타운에 살면 시내의 다양한 커뮤니티 행사에 참여할 수 있습니다. 가까운 곳에서 열리는 행사가 많고, AI House, Space Needle, 여러 박물관도 멀지 않아 모두 방문할 만합니다."
+      far-supermarkets:
+        title: "대형 마트는 먼 편"
+        text: "대형 마트는 Target을 제외하면 다소 멉니다. Whole Foods도 가깝지만 가격이 상대적으로 높고, Trader Joe's와 Walmart는 더 멉니다. Walmart는 보통 온라인으로 주문해 집으로 배송받습니다."

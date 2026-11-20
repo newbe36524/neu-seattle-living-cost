@@ -5,7 +5,6 @@ site:
 nav:
   label: メインナビゲーション
   home: ホーム
-  costs: 費用の詳細
   about: このサイトについて・データの出典
 language:
   label: 言語
@@ -32,6 +31,19 @@ commute:
   label: "通勤時間"
   value: "片道およそ {{minutes}} 分"
   hint: "時間もコストです。通勤が短いほど、キャンパスでの活動や周辺での活動に参加する余裕が生まれます。この項目はドル建ての合計には含まれません。"
+  leg: "{{mode}} {{minutes}} 分"
+  mode:
+    drive: "車"
+    transit: "公共交通"
+    ferry: "フェリー"
+    walk: "徒歩"
+housing:
+  type:
+    apartment: "アパート・マンション"
+    studio: "スタジオ"
+    shared: "ルームシェア"
+    house: "一戸建て・タウンハウス"
+    dorm: "学生寮"
 advice:
   heading: "提供者のアドバイス"
   intro: "以下は{{contributor}}本人の主観的な感想と評価であり、統計的な結論ではありません。"

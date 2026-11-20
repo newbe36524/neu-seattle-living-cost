@@ -5,7 +5,6 @@ site:
 nav:
   label: Main navigation
   home: Home
-  costs: Cost details
   about: About and sources
 language:
   label: Language
@@ -32,6 +31,19 @@ commute:
   label: "Commute time"
   value: "About {{minutes}} min one way"
   hint: "Time is a cost too: a shorter commute leaves more room for campus life and activities around town. This is not included in the dollar totals."
+  leg: "{{mode}} · {{minutes}} min"
+  mode:
+    drive: "Drive"
+    transit: "Public transit"
+    ferry: "Ferry"
+    walk: "Walk"
+housing:
+  type:
+    apartment: "Apartment"
+    studio: "Studio"
+    shared: "Shared housing"
+    house: "House or townhouse"
+    dorm: "Dorm"
 advice:
   heading: "Contributor's advice"
   intro: "These are {{contributor}}'s own impressions and opinions, not statistical conclusions."

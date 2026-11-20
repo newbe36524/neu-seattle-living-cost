@@ -2,9 +2,6 @@ home:
   title: Accueil
   intro: Un repère pour les étudiants du campus de Seattle de la Northeastern University, qui réunit les principales dépenses de la vie à Seattle afin de vous aider à établir un budget avant la rentrée. Chaque jeu de données est l'expérience réelle d'un étudiant, avec le quartier et la date de collecte.
   collected: "{{summary}} Collecté en {{updated}}."
-costs:
-  title: Détail des coûts
-  intro: Les montants sont en dollars américains. Les postes pas encore renseignés affichent « à compléter ». Chaque fiche correspond à la situation réelle d'une personne.
 about:
   title: À propos et sources des données
   intro: Ce site est un repère du coût du logement et de la vie pour les étudiants du campus de Seattle de la Northeastern University. Toutes les données et tous les contenus proviennent pour l'instant de l'expérience personnelle de l'auteur du site ; ils ne constituent pas une information officielle et ne valent pas forcément pour tout le monde.

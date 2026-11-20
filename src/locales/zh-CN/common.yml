@@ -6,7 +6,6 @@ site:
 nav:
   label: 主导航
   home: 首页
-  costs: 成本明细
   about: 关于与数据来源
 language:
   label: 语言
@@ -33,6 +32,19 @@ commute:
   label: "通勤时间"
   value: "单程约 {{minutes}} 分钟"
   hint: "时间也是成本:通勤越短,越有余力参加校园活动和周边活动。这一项不计入美元合计。"
+  leg: "{{mode}} {{minutes}} 分钟"
+  mode:
+    drive: "开车"
+    transit: "公共交通"
+    ferry: "轮渡"
+    walk: "步行"
+housing:
+  type:
+    apartment: "公寓"
+    studio: "单间(Studio)"
+    shared: "合租"
+    house: "独栋或联排"
+    dorm: "学生宿舍"
 advice:
   heading: "提供者的建议"
   intro: "以下是{{contributor}}本人的主观感受与评价,不是统计结论。"

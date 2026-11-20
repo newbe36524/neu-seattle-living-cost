@@ -2,9 +2,6 @@ home:
   title: Inicio
   intro: Una referencia para estudiantes del campus de Seattle de la Northeastern University que recoge los principales gastos de vivir en Seattle, para ayudarte a hacer tu presupuesto antes de empezar. Cada conjunto de datos es la experiencia real de un estudiante e indica la zona y la fecha en que se recogió.
   collected: "{{summary}} Recogido en {{updated}}."
-costs:
-  title: Detalle de costos
-  intro: Los importes están en dólares estadounidenses. Los conceptos aún no recopilados aparecen como «Por completar». Cada registro corresponde a la situación real de una persona.
 about:
   title: Acerca de y fuentes de datos
   intro: Este sitio es una referencia del costo de la vivienda y la vida para estudiantes del campus de Seattle de la Northeastern University. Por ahora, todos los datos y contenidos proceden de la experiencia personal del autor del sitio; no son información oficial ni se garantiza que valgan para todos.

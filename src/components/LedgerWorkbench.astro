@@ -4,6 +4,7 @@
  *
  * 没有 JS 时:显示第一份参考的数字(服务端渲染),输入框只读展示。
  * 有 JS 时:切换提供者、逐项覆盖、实时合计,草稿按提供者存在本机 localStorage。
+ * 首页同时承担「成本明细」:所有分类默认展开,每行带口径说明;顶部先给出房租与「搬入时要备」两个关键数字。
  * 所有数字来自 src/data(经 ledger.ts);组件不产生、不估算任何金额。
  */
 import { ledgersFor, periodTotal, DEFAULT_MONTHS, type LedgerLine, type LedgerProfile } from '../data/ledger';
@@ -11,8 +12,9 @@ import ShareChart from './ShareChart.astro';
 import YearChart from './YearChart.astro';
 import SubmitDataLink from './SubmitDataLink.astro';
 import CommuteLine from './CommuteLine.astro';
+import HousingBadge from './HousingBadge.astro';
 import AdviceList from './AdviceList.astro';
-import { createT, localePath, type Locale } from '../i18n';
+import { createT, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -28,9 +30,10 @@ const unitSuffix = { month: t('ledger.row.unitMonth'), year: t('ledger.row.unitY
 
 /** 客户端动态文案:带 {{占位符}} 的原文,由脚本填值。 */
 const clientKeys = [
-  'ledger.hero.modeRef', 'ledger.hero.modeSim', 'ledger.hero.pending', 'ledger.hero.allFilled',
+  'ledger.hero.modeRef', 'ledger.hero.modeSim', 'ledger.hero.yearNote', 'ledger.hero.yearNoteEstimate', 'ledger.hero.pending', 'ledger.hero.allFilled',
   'ledger.delta.same', 'ledger.delta.more', 'ledger.delta.less',
   'ledger.row.ref', 'ledger.row.perMonth', 'ledger.row.invalid',
+  'ledger.first.note', 'ledger.first.noteEstimate',
   'ledger.settle.included', 'ledger.settle.excluded', 'ledger.settle.estimateNote', 'ledger.settle.monthlyTimes', 'ledger.settle.pendingMonthly',
   'ledger.status.summary', 'common.status.pending', 'common.listSeparator',
 ];
@@ -43,7 +46,14 @@ const shadeOf = (p: LedgerProfile, l: LedgerLine) => {
   return i < 0 ? null : Math.max(14, 88 - i * 17);
 };
 const groupSubtotal = (g: { lines: LedgerLine[] }) => g.lines.reduce((s, l) => s + monthlyOf(l), 0);
+/** 房租行:关键数字里的「每月房租」取它;没有这一行就显示待补充 */
+const RENT_KEY = 'rent';
+const rentOf = (p: LedgerProfile) => p.groups.flatMap((g) => g.lines).find((l) => l.key === RENT_KEY && l.unit === 'month');
+/** 搬入时要备:一次性费用(所报)+ 搬入采购(估算)+ 第一个月的每月开销。估算单独标明,不冒充实际支出 */
+const firstMoveOf = (p: LedgerProfile) => p.oneTime.reported + p.oneTime.estimate + p.monthly;
 const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
+/** 一年合计:每月合计 × 12 + 实际一次性费用;估算不计入(非实际支出) */
+const yearOf = (p: LedgerProfile) => periodTotal(p.monthly, p.oneTime.reported, 12);
 ---
 
 <div class="workbench" data-ledger data-initial={ledgers[0]?.id} data-i18n={JSON.stringify(clientText)}>
@@ -56,6 +66,7 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
           <span class="pick-body">
             <span class="pick-title">{p.area}</span>
             <span class="pick-who muted">{t('ledger.picker.who', { contributor: p.contributor, updated: p.updated })}</span>
+            <HousingBadge type={p.housingType} locale={locale} />
             <span class="pick-sum">{p.summary}</span>
             <span class="pick-figure muted">{t('ledger.picker.figure')} <strong>{money(p.monthly)}</strong></span>
           </span>
@@ -81,17 +92,53 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
       <section class="ledger" data-panel={p.id} data-ref-monthly={p.monthly} hidden={pi !== 0} aria-labelledby={`h-${p.id}`}>
         <h2 id={`h-${p.id}`}>{p.area} <span class="muted">· {p.contributor}</span></h2>
 
-        <div class="sum-line is-total" data-total-line>
-          <span class="sum-label">{t('ledger.hero.label')}</span>
-          <span class="sum-leader" aria-hidden="true"></span>
-          <span class="sum-value" data-num="monthly">{money(p.monthly)}</span>
+        {p.housingType && <div class="ledger-meta"><HousingBadge type={p.housingType} locale={locale} /></div>}
+
+        <dl class="keyfigs" data-reveal="rise">
+          <div class="keyfig" data-keyfig="rent">
+            <dt>{t('ledger.keyfig.rent')}</dt>
+            <dd>
+              {rentOf(p)?.amount != null
+                ? <><strong data-num="rent">{money(rentOf(p)!.amount!)}</strong><span class="muted"> {t('ledger.row.unitMonth')}</span></>
+                : <strong class="pending" data-num="rent">{t('common.status.pending')}</strong>}
+            </dd>
+          </div>
+          <div class="keyfig" data-keyfig="first">
+            <dt>{t('ledger.first.label')}</dt>
+            <dd>
+              <strong data-num="first">{money(firstMoveOf(p))}</strong>
+            </dd>
+            <dd class="keyfig-note muted" data-first-note>
+              {p.oneTime.estimate > 0
+                ? t('ledger.first.noteEstimate', { once: money(p.oneTime.reported), estimate: money(p.oneTime.estimate), monthly: money(p.monthly) })
+                : t('ledger.first.note', { once: money(p.oneTime.reported), monthly: money(p.monthly) })}
+            </dd>
+          </div>
+        </dl>
+
+        <div class="totals">
+          <div class="sum-line is-total" data-total-line>
+            <span class="sum-label">{t('ledger.hero.label')}</span>
+            <span class="sum-leader" aria-hidden="true"></span>
+            <span class="sum-value" data-num="monthly">{money(p.monthly)}</span>
+          </div>
+          <div class="sum-line is-year">
+            <span class="sum-label">{t('ledger.hero.yearLabel')}</span>
+            <span class="sum-leader" aria-hidden="true"></span>
+            <span class="sum-value" data-num="year">{money(yearOf(p))}</span>
+          </div>
+          <p class="year-note muted" data-year-note>
+            {p.oneTime.estimate > 0
+              ? t('ledger.hero.yearNoteEstimate', { once: money(p.oneTime.reported), estimate: money(p.oneTime.estimate) })
+              : t('ledger.hero.yearNote', { once: money(p.oneTime.reported) })}
+          </p>
         </div>
         <p class="total-state" data-mode="ref">
           <span data-mode-label>{t('ledger.hero.modeRef')}</span>
           <button type="button" class="link-button" data-reset-all hidden>{t('ledger.hero.resetAll')}</button>
         </p>
 
-        <div class="bar" data-bar aria-hidden="true" data-empty={p.monthly === 0 ? '' : undefined}>
+        <div class="bar" data-bar data-reveal="sweep" aria-hidden="true" data-empty={p.monthly === 0 ? '' : undefined}>
           {recurringLines(p).map((l) => (
             <span class="seg" data-seg={l.key} style={`--s:${shadeOf(p, l)}%;flex-grow:${monthlyOf(l)}`}></span>
           ))}
@@ -106,12 +153,14 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
           {t('ledger.hero.hint')}
         </p>
 
+        <AdviceList ledger={p} locale={locale} />
+
         <CommuteLine ledger={p} locale={locale} />
 
         <ShareChart ledger={p} locale={locale} />
 
-        {p.groups.map((g) => (
-          <details class="group" open={g.recurring}>
+        {p.groups.map((g, gi) => (
+          <details class="group" open data-reveal="rise" style={`--i:${gi % 3}`}>
             <summary>
               <span class="group-title">{g.title}</span>
               <span class="group-sub muted">
@@ -119,6 +168,7 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
               </span>
               <svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </summary>
+            <p class="group-desc muted">{t(`data.categories.${g.id}.description`)}</p>
             <ul class="rows">
               {g.lines.map((l) => {
                 const rid = `${p.id}-${l.key}`;
@@ -132,6 +182,7 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
                     data-ref={l.amount === null ? '' : l.amount}
                     data-label={l.label}
                     data-group={g.id}
+                    data-headline={l.key === RENT_KEY && l.unit === 'month' ? 'rent' : undefined}
                   >
                     <label class="row-name" for={`${rid}-in`}>
                       {shade !== null ? <span class="swatch" style={`--s:${shade}%`} aria-hidden="true"></span> : <span class="swatch is-none" aria-hidden="true"></span>}
@@ -227,11 +278,8 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
           </p>
         </div>
 
-        <AdviceList ledger={p} locale={locale} />
-
         <p class="provenance muted">
           {t('ledger.source.text', { contributor: p.contributor, area: p.area, updated: p.updated })}
-          <a href={`${localePath(locale, '/costs/')}#${p.id}`}>{t('ledger.source.link')}</a>
         </p>
       </section>
     );
@@ -343,6 +391,7 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
       let once = 0;
       let estimate = 0;
       let edited = 0;
+      let rent: number | null = null;
       const pendingLabels: string[] = [];
       const groupSub = new Map<string, number>();
 
@@ -370,6 +419,7 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
         } else if (unit !== 'one-time') {
           pendingLabels.push(row.dataset.label!);
         }
+        if (row.dataset.headline === 'rent') rent = ok ? value : null;
         if (unit !== 'one-time') groupSub.set(row.dataset.group!, (groupSub.get(row.dataset.group!) ?? 0) + mEq);
 
         // 行内状态:参考值与差额
@@ -401,6 +451,24 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
 
       setNum(q(p, '[data-num="monthly"]'), monthly, animate);
       setNum(q(p, '[data-num="period"]'), period, animate);
+      setNum(q(p, '[data-num="year"]'), monthly * 12 + once, animate);
+      q(p, '[data-year-note]')!.textContent = estimate > 0
+        ? T('ledger.hero.yearNoteEstimate', { once: fmt(once), estimate: fmt(estimate) })
+        : T('ledger.hero.yearNote', { once: fmt(once) });
+      // 关键数字:房租、搬入时要备(一次性 + 估算 + 首月),估算与图表勾选无关,始终单独标明
+      const rentEl = q<HTMLElement>(p, '[data-num="rent"]')!;
+      if (rent === null) {
+        delete rentEl.dataset.v;
+        rentEl.textContent = T('common.status.pending');
+        rentEl.classList.add('pending');
+      } else {
+        rentEl.classList.remove('pending');
+        setNum(rentEl, rent, animate);
+      }
+      setNum(q(p, '[data-num="first"]'), once + estimate + monthly, animate);
+      q(p, '[data-first-note]')!.textContent = estimate > 0
+        ? T('ledger.first.noteEstimate', { once: fmt(once), estimate: fmt(estimate), monthly: fmt(monthly) })
+        : T('ledger.first.note', { once: fmt(once), monthly: fmt(monthly) });
       setNum(q(p, '[data-num="once"]'), once, animate);
       setNum(q(p, '[data-num="estimate"]'), estimate, animate);
       setNum(q(p, '[data-num="grand"]'), grand, animate);

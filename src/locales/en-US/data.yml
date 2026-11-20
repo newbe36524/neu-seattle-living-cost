@@ -97,6 +97,15 @@ profiles:
       wardrobe: "{{estimate}}: simple fabric wardrobe, typically about $25–30"
       monitor: "{{estimate}}: 27-inch 4K; comparable Philips models typically cost about $200–270"
     advice:
-      close-to-campus: "Very close to campus: it takes only 3 minutes to reach anywhere on campus, so there is plenty of time for almost all campus life and every campus class."
-      time-saved: "No commuting time cost: compared with living farther away, you save at least an hour of travel time every day."
-      far-supermarkets: "Large supermarkets are fairly far away, except for Target. Whole Foods is also close, but its prices are relatively high; Trader Joe's and Walmart are farther. For Walmart, the contributor usually only orders online and has it delivered."
+      close-to-campus:
+        title: "Minutes from campus"
+        text: "Very close to campus: it takes only 3 minutes to reach anywhere on campus, so there is plenty of time for almost all campus life and every campus class."
+      time-saved:
+        title: "No commute to pay for"
+        text: "No commuting time cost: compared with living farther away, you save at least an hour of travel time every day."
+      city-events:
+        title: "Plenty of city events"
+        text: "Living downtown, you can join many of the city's community events, because plenty of them are close by: AI House, the Space Needle and several museums are a short distance away, and they are all well worth visiting."
+      far-supermarkets:
+        title: "Big supermarkets are far"
+        text: "Large supermarkets are fairly far away, except for Target. Whole Foods is also close, but its prices are relatively high; Trader Joe's and Walmart are farther. For Walmart, the contributor usually only orders online and has it delivered."

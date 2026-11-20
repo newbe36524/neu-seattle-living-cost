@@ -12,6 +12,15 @@ hero:
   hint: "下面每個金額都能直接改成你自己的數字。參考值保留在每行下方,隨時可以恢復。"
   pending: "尚未包含 {{count}} 項:{{items}}。"
   allFilled: "每月項目已全部填寫。"
+  yearLabel: "一年合計"
+  yearNote: "每月合計 × 12,再加一次性費用 {{once}}。"
+  yearNoteEstimate: "每月合計 × 12,再加一次性費用 {{once}};不含初次搬入採購的估算 {{estimate}}(非實際支出)。"
+keyfig:
+  rent: "每月房租"
+first:
+  label: "搬入時要備"
+  note: "一次性費用 {{once}} + 首月每月開銷 {{monthly}}。"
+  noteEstimate: "一次性費用 {{once}} + 搬入採購估算 {{estimate}}(非實際支出)+ 首月每月開銷 {{monthly}}。"
 delta:
   same: "與參考一致"
   more: "比參考多 {{amount}}"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "還有 {{count}} 項每月開銷待補充。"
 source:
   text: "資料來自{{contributor}},{{area}},採集於 {{updated}}。"
-  link: "查看成本明細中的逐項口徑與說明"
 dock:
   label: "你的模擬 每月"
 status:

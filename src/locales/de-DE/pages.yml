@@ -2,9 +2,6 @@ home:
   title: Startseite
   intro: Eine Übersicht für Studierende am Seattle-Campus der Northeastern University mit den wichtigsten Ausgaben des Lebens in Seattle, damit du schon vor dem Studienbeginn ein Budget planen kannst. Jeder Datensatz ist die reale Erfahrung einer Person und nennt Wohngegend und Erhebungszeitpunkt.
   collected: "{{summary}} Erhoben im {{updated}}."
-costs:
-  title: Kostendetails
-  intro: Alle Beträge sind in US-Dollar angegeben. Noch nicht erfasste Posten werden als „noch offen“ angezeigt. Jeder Datensatz entspricht der realen Situation einer Person.
 about:
   title: Über die Seite und Datenquellen
   intro: Diese Seite ist eine Übersicht der Wohn- und Lebenshaltungskosten für Studierende am Seattle-Campus der Northeastern University. Alle bisherigen Daten und Inhalte stammen aus den persönlichen Erfahrungen des Seitenautors; sie sind keine offiziellen Informationen und gelten nicht zwangsläufig für alle.

@@ -12,6 +12,15 @@ hero:
   hint: "下の金額はすべて自分の数字に書き換えられます。参考値は各行の下に残り、いつでも戻せます。"
   pending: "未反映({{count}} 項目):{{items}}。"
   allFilled: "毎月の項目はすべて入力済みです。"
+  yearLabel: "年間合計"
+  yearNote: "月の合計 × 12 に、一回限りの費用 {{once}} を加えた額です。"
+  yearNoteEstimate: "月の合計 × 12 に、一回限りの費用 {{once}} を加えた額です。入居時の購入見積もり {{estimate}}(実際の支出ではありません)は含みません。"
+keyfig:
+  rent: "月々の家賃"
+first:
+  label: "入居時に必要な額"
+  note: "一括費用 {{once}} + 初月の月額費用 {{monthly}}。"
+  noteEstimate: "一括費用 {{once}} + 入居時の購入費の見積もり {{estimate}}(実際の支出ではありません)+ 初月の月額費用 {{monthly}}。"
 delta:
   same: "参考値と同じ"
   more: "参考値より {{amount}} 多い"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "未入力の毎月の項目: {{count}}。"
 source:
   text: "データ提供:{{contributor}}、{{area}}、収集日 {{updated}}。"
-  link: "各項目の前提と注記は費用の詳細をご覧ください"
 dock:
   label: "あなたのシミュレーション 月額"
 status:

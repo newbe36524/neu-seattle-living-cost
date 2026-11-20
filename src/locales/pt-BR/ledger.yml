@@ -12,6 +12,15 @@ hero:
   hint: "Cada valor abaixo pode ser trocado pelo seu próprio número. O valor de referência fica sob cada linha e pode ser restaurado a qualquer momento."
   pending: "Ainda não incluídos ({{count}}): {{items}}."
   allFilled: "Todos os itens mensais estão preenchidos."
+  yearLabel: "Total anual"
+  yearNote: "Total mensal × 12, mais os custos únicos de {{once}}."
+  yearNoteEstimate: "Total mensal × 12, mais os custos únicos de {{once}}; sem a estimativa de compras da mudança de {{estimate}} (não é gasto real)."
+keyfig:
+  rent: "Aluguel mensal"
+first:
+  label: "Necessário na mudança"
+  note: "Custos únicos {{once}} + custos mensais do primeiro mês {{monthly}}."
+  noteEstimate: "Custos únicos {{once}} + estimativa de compras da mudança {{estimate}} (não é gasto real) + custos mensais do primeiro mês {{monthly}}."
 delta:
   same: "igual à referência"
   more: "{{amount}} a mais que a referência"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "Itens mensais ainda por preencher: {{count}}."
 source:
   text: "Dados de {{contributor}}, {{area}}, coletados em {{updated}}."
-  link: "Os critérios e as observações de cada item estão no detalhamento de custos"
 dock:
   label: "Sua simulação, por mês"
 status:

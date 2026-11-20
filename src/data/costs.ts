@@ -48,11 +48,25 @@ export interface CostEntry {
 export const ADVICE_KINDS = ['positive', 'negative', 'neutral'] as const;
 export type AdviceKind = (typeof ADVICE_KINDS)[number];
 
-/** 提供者的一条主观建议;正文在 data.yml 的 profiles.<id>.advice.<id>。 */
+/** 提供者的一条主观建议;标题与正文在 data.yml 的 profiles.<id>.advice.<id>.title / .text。 */
 export interface AdviceEntry {
   kind: AdviceKind;
   id: string;
 }
+
+/** 通勤方式:开车、公共交通、轮渡、步行。顺序即行程顺序。 */
+export const COMMUTE_MODES = ['drive', 'transit', 'ferry', 'walk'] as const;
+export type CommuteMode = (typeof COMMUTE_MODES)[number];
+
+/** 通勤的一段:这一段用什么方式、单程多少分钟。一趟通勤可以由多段组成(如 轮渡 → 公共交通 → 步行)。 */
+export interface CommuteLeg {
+  mode: CommuteMode;
+  minutes: number;
+}
+
+/** 住房类型:公寓、单间(studio)、合租、独栋/联排、学生宿舍。名称在 common.yml 的 housing.type.<id>。 */
+export const HOUSING_TYPES = ['apartment', 'studio', 'shared', 'house', 'dorm'] as const;
+export type HousingType = (typeof HOUSING_TYPES)[number];
 
 /** 一位数据提供者及其生活情境 */
 export interface Profile {
@@ -62,8 +76,10 @@ export interface Profile {
   /** 数据采集时间,YYYY-MM */
   updated: string;
   entries: CostEntry[];
-  /** 住处到校园的单程通勤分钟数;没提供就缺省(页面显示「待补充」) */
-  commuteMinutes?: number;
+  /** 住房类型;没提供就缺省(页面不显示) */
+  housingType?: HousingType;
+  /** 住处到校园的单程通勤,按行程顺序分段;没提供就缺省(页面显示「待补充」)。总分钟数由各段相加得出,不单独存 */
+  commute?: CommuteLeg[];
   /** 提供者本人的主观建议(积极/消极/中性),没有就缺省 */
   advice?: AdviceEntry[];
 }
@@ -132,8 +148,16 @@ function validate() {
     if (!isStr(p.updated) || !/^\d{4}-(0[1-9]|1[0-2])$/.test(p.updated))
       fail(where, `updated 应为带引号的 "YYYY-MM":${JSON.stringify(p.updated)}`);
     if (!Array.isArray(p.entries)) fail(where, 'entries 应为列表');
-    if (p.commuteMinutes !== undefined && !(typeof p.commuteMinutes === 'number' && Number.isFinite(p.commuteMinutes) && p.commuteMinutes >= 0))
-      fail(where, `commuteMinutes 应为非负数字(分钟):${JSON.stringify(p.commuteMinutes)}`);
+    if (p.housingType !== undefined && !HOUSING_TYPES.includes(p.housingType))
+      fail(where, `housingType 只能是 ${HOUSING_TYPES.join('/')}:${JSON.stringify(p.housingType)}`);
+    if (p.housingType !== undefined) needText(where, `common.housing.type.${p.housingType}`);
+    if (p.commute !== undefined) {
+      if (!Array.isArray(p.commute) || p.commute.length === 0) fail(where, 'commute 应为非空列表,每段 { mode, minutes }');
+      for (const leg of p.commute) {
+        if (!COMMUTE_MODES.includes(leg?.mode) || !(typeof leg.minutes === 'number' && Number.isFinite(leg.minutes) && leg.minutes > 0))
+          fail(where, `commute 每段需要 mode(${COMMUTE_MODES.join('/')})和大于 0 的 minutes:${JSON.stringify(leg)}`);
+      }
+    }
     if (p.advice !== undefined) {
       if (!Array.isArray(p.advice)) fail(where, 'advice 应为列表');
       const adviceIds = new Set<string>();
@@ -142,7 +166,7 @@ function validate() {
           fail(where, `advice 每条需要 kind(${ADVICE_KINDS.join('/')})和 id:${JSON.stringify(a)}`);
         if (adviceIds.has(a.id)) fail(where, `advice id "${a.id}" 重复`);
         adviceIds.add(a.id);
-        needText(where, `data.profiles.${p.id}.advice.${a.id}`);
+        needText(where, `data.profiles.${p.id}.advice.${a.id}.title`, `data.profiles.${p.id}.advice.${a.id}.text`);
       }
     }
 

@@ -99,6 +99,15 @@ profiles:
       wardrobe: "{{estimate}}:简易布衣柜,常见价位约 $25–30"
       monitor: "{{estimate}}:27 英寸 4K,Philips 同级型号常见价位约 $200–270"
     advice:
-      close-to-campus: "距离校园非常近,只要短短 3 分钟就能到达校园的任何区域,因此有足够的时间参加几乎所有的校园生活和所有的校园课程。"
-      time-saved: "没有通勤的时间成本:相比住得较远的情况,每天至少可以省下一个小时的交通时间。"
-      far-supermarkets: "离大型超市比较远,除了 Target 之外都不近。Whole Foods 也很近,但价格相对高一些;Trader Joe's 和 Walmart 就更远一些。Walmart 通常只在线上下单、送货上门。"
+      close-to-campus:
+        title: "离校园很近"
+        text: "距离校园非常近,只要短短 3 分钟就能到达校园的任何区域,因此有足够的时间参加几乎所有的校园生活和所有的校园课程。"
+      time-saved:
+        title: "省下通勤时间"
+        text: "没有通勤的时间成本:相比住得较远的情况,每天至少可以省下一个小时的交通时间。"
+      city-events:
+        title: "城市活动多"
+        text: "住在 Downtown,可以参加很多城市里的社区活动,因为不少活动就在附近:不远处有 AI House、Space Needle,还有一些博物馆,都非常不错。"
+      far-supermarkets:
+        title: "大超市较远"
+        text: "离大型超市比较远,除了 Target 之外都不近。Whole Foods 也很近,但价格相对高一些;Trader Joe's 和 Walmart 就更远一些。Walmart 通常只在线上下单、送货上门。"

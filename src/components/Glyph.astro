@@ -1,0 +1,130 @@
+---
+/**
+ * 站内唯一的图标集:通勤方式、住房类型、校园、评价(积极 / 消极 / 中性)。24×24 画布,统一 1.7 描边、圆头圆角,颜色取 currentColor。
+ * 都是手绘几何(不是图片):动效只作用在带 class 的部件上(窗灯 .win、轮子 .wheel、船身 .hull、拇指 .thumb、天平横梁 .beam),样式在 global.css。
+ */
+export type GlyphKind =
+  | 'drive' | 'transit' | 'ferry' | 'walk'
+  | 'apartment' | 'studio' | 'shared' | 'house' | 'dorm'
+  | 'campus'
+  | 'positive' | 'negative' | 'neutral';
+
+interface Props {
+  kind: GlyphKind;
+  size?: number;
+}
+
+const { kind, size = 22 } = Astro.props;
+// 窗灯:用点(零长度线 + 圆头)画窗,逐个点亮时每个点有自己的序号 --i
+const win = (xs: number[], ys: number[]) => ys.flatMap((y, r) => xs.map((x, c) => ({ x, y, i: r * xs.length + c })));
+const apartmentWins = win([8.5, 12], [7.5, 11.5, 15.5]);
+const dormWins = win([7.5, 11.5, 15.5], [12, 16]);
+---
+
+<svg class="glyph" data-glyph={kind} viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {kind === 'walk' && (
+    <>
+      <circle cx="13.2" cy="4.4" r="1.8" />
+      <path class="limb limb-a" d="M12 8.4 9.2 11.4 8.4 15" />
+      <path class="limb limb-b" d="M12 8.4l3.2 1.6 2.3 3" />
+      <path class="limb limb-a" d="M10.6 21l1.9-5.6-2.6-2.6 1.4-4.4" />
+      <path class="limb limb-b" d="M12.5 15.4 14 21" />
+    </>
+  )}
+  {kind === 'transit' && (
+    <>
+      <rect x="4.5" y="3.5" width="15" height="14" rx="2.6" />
+      <path d="M4.5 11h15" />
+      <path d="M7.5 17.5V20M16.5 17.5V20" />
+      <path d="M8.2 14.2h.01M15.8 14.2h.01" stroke-width="2.2" />
+    </>
+  )}
+  {kind === 'drive' && (
+    <>
+      <path d="M4.5 17H3.8a.8.8 0 0 1-.8-.8v-3a2 2 0 0 1 .5-1.3L5.6 8A2.2 2.2 0 0 1 7.3 6.9h9.4A2.2 2.2 0 0 1 18.4 8l2.1 3.9a2 2 0 0 1 .5 1.3v3a.8.8 0 0 1-.8.8h-.7" />
+      <path d="M3.4 12.2h17.2" />
+      <circle class="wheel" cx="7.6" cy="17.3" r="2" />
+      <circle class="wheel" cx="16.4" cy="17.3" r="2" />
+      <path d="M9.6 17.3h4.8" />
+    </>
+  )}
+  {kind === 'ferry' && (
+    <>
+      <g class="hull">
+        <path d="M2.8 14.6h18.4l-2.1 4.6H4.9z" />
+        <path d="M6 14.6V10h12v4.6" />
+        <path d="M9 10V6.2h6V10" />
+        <path d="M9.4 12.3h.01M12 12.3h.01M14.6 12.3h.01" stroke-width="2.2" />
+      </g>
+      <path class="swell" d="M2.5 21.6c1.6 0 1.6-1 3.2-1s1.6 1 3.2 1 1.6-1 3.2-1 1.6 1 3.2 1 1.6-1 3.2-1 1.6 1 3.2 1" />
+    </>
+  )}
+  {kind === 'apartment' && (
+    <>
+      <path d="M5.5 21V4.5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1V21" />
+      <path d="M15.5 9.5h2.5a1 1 0 0 1 1 1V21" />
+      <path d="M3 21h18" />
+      <path d="M9.6 21v-3h2v3" />
+      {apartmentWins.map((w) => <path class="win" style={`--i:${w.i}`} d={`M${w.x} ${w.y}h.01`} stroke-width="2.4" />)}
+    </>
+  )}
+  {kind === 'studio' && (
+    <>
+      <path d="M3.5 19.5V6" />
+      <path d="M3.5 15h17v4.5" />
+      <path d="M20.5 15v-2.2a2.8 2.8 0 0 0-2.8-2.8H11v5" />
+      <circle class="win" style="--i:0" cx="7" cy="12" r="1.8" />
+    </>
+  )}
+  {kind === 'shared' && (
+    <>
+      <circle cx="9" cy="7.8" r="3" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path class="win" style="--i:1" d="M15.8 5.2a3 3 0 0 1 0 5.2" />
+      <path class="win" style="--i:2" d="M17.5 14.2A6 6 0 0 1 21 20" />
+    </>
+  )}
+  {kind === 'house' && (
+    <>
+      <path d="M3.5 11.2 12 4l8.5 7.2" />
+      <path d="M5.5 9.7V21h13V9.7" />
+      <path d="M10 21v-5.5h4V21" />
+      <path class="win" style="--i:0" d="M16.5 5.5V8" />
+    </>
+  )}
+  {kind === 'dorm' && (
+    <>
+      <path d="M3 20.5V9l9-4.5L21 9v11.5" />
+      <path d="M2.5 20.5h19" />
+      {dormWins.map((w) => <path class="win" style={`--i:${w.i}`} d={`M${w.x} ${w.y}h.01`} stroke-width="2.4" />)}
+    </>
+  )}
+  {kind === 'campus' && (
+    <>
+      <path d="M3.5 9.2 12 4l8.5 5.2z" />
+      <path d="M6 9.5V19M10 9.5V19M14 9.5V19M18 9.5V19" />
+      <path d="M3.5 20h17" />
+    </>
+  )}
+  {kind === 'positive' && (
+    <>
+      <rect x="3" y="10.5" width="3.6" height="10" rx="1" />
+      <path class="thumb" d="M6.6 11.2 10.5 4.3a1.9 1.9 0 0 1 3.4 1.6L13.1 9.6h5.5a2 2 0 0 1 1.95 2.4l-1.4 6.7a2 2 0 0 1-1.95 1.6H6.6" />
+    </>
+  )}
+  {kind === 'negative' && (
+    <g transform="matrix(1 0 0 -1 0 24)">
+      <rect x="3" y="10.5" width="3.6" height="10" rx="1" />
+      <path class="thumb" d="M6.6 11.2 10.5 4.3a1.9 1.9 0 0 1 3.4 1.6L13.1 9.6h5.5a2 2 0 0 1 1.95 2.4l-1.4 6.7a2 2 0 0 1-1.95 1.6H6.6" />
+    </g>
+  )}
+  {kind === 'neutral' && (
+    <>
+      <path d="M12 4.5V19.5M8 20h8" />
+      <g class="beam">
+        <path d="M4.5 7h15" />
+        <path d="M4.5 7 2.2 13a2.6 2.6 0 0 0 4.6 0zM19.5 7 17.2 13a2.6 2.6 0 0 0 4.6 0z" />
+      </g>
+    </>
+  )}
+</svg>

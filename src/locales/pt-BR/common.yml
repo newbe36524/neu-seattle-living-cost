@@ -5,7 +5,6 @@ site:
 nav:
   label: Navegação principal
   home: Início
-  costs: Detalhes dos custos
   about: Sobre e fontes dos dados
 language:
   label: Idioma
@@ -32,6 +31,19 @@ commute:
   label: "Tempo de deslocamento"
   value: "Cerca de {{minutes}} min por trajeto"
   hint: "Tempo também é custo: quanto menor o trajeto, mais folga sobra para a vida no campus e para as atividades da região. Este valor não entra nos totais em dólares."
+  leg: "{{mode}} {{minutes}} min"
+  mode:
+    drive: "Carro"
+    transit: "Transporte público"
+    ferry: "Balsa"
+    walk: "A pé"
+housing:
+  type:
+    apartment: "Apartamento"
+    studio: "Estúdio"
+    shared: "Moradia compartilhada"
+    house: "Casa ou sobrado"
+    dorm: "Alojamento estudantil"
 advice:
   heading: "Conselhos do colaborador"
   intro: "Estas são as impressões e opiniões pessoais de {{contributor}}, não conclusões estatísticas."

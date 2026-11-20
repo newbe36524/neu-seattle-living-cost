@@ -5,7 +5,6 @@ site:
 nav:
   label: 主導覽
   home: 首頁
-  costs: 成本明細
   about: 關於與資料來源
 language:
   label: 語言
@@ -32,6 +31,19 @@ commute:
   label: "通勤時間"
   value: "單程約 {{minutes}} 分鐘"
   hint: "時間也是成本:通勤越短,越有餘力參加校園活動和周邊活動。這一項不計入美元合計。"
+  leg: "{{mode}} {{minutes}} 分鐘"
+  mode:
+    drive: "開車"
+    transit: "大眾運輸"
+    ferry: "渡輪"
+    walk: "步行"
+housing:
+  type:
+    apartment: "公寓"
+    studio: "單人套房(Studio)"
+    shared: "合租"
+    house: "獨棟或連棟住宅"
+    dorm: "學生宿舍"
 advice:
   heading: "提供者的建議"
   intro: "以下是{{contributor}}本人的主觀感受與評價,不是統計結論。"

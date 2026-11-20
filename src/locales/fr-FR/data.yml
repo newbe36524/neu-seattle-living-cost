@@ -97,6 +97,15 @@ profiles:
       wardrobe: "{{estimate}} : armoire simple en tissu, prix courants d'environ $25–30"
       monitor: "{{estimate}} : 27 pouces 4K ; les modèles Philips comparables coûtent couramment environ $200–270"
     advice:
-      close-to-campus: "Très proche du campus : il suffit de 3 minutes pour rejoindre n'importe quel endroit du campus, d'où largement le temps de profiter de presque toute la vie du campus et de tous les cours."
-      time-saved: "Aucun temps perdu en trajet : par rapport à un logement plus éloigné, on économise au moins une heure de transport chaque jour."
-      far-supermarkets: "Les grands supermarchés sont plutôt loin, sauf Target. Whole Foods est aussi proche, mais ses prix sont relativement élevés ; Trader Joe's et Walmart sont plus éloignés. Pour Walmart, le contributeur commande généralement en ligne et se fait livrer."
+      close-to-campus:
+        title: "À deux pas du campus"
+        text: "Très proche du campus : il suffit de 3 minutes pour rejoindre n'importe quel endroit du campus, d'où largement le temps de profiter de presque toute la vie du campus et de tous les cours."
+      time-saved:
+        title: "Aucun temps de trajet"
+        text: "Aucun temps perdu en trajet : par rapport à un logement plus éloigné, on économise au moins une heure de transport chaque jour."
+      city-events:
+        title: "Beaucoup d'événements en ville"
+        text: "Habiter en centre-ville permet de participer à de nombreux événements communautaires de la ville, car beaucoup ont lieu tout près : l’AI House, la Space Needle et plusieurs musées sont à courte distance, et tous valent vraiment le détour."
+      far-supermarkets:
+        title: "Grands supermarchés éloignés"
+        text: "Les grands supermarchés sont plutôt loin, sauf Target. Whole Foods est aussi proche, mais ses prix sont relativement élevés ; Trader Joe's et Walmart sont plus éloignés. Pour Walmart, le contributeur commande généralement en ligne et se fait livrer."

@@ -13,6 +13,15 @@ hero:
   hint: "下面每个金额都能直接改成你自己的数字。参考值保留在每行下方,随时可以恢复。"
   pending: "尚未包含 {{count}} 项:{{items}}。"
   allFilled: "每月项目已全部填写。"
+  yearLabel: "一年合计"
+  yearNote: "每月合计 × 12,再加一次性费用 {{once}}。"
+  yearNoteEstimate: "每月合计 × 12,再加一次性费用 {{once}};不含初次搬入采购的估算 {{estimate}}(非实际支出)。"
+keyfig:
+  rent: "每月房租"
+first:
+  label: "搬入时要备"
+  note: "一次性费用 {{once}} + 首月每月开销 {{monthly}}。"
+  noteEstimate: "一次性费用 {{once}} + 搬入采购估算 {{estimate}}(非实际支出)+ 首月每月开销 {{monthly}}。"
 delta:
   same: "与参考一致"
   more: "比参考多 {{amount}}"
@@ -52,7 +61,6 @@ settle:
   pendingMonthly: "还有 {{count}} 项每月开销待补充。"
 source:
   text: "数据来自{{contributor}},{{area}},采集于 {{updated}}。"
-  link: "查看成本明细中的逐项口径与说明"
 dock:
   label: "你的模拟 每月"
 status:

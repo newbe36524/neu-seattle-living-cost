@@ -5,7 +5,6 @@ site:
 nav:
   label: 주 메뉴
   home: 홈
-  costs: 비용 상세
   about: 소개 및 데이터 출처
 language:
   label: 언어
@@ -32,6 +31,19 @@ commute:
   label: "통학 시간"
   value: "편도 약 {{minutes}}분"
   hint: "시간도 비용입니다. 통학 시간이 짧을수록 캠퍼스 활동과 주변 활동에 참여할 여유가 생깁니다. 이 항목은 달러 합계에 포함되지 않습니다."
+  leg: "{{mode}} {{minutes}}분"
+  mode:
+    drive: "자동차"
+    transit: "대중교통"
+    ferry: "페리"
+    walk: "도보"
+housing:
+  type:
+    apartment: "아파트"
+    studio: "스튜디오"
+    shared: "쉐어하우스"
+    house: "단독·타운하우스"
+    dorm: "기숙사"
 advice:
   heading: "제공자의 조언"
   intro: "아래는 {{contributor}} 본인의 주관적인 느낌과 평가이며 통계적 결론이 아닙니다."

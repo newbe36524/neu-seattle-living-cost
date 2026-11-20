@@ -12,6 +12,15 @@ hero:
   hint: "Jeder Betrag unten lässt sich durch deine eigene Zahl ersetzen. Der Referenzwert bleibt unter jeder Zeile stehen und lässt sich jederzeit wiederherstellen."
   pending: "Noch nicht enthalten ({{count}}): {{items}}."
   allFilled: "Alle monatlichen Posten sind ausgefüllt."
+  yearLabel: "Jahressumme"
+  yearNote: "Monatssumme × 12 plus einmalige Kosten von {{once}}."
+  yearNoteEstimate: "Monatssumme × 12 plus einmalige Kosten von {{once}}; ohne die geschätzten Erstanschaffungen von {{estimate}} (keine tatsächlichen Ausgaben)."
+keyfig:
+  rent: "Monatsmiete"
+first:
+  label: "Beim Einzug nötig"
+  note: "Einmalige Kosten {{once}} + monatliche Kosten des ersten Monats {{monthly}}."
+  noteEstimate: "Einmalige Kosten {{once}} + geschätzte Einzugsanschaffungen {{estimate}} (keine tatsächlichen Ausgaben) + monatliche Kosten des ersten Monats {{monthly}}."
 delta:
   same: "wie die Referenz"
   more: "{{amount}} mehr als die Referenz"
@@ -51,7 +60,6 @@ settle:
   pendingMonthly: "Noch offene monatliche Posten: {{count}}."
 source:
   text: "Daten von {{contributor}}, {{area}}, erhoben {{updated}}."
-  link: "Grundlagen und Anmerkungen zu jedem Posten stehen in den Kostendetails"
 dock:
   label: "Deine Simulation, monatlich"
 status:
