@@ -29,7 +29,8 @@ const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
       <tbody>
         {category.items.map((item) => {
           const s = itemStatus(profile, item.id);
-          const note = s.kind === 'pending' ? undefined : entryNote(locale, profile, s.entry);
+          const entry = s.kind === 'pending' ? profile.entries.find((e) => e.items.includes(item.id)) : s.entry;
+          const note = entry ? entryNote(locale, profile, entry) : undefined;
           const hintKey = `data.items.${item.id}.hint`;
           return (
             <tr>

@@ -2,11 +2,6 @@ home:
   title: 首頁
   intro: 面向東北大學(Northeastern University)西雅圖校區學生,整理在西雅圖生活的主要開銷,幫助你在入學前做預算。每份資料都是一位同學的真實經歷,並標明區域與採集時間。
   collected: "{{summary}}採集於 {{updated}}。"
-  monthlyTotal: 每月,已填寫項目合計
-  pendingItems: "尚未包含:{{items}}。"
-  allFilled: 每月項目已全部填寫。
-  oneTime: "一次性費用(申請費、押金);另有約 {{estimate}} 的初次搬入採購,為估算值"
-  categoriesHeading: 成本分類
 costs:
   title: 成本明細
   intro: 金額單位為美元。尚未整理的項目顯示為「待補充」。每份記錄對應一位提供者的真實情況。

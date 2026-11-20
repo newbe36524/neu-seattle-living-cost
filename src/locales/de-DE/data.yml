@@ -25,6 +25,8 @@ items:
     label: Wasser, Strom und Gas
   internet:
     label: Internet
+  renters-insurance:
+    label: "Hausratversicherung"
   groceries:
     label: Lebensmitteleinkauf
     hint: Lebensmittelkosten
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: Seitenautor
     area: Downtown Seattle
-    summary: Wohnt in Downtown Seattle; die monatlichen Verkehrskosten betragen 0.
+    summary: "Wohnt in Downtown Seattle."
     notes:
       application-fee: Einmalig beim ersten Einzug gezahlt.
-      transit: Laut der Person betragen die monatlichen Verkehrskosten 0.
-      utilities: Ungefährer Wert. Gesamtsumme aus Nebenkosten, Internet, Lebensmitteln und Haushaltswaren; die Person hat sie nicht einzeln erfasst.
+      transit: "Laut der Person betragen öffentlicher Nahverkehr und Fahrzeug zusammen $10 pro Monat."
+      renters-insurance: "Die Hausratversicherung, die zur gemieteten Wohnung selbst gehört."
+      utilities: "Ungefährer Wert."
+      groceries: "Ungefährer Wert. Gesamtsumme aus Lebensmitteln und Haushaltswaren; die Person hat sie nicht einzeln erfasst."
+      health: "Die Hochschule schreibt eine Krankenversicherung vor, deshalb wird sie hier vorerst nicht mitgezählt."
       dining-out: Alle Mahlzeiten werden selbst gekocht, es wird nicht auswärts gegessen; die Lebensmittelausgaben sind im obigen Sammelposten bereits enthalten.
       mattress: "{{estimate}}: 10-Zoll-Queen-Matratze aus Memory-Schaum, übliche Preise etwa $145–240"
       bed-frame: "{{estimate}}: üblicher Preis für ein Plattform-Bettgestell aus Metall"

@@ -11,6 +11,7 @@
     - { id: deposit, unit: one-time }
     - { id: utilities, unit: month }
     - { id: internet, unit: month }
+    - { id: renters-insurance, unit: month }
 
 - id: food
   items:

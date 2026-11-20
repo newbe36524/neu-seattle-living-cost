@@ -18,9 +18,15 @@ entries:
   - { items: [rent], amount: 1600 }
   - { items: [application-fee], amount: 50 }
   - { items: [deposit], amount: 700 }
-  - { items: [transit, car], amount: 0 }
-  - { items: [utilities, internet, groceries, daily-supplies], amount: 600 }
+  - { items: [transit, car], amount: 10 }
+  - { items: [phone], amount: 15 }
+  - { items: [internet], amount: 10 }
+  - { items: [renters-insurance], amount: 10 }
+  - { items: [utilities], amount: 100 }
+  - { items: [groceries, daily-supplies], amount: 500 }
   - { items: [dining-out], amount: 0 }
+  - { items: [health], amount: null }
+  - { items: [leisure], amount: 0 }
 
   # 初次搬入采购:提供者没有记账,以下为按 Amazon 常见价位的估算,不是实际支出。
   - { items: [mattress], amount: 200, basis: estimate }

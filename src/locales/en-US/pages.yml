@@ -2,11 +2,6 @@ home:
   title: Home
   intro: A reference for students at Northeastern University's Seattle campus, listing the main costs of living in Seattle so you can budget before you arrive. Each data set is one student's real experience, with the area and the date it was collected.
   collected: "{{summary}} Collected {{updated}}."
-  monthlyTotal: per month, total of the items filled in
-  pendingItems: "Not yet included: {{items}}."
-  allFilled: All monthly items are filled in.
-  oneTime: "one-time costs (application fee, deposit); plus about {{estimate}} for first-move purchases, which is an estimate"
-  categoriesHeading: Cost categories
 costs:
   title: Cost details
   intro: Amounts are in US dollars. Items not yet collected show "To be added". Each record reflects one contributor's real situation.

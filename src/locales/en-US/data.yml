@@ -25,6 +25,8 @@ items:
     label: Water, electricity and gas
   internet:
     label: Internet
+  renters-insurance:
+    label: "Renters insurance"
   groceries:
     label: Groceries
     hint: food cost
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: Site author
     area: Downtown Seattle
-    summary: Lives in Downtown Seattle; monthly transportation cost is 0.
+    summary: "Lives in Downtown Seattle."
     notes:
       application-fee: Paid once when first moving in.
-      transit: The contributor reports a monthly transportation cost of 0.
-      utilities: Approximate. Combined total of utilities, internet, groceries and household supplies; the contributor did not record them separately.
+      transit: "The contributor reports $10 per month for public transit and vehicle costs combined."
+      renters-insurance: "The renters insurance that comes with the apartment itself."
+      utilities: "Approximate."
+      groceries: "Approximate. Combined total of groceries and household supplies; the contributor did not record them separately."
+      health: "The school requires students to buy health insurance, so it is not counted here for now."
       dining-out: Cooks every meal at home and does not eat out; food spending is already included in the bundled amount above.
       mattress: "{{estimate}}: 10-inch Queen memory foam mattress, typically about $145–240"
       bed-frame: "{{estimate}}: typical price of a metal platform bed frame"

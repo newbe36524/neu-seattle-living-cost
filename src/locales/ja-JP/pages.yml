@@ -2,11 +2,6 @@ home:
   title: ホーム
   intro: ノースイースタン大学(Northeastern University)シアトルキャンパスの学生向けに、シアトルでの主な生活費をまとめ、入学前の予算づくりに役立てていただくためのサイトです。各データは学生一人ひとりの実体験で、地域と収集時期を明記しています。
   collected: "{{summary}}収集時期:{{updated}}。"
-  monthlyTotal: 毎月・記入済み項目の合計
-  pendingItems: "未含有:{{items}}。"
-  allFilled: 毎月の項目はすべて記入済みです。
-  oneTime: "一回のみの費用(申請料・敷金);このほか入居時の備品購入に約 {{estimate}}(概算値)"
-  categoriesHeading: 費用カテゴリ
 costs:
   title: 費用の詳細
   intro: 金額の単位は米ドルです。まだ整理できていない項目は「未記入」と表示されます。各記録は提供者一人の実際の状況に対応しています。

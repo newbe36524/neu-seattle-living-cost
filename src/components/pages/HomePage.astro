@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { categories, profiles, monthlyTotal, oneTimeTotal } from '../../data/costs';
-import { createT, localePath, type Locale } from '../../i18n';
+import LedgerWorkbench from '../LedgerWorkbench.astro';
+import { createT, type Locale } from '../../i18n';
 
 interface Props {
   locale: Locale;
@@ -9,44 +9,10 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = createT(locale);
-const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 ---
 
 <BaseLayout locale={locale} path="/" title={t('pages.home.title')}>
   <h1>{t('common.site.name')}</h1>
   <p>{t('pages.home.intro')}</p>
-
-  <div class="grid">
-    {profiles.map((p) => {
-      const { total, pending } = monthlyTotal(p);
-      const once = oneTimeTotal(p);
-      const pr = `data.profiles.${p.id}`;
-      return (
-        <a class="card" href={`${localePath(locale, '/costs/')}#${p.id}`} style="text-decoration:none;color:inherit">
-          <h3>{t(`${pr}.area`)} · {t(`${pr}.contributor`)}</h3>
-          <p class="muted">{t('pages.home.collected', { summary: t(`${pr}.summary`), updated: p.updated })}</p>
-          <p><strong>{usd.format(total)}</strong> <span class="muted">{t('pages.home.monthlyTotal')}</span></p>
-          <p class="muted">
-            {pending.length > 0
-              ? t('pages.home.pendingItems', { items: pending.map((id) => t(`data.items.${id}.label`)).join(t('common.listSeparator')) })
-              : t('pages.home.allFilled')}
-          </p>
-          <p>
-            <strong>{usd.format(once.reported)}</strong>
-            <span class="muted"> {t('pages.home.oneTime', { estimate: usd.format(once.estimate) })}</span>
-          </p>
-        </a>
-      );
-    })}
-  </div>
-
-  <h2>{t('pages.home.categoriesHeading')}</h2>
-  <div class="grid">
-    {categories.map((c) => (
-      <div class="card">
-        <h3>{t(`data.categories.${c.id}.title`)}</h3>
-        <p class="muted">{t(`data.categories.${c.id}.description`)}</p>
-      </div>
-    ))}
-  </div>
+  <LedgerWorkbench locale={locale} />
 </BaseLayout>

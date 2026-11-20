@@ -25,6 +25,8 @@ items:
     label: Água, luz e gás
   internet:
     label: Internet
+  renters-insurance:
+    label: "Seguro residencial"
   groceries:
     label: Compras no mercado
     hint: custo com alimentos
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: Autor do site
     area: Downtown Seattle
-    summary: Mora em Downtown Seattle; o custo mensal com transporte é 0.
+    summary: "Mora em Downtown Seattle."
     notes:
       application-fee: Paga uma única vez na primeira mudança.
-      transit: O colaborador informa que o custo mensal com transporte é 0.
-      utilities: Valor aproximado. Soma de contas de consumo, internet, alimentos e itens de uso doméstico; o colaborador não os registrou separadamente.
+      transit: "O colaborador informa $10 por mês entre transporte público e veículo."
+      renters-insurance: "O seguro residencial que acompanha o próprio apartamento alugado."
+      utilities: "Valor aproximado."
+      groceries: "Valor aproximado. Soma de alimentos e itens de uso doméstico; o colaborador não os registrou separadamente."
+      health: "A universidade exige a contratação de um seguro-saúde, por isso ele não é contado aqui por enquanto."
       dining-out: Faz todas as refeições em casa e não come fora; o gasto com alimentos já está incluído no item agrupado acima.
       mattress: "{{estimate}}: colchão Queen de espuma viscoelástica de 10 polegadas, preço comum de cerca de $145–240"
       bed-frame: "{{estimate}}: preço comum de um estrado de cama plataforma de metal"

@@ -27,6 +27,8 @@ items:
     label: 水电燃气
   internet:
     label: 网络
+  renters-insurance:
+    label: "房屋保险"
   groceries:
     label: 超市买菜
     hint: 食品成本
@@ -83,11 +85,14 @@ profiles:
   author-downtown:
     contributor: 站点作者
     area: Downtown Seattle
-    summary: 住在 Downtown Seattle,每月交通费用为 0。
+    summary: "住在 Downtown Seattle。"
     notes:
       application-fee: 初次入住时一次性缴纳。
-      transit: 提供者反馈每月交通费用为 0。
-      utilities: 约数。水电燃气、网络、食品与日用品的合计,提供者未分项记录。
+      transit: "提供者反馈公共交通与车辆合计每月 $10。"
+      renters-insurance: "租住的公寓本身附带的房屋保险。"
+      utilities: "约数。"
+      groceries: "约数。食品与日用品的合计,提供者未分项记录。"
+      health: "学校强制要求购买医疗保险,这里暂不计入。"
       dining-out: 三餐全部自己做饭,没有外出就餐;食品开销已包含在上面的合并项中。
       mattress: "{{estimate}}:10 英寸 Queen 记忆棉床垫,常见价位约 $145–240"
       bed-frame: "{{estimate}}:金属平台床架的常见价位"

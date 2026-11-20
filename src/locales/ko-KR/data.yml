@@ -25,6 +25,8 @@ items:
     label: 수도·전기·가스
   internet:
     label: 인터넷
+  renters-insurance:
+    label: "주택 보험(임대)"
   groceries:
     label: 마트 장보기
     hint: 식재료 비용
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: 사이트 운영자
     area: Downtown Seattle
-    summary: Downtown Seattle에 거주하며, 월 교통비는 0입니다.
+    summary: "Downtown Seattle에 거주합니다."
     notes:
       application-fee: 처음 입주할 때 1회 납부.
-      transit: 제공자 말로는 월 교통비가 0입니다.
-      utilities: 대략적인 금액. 공과금, 인터넷, 식비, 생필품의 합계이며 제공자가 항목별로 기록하지 않았습니다.
+      transit: "제공자 말로는 대중교통과 차량 비용이 합쳐서 월 $10입니다."
+      renters-insurance: "임차한 아파트 자체에 포함된 주택 보험입니다."
+      utilities: "대략적인 금액."
+      groceries: "대략적인 금액. 식비와 생필품의 합계이며 제공자가 항목별로 기록하지 않았습니다."
+      health: "학교에서 의료보험 가입을 의무화하고 있어 여기서는 당분간 포함하지 않습니다."
       dining-out: 세 끼 모두 직접 해 먹고 외식은 하지 않음. 식비는 위의 묶음 항목에 이미 포함되어 있습니다.
       mattress: "{{estimate}}: 10인치 Queen 메모리폼 매트리스, 일반적인 가격대는 약 $145–240"
       bed-frame: "{{estimate}}: 금속 플랫폼 침대 프레임의 일반적인 가격대"

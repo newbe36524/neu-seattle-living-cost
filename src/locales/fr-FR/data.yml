@@ -25,6 +25,8 @@ items:
     label: Eau, électricité et gaz
   internet:
     label: Internet
+  renters-insurance:
+    label: "Assurance habitation"
   groceries:
     label: Courses au supermarché
     hint: coût de l'alimentation
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: Auteur du site
     area: Downtown Seattle
-    summary: Habite à Downtown Seattle ; les frais de transport mensuels sont de 0.
+    summary: "Habite à Downtown Seattle."
     notes:
       application-fee: Payés une seule fois lors de la première installation.
-      transit: Le contributeur indique que les frais de transport mensuels sont de 0.
-      utilities: Montant approximatif. Total des charges, d'internet, des courses et des produits du quotidien ; le contributeur ne les a pas notés séparément.
+      transit: "Le contributeur indique $10 par mois pour les transports en commun et le véhicule réunis."
+      renters-insurance: "L'assurance habitation associée à l'appartement loué lui-même."
+      utilities: "Montant approximatif."
+      groceries: "Montant approximatif. Total des courses et des produits du quotidien ; le contributeur ne les a pas notés séparément."
+      health: "L'université impose l'achat d'une assurance santé ; elle n'est donc pas comptée ici pour le moment."
       dining-out: Tous les repas sont faits maison, aucun repas au restaurant ; les dépenses alimentaires sont déjà comprises dans le poste groupé ci-dessus.
       mattress: "{{estimate}} : matelas Queen en mousse à mémoire de forme de 10 pouces, prix courants d'environ $145–240"
       bed-frame: "{{estimate}} : prix courant d'un cadre de lit plateforme en métal"

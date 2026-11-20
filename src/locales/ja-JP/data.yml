@@ -25,6 +25,8 @@ items:
     label: 水道・電気・ガス
   internet:
     label: インターネット
+  renters-insurance:
+    label: "家財保険(賃貸)"
   groceries:
     label: スーパーでの食料品
     hint: 食費
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: サイト運営者
     area: Downtown Seattle
-    summary: Downtown Seattle 在住。毎月の交通費は 0 です。
+    summary: "Downtown Seattle 在住。"
     notes:
       application-fee: 初回入居時に一度だけ支払い。
-      transit: 提供者によると、毎月の交通費は 0 です。
-      utilities: おおよその額。水道・電気・ガス、インターネット、食料品、日用品の合計で、提供者は項目別に記録していません。
+      transit: "提供者によると、公共交通と車両の費用は合わせて毎月 $10 です。"
+      renters-insurance: "入居しているアパートに付帯している住宅保険です。"
+      utilities: "おおよその額。"
+      groceries: "おおよその額。食料品と日用品の合計で、提供者は項目別に記録していません。"
+      health: "大学が医療保険への加入を義務づけているため、ここでは当面計上しません。"
       dining-out: 三食とも自炊で外食はなし。食費は上記のまとめ項目に含まれています。
       mattress: "{{estimate}}:10 インチの Queen メモリーフォームマットレス。一般的な価格帯は約 $145–240"
       bed-frame: "{{estimate}}:メタル製プラットフォームベッドフレームの一般的な価格帯"

@@ -2,11 +2,6 @@ home:
   title: Início
   intro: Uma referência para estudantes do campus de Seattle da Northeastern University com os principais gastos de viver em Seattle, para ajudar você a montar um orçamento antes de chegar. Cada conjunto de dados é a experiência real de um estudante, com a região e a data da coleta.
   collected: "{{summary}} Coletado em {{updated}}."
-  monthlyTotal: por mês, total dos itens preenchidos
-  pendingItems: "Ainda não incluídos: {{items}}."
-  allFilled: Todos os itens mensais estão preenchidos.
-  oneTime: "custos únicos (taxa de inscrição, caução); além de cerca de {{estimate}} em compras da instalação inicial, como valor estimado"
-  categoriesHeading: Categorias de custo
 costs:
   title: Detalhes dos custos
   intro: Os valores estão em dólares americanos. Itens ainda não levantados aparecem como "A preencher". Cada registro corresponde à situação real de uma pessoa.

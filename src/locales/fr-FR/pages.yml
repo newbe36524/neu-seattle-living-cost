@@ -2,11 +2,6 @@ home:
   title: Accueil
   intro: Un repère pour les étudiants du campus de Seattle de la Northeastern University, qui réunit les principales dépenses de la vie à Seattle afin de vous aider à établir un budget avant la rentrée. Chaque jeu de données est l'expérience réelle d'un étudiant, avec le quartier et la date de collecte.
   collected: "{{summary}} Collecté en {{updated}}."
-  monthlyTotal: par mois, total des postes renseignés
-  pendingItems: "Pas encore inclus : {{items}}."
-  allFilled: Tous les postes mensuels sont renseignés.
-  oneTime: "frais uniques (frais de dossier, dépôt de garantie) ; plus environ {{estimate}} d'achats pour l'installation, estimés"
-  categoriesHeading: Catégories de coûts
 costs:
   title: Détail des coûts
   intro: Les montants sont en dollars américains. Les postes pas encore renseignés affichent « à compléter ». Chaque fiche correspond à la situation réelle d'une personne.

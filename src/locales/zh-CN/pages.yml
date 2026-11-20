@@ -2,11 +2,6 @@ home:
   title: 首页
   intro: 面向东北大学(Northeastern University)西雅图校区学生,整理在西雅图生活的主要开销,帮助你在入学前做预算。每份数据都是一位同学的真实经历,标明区域与采集时间。
   collected: "{{summary}}采集于 {{updated}}。"
-  monthlyTotal: 每月,已填写项合计
-  pendingItems: "尚未包含:{{items}}。"
-  allFilled: 每月项目已全部填写。
-  oneTime: "一次性费用(申请费、押金);另有约 {{estimate}} 初次搬入采购,为估算值"
-  categoriesHeading: 成本分类
 costs:
   title: 成本明细
   intro: 金额单位为美元。尚未整理的项目显示为「待补充」。每份记录对应一位提供者的真实情况。

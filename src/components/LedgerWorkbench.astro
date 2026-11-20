@@ -1,0 +1,549 @@
+---
+/**
+ * 首页「活账本」:选一份参考数据 → 看到每月预算 → 直接在账本里改数字做自己的模拟。
+ *
+ * 没有 JS 时:显示第一份参考的数字(服务端渲染),输入框只读展示。
+ * 有 JS 时:切换提供者、逐项覆盖、实时合计,草稿按提供者存在本机 localStorage。
+ * 所有数字来自 src/data(经 ledger.ts);组件不产生、不估算任何金额。
+ */
+import { ledgersFor, periodTotal, DEFAULT_MONTHS, type LedgerLine, type LedgerProfile } from '../data/ledger';
+import { createT, localePath, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = createT(locale);
+const ledgers = ledgersFor(locale);
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const money = (n: number) => usd.format(Math.round(n));
+
+const unitSuffix = { month: t('ledger.row.unitMonth'), year: t('ledger.row.unitYear'), 'one-time': t('ledger.row.unitOneTime') } as const;
+
+/** 客户端动态文案:带 {{占位符}} 的原文,由脚本填值。 */
+const clientKeys = [
+  'ledger.hero.modeRef', 'ledger.hero.modeSim', 'ledger.hero.pending', 'ledger.hero.allFilled',
+  'ledger.delta.same', 'ledger.delta.more', 'ledger.delta.less',
+  'ledger.row.ref', 'ledger.row.perMonth', 'ledger.row.invalid',
+  'ledger.settle.included', 'ledger.settle.excluded', 'ledger.settle.estimateNote', 'ledger.settle.monthlyTimes', 'ledger.settle.pendingMonthly',
+  'ledger.status.summary', 'common.status.pending', 'common.listSeparator',
+];
+const clientText = Object.fromEntries(clientKeys.map((k) => [k, t(k)]));
+
+const recurringLines = (p: LedgerProfile) => p.groups.flatMap((g) => g.lines).filter((l) => l.unit !== 'one-time');
+const monthlyOf = (l: LedgerLine) => (l.amount === null ? 0 : l.unit === 'year' ? l.amount / 12 : l.amount);
+const shadeOf = (p: LedgerProfile, l: LedgerLine) => {
+  const i = recurringLines(p).findIndex((r) => r.key === l.key);
+  return i < 0 ? null : Math.max(14, 88 - i * 17);
+};
+const groupSubtotal = (g: { lines: LedgerLine[] }) => g.lines.reduce((s, l) => s + monthlyOf(l), 0);
+const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
+---
+
+<div class="workbench" data-ledger data-initial={ledgers[0]?.id} data-i18n={JSON.stringify(clientText)}>
+  <fieldset class="picker">
+    <legend>{t('ledger.picker.legend')}</legend>
+    <div class="picker-grid">
+      {ledgers.map((p, i) => (
+        <label class="pick">
+          <input type="radio" name="profile" value={p.id} checked={i === 0} />
+          <span class="pick-body">
+            <span class="pick-title">{p.area}</span>
+            <span class="pick-who muted">{t('ledger.picker.who', { contributor: p.contributor, updated: p.updated })}</span>
+            <span class="pick-sum">{p.summary}</span>
+            <span class="pick-figure muted">{t('ledger.picker.figure')} <strong>{money(p.monthly)}</strong></span>
+          </span>
+          <svg class="pick-check" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <path d="M4.8 8.3l2.2 2.2 4.2-4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </label>
+      ))}
+    </div>
+    <p class="muted picker-note">
+      {ledgers.length === 1
+        ? t('ledger.picker.noteOne')
+        : t('ledger.picker.noteMany', { count: ledgers.length })}
+    </p>
+  </fieldset>
+
+  {ledgers.map((p, pi) => {
+    const once = p.oneTime.reported;
+    const defaultTotal = periodTotal(p.monthly, once);
+    return (
+      <section class="ledger" data-panel={p.id} data-ref-monthly={p.monthly} hidden={pi !== 0} aria-labelledby={`h-${p.id}`}>
+        <h2 id={`h-${p.id}`}>{p.area} <span class="muted">· {p.contributor}</span></h2>
+
+        <div class="sum-line is-total" data-total-line>
+          <span class="sum-label">{t('ledger.hero.label')}</span>
+          <span class="sum-leader" aria-hidden="true"></span>
+          <span class="sum-value" data-num="monthly">{money(p.monthly)}</span>
+        </div>
+        <p class="total-state" data-mode="ref">
+          <span data-mode-label>{t('ledger.hero.modeRef')}</span>
+          <button type="button" class="link-button" data-reset-all hidden>{t('ledger.hero.resetAll')}</button>
+        </p>
+
+        <div class="bar" data-bar aria-hidden="true" data-empty={p.monthly === 0 ? '' : undefined}>
+          {recurringLines(p).map((l) => (
+            <span class="seg" data-seg={l.key} style={`--s:${shadeOf(p, l)}%;flex-grow:${monthlyOf(l)}`}></span>
+          ))}
+        </div>
+        <p class="muted pending-note" data-pending-note>
+          {p.pendingRecurring.length > 0
+            ? t('ledger.hero.pending', { count: p.pendingRecurring.length, items: p.pendingRecurring.join(t('common.listSeparator')) })
+            : t('ledger.hero.allFilled')}
+        </p>
+        <p class="sr-only" role="status" data-status></p>
+        <p class="edit-hint muted" data-js-only hidden>
+          {t('ledger.hero.hint')}
+        </p>
+
+        {p.groups.map((g) => (
+          <details class="group" open={g.recurring}>
+            <summary>
+              <span class="group-title">{g.title}</span>
+              <span class="group-sub muted">
+                {g.recurring ? <><span data-group-sub={g.id}>{money(groupSubtotal(g))}</span> {t('ledger.group.monthlySuffix')}</> : t('ledger.group.oneTimeCount', { count: g.lines.length })}
+              </span>
+              <svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </summary>
+            <ul class="rows">
+              {g.lines.map((l) => {
+                const rid = `${p.id}-${l.key}`;
+                const shade = shadeOf(p, l);
+                return (
+                  <li
+                    class="row"
+                    data-row={l.key}
+                    data-unit={l.unit}
+                    data-basis={l.basis}
+                    data-ref={l.amount === null ? '' : l.amount}
+                    data-label={l.label}
+                    data-group={g.id}
+                  >
+                    <label class="row-name" for={`${rid}-in`}>
+                      {shade !== null ? <span class="swatch" style={`--s:${shade}%`} aria-hidden="true"></span> : <span class="swatch is-none" aria-hidden="true"></span>}
+                      <span>
+                        {l.label}
+                        {l.hint && <span class="muted"> · {l.hint}</span>}
+                      </span>
+                    </label>
+                    <span class="row-value">
+                      <span class="money">
+                        <span class="cur" aria-hidden="true">$</span>
+                        <input
+                          id={`${rid}-in`}
+                          type="text"
+                          inputmode="decimal"
+                          autocomplete="off"
+                          spellcheck="false"
+                          placeholder={t('common.status.pending')}
+                          value={l.amount === null ? '' : String(l.amount)}
+                          aria-describedby={`${rid}-meta`}
+                          data-input
+                          readonly
+                        />
+                      </span>
+                      <span class="unit muted">{unitSuffix[l.unit]}</span>
+                    </span>
+                    <span class="row-meta muted" id={`${rid}-meta`}>
+                      {l.basis === 'estimate' && l.amount !== null && <span class="tag" data-tag-estimate>{t('common.status.estimate')}</span>}
+                      {l.bundled && <span class="tag">{t('ledger.row.bundled')}</span>}
+                      {l.note && <span class="note">{l.note}</span>}
+                      {l.amount === null && <span class="note" data-pending-copy>{t('ledger.row.pendingCopy')}</span>}
+                      <span class="state" data-state></span>
+                      <button type="button" class="link-button" data-restore hidden aria-label={t('ledger.row.restoreLabel', { item: l.label })}>
+                        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8a5 5 0 1 0 1.6-3.7M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        {t('ledger.row.restore')}
+                      </button>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
+        ))}
+
+        <div class="settle">
+          <h3>{t('ledger.settle.heading')}</h3>
+          <div class="settle-controls">
+            <div class="stepper" role="group" aria-label={t('ledger.settle.coverGroup')}>
+              <span class="stepper-label">{t('ledger.settle.cover')}</span>
+              <button type="button" data-step="-1" aria-label={t('ledger.settle.lessMonth')}>
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              </button>
+              <input type="text" inputmode="numeric" value={DEFAULT_MONTHS} aria-label={t('ledger.settle.monthsInput')} data-months readonly />
+              <button type="button" data-step="1" aria-label={t('ledger.settle.moreMonth')}>
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              </button>
+              <span class="stepper-label">{t('ledger.settle.months')}</span>
+            </div>
+            {hasEstimate(p) && (
+              <label class="check">
+                <input type="checkbox" data-include-estimate disabled />
+                <span>{t('ledger.settle.includeEstimate')}</span>
+              </label>
+            )}
+          </div>
+
+          <div class="sum-line">
+            <span class="sum-label" data-monthly-times>{t('ledger.settle.monthlyTimes', { months: DEFAULT_MONTHS })}</span>
+            <span class="sum-leader" aria-hidden="true"></span>
+            <span class="sum-value" data-num="period">{money(p.monthly * DEFAULT_MONTHS)}</span>
+          </div>
+          <div class="sum-line">
+            <span class="sum-label">{t('ledger.settle.once')} <span class="muted">{t('ledger.settle.onceNote')}</span></span>
+            <span class="sum-leader" aria-hidden="true"></span>
+            <span class="sum-value" data-num="once">{money(once)}</span>
+          </div>
+          {hasEstimate(p) && (
+            <div class="sum-line is-off" data-estimate-line>
+              <span class="sum-label">{t('ledger.settle.estimate')} <span class="muted" data-estimate-note>{t('ledger.settle.estimateNote', { state: t('ledger.settle.excluded') })}</span></span>
+              <span class="sum-leader" aria-hidden="true"></span>
+              <span class="sum-value" data-num="estimate">{money(p.oneTime.estimate)}</span>
+            </div>
+          )}
+          <div class="sum-line is-grand">
+            <span class="sum-label">{t('ledger.settle.total')}</span>
+            <span class="sum-leader" aria-hidden="true"></span>
+            <span class="sum-value" data-num="grand">{money(defaultTotal)}</span>
+          </div>
+          <p class="muted settle-note">
+            {t('ledger.settle.note')} {p.pendingRecurring.length > 0 && <span data-settle-pending>{t('ledger.settle.pendingMonthly', { count: p.pendingRecurring.length })}</span>}
+          </p>
+        </div>
+
+        <p class="provenance muted">
+          {t('ledger.source.text', { contributor: p.contributor, area: p.area, updated: p.updated })}
+          <a href={`${localePath(locale, '/costs/')}#${p.id}`}>{t('ledger.source.link')}</a>
+        </p>
+      </section>
+    );
+  })}
+
+  <div class="dock" data-dock aria-hidden="true">
+    <div class="container dock-inner">
+      <span>{t('ledger.dock.label')} <strong data-dock-monthly></strong></span>
+      <span class="muted" data-dock-delta></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const fmt = (n: number) => usd.format(Math.round(n));
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const STORE = 'nslc-sim-v1';
+  const DEFAULT_MONTHS = 12;
+
+  type Saved = { drafts: Record<string, Record<string, string>>; months: number; estimate: boolean };
+  const loadSaved = (): Saved => {
+    try {
+      const v = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (v && typeof v === 'object' && v.drafts) return { drafts: v.drafts, months: Number(v.months) || DEFAULT_MONTHS, estimate: !!v.estimate };
+    } catch {}
+    return { drafts: {}, months: DEFAULT_MONTHS, estimate: false };
+  };
+  const saved = loadSaved();
+  const persist = () => {
+    try {
+      localStorage.setItem(STORE, JSON.stringify(saved));
+    } catch {}
+  };
+
+  /** 解析金额:空 = 未填;非负数字 = 有效;其余 = 无效 */
+  function parseAmount(raw: string): { ok: boolean; value: number | null } {
+    const s = raw.replace(/[\s$,，＄]/g, '');
+    if (s === '') return { ok: true, value: null };
+    if (!/^(\d+\.?\d*|\.\d+)$/.test(s)) return { ok: false, value: null };
+    const n = Number(s);
+    return Number.isFinite(n) && n <= 1e7 ? { ok: true, value: n } : { ok: false, value: null };
+  }
+
+  /** 数字缓动:只用于数据变化,reduced-motion 下直接跳到目标 */
+  const tweens = new WeakMap<HTMLElement, number>();
+  function setNum(el: HTMLElement | null, target: number, animate: boolean) {
+    if (!el) return;
+    const to = Math.round(target);
+    const from = Number(el.dataset.v ?? to);
+    el.dataset.v = String(to);
+    const running = tweens.get(el);
+    if (running) cancelAnimationFrame(running);
+    if (!animate || reduced || from === to) {
+      el.textContent = fmt(to);
+      return;
+    }
+    const t0 = performance.now();
+    const dur = 360;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - t0) / dur);
+      const e = k === 1 ? 1 : 1 - Math.pow(2, -10 * k);
+      el.textContent = fmt(from + (to - from) * e);
+      if (k < 1) tweens.set(el, requestAnimationFrame(step));
+    };
+    tweens.set(el, requestAnimationFrame(step));
+  }
+
+  const root = document.querySelector<HTMLElement>('[data-ledger]');
+  if (root) {
+    const dict = JSON.parse(root.dataset.i18n || '{}') as Record<string, string>;
+    const T = (key: string, vars: Record<string, string | number> = {}) =>
+      (dict[key] ?? key).replace(/\{\{\s*(\w+)\s*\}\}/g, (whole, name: string) => (name in vars ? String(vars[name]) : whole));
+
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+    const radios = [...root.querySelectorAll<HTMLInputElement>('input[name="profile"]')];
+    const dock = root.querySelector<HTMLElement>('[data-dock]')!;
+    let active = panels[0];
+    let simulated = false;
+    let totalVisible = true;
+    let panelVisible = false;
+
+    // 解锁交互(没有 JS 时输入框保持只读)
+    root.querySelectorAll<HTMLInputElement>('[data-input],[data-months]').forEach((i) => (i.readOnly = false));
+    root.querySelectorAll<HTMLInputElement>('[data-include-estimate]').forEach((i) => (i.disabled = false));
+    root.querySelectorAll<HTMLElement>('[data-js-only]').forEach((e) => (e.hidden = false));
+
+    const q = <T extends HTMLElement>(el: ParentNode, sel: string) => el.querySelector<T>(sel);
+    const rowsOf = (p: HTMLElement) => [...p.querySelectorAll<HTMLElement>('[data-row]')];
+    const refOf = (row: HTMLElement) => (row.dataset.ref === '' ? null : Number(row.dataset.ref));
+
+    // 恢复本机草稿
+    for (const p of panels) {
+      const d = saved.drafts[p.dataset.panel!] ?? {};
+      for (const row of rowsOf(p)) {
+        const v = d[row.dataset.row!];
+        if (v !== undefined) q<HTMLInputElement>(row, '[data-input]')!.value = v;
+      }
+    }
+
+    function monthsOf(): number {
+      return Math.min(120, Math.max(1, Math.round(saved.months) || DEFAULT_MONTHS));
+    }
+
+    let statusTimer = 0;
+    function recompute(p: HTMLElement, animate: boolean) {
+      const refMonthly = Number(p.dataset.refMonthly);
+      let monthly = 0;
+      let once = 0;
+      let estimate = 0;
+      let edited = 0;
+      const pendingLabels: string[] = [];
+      const groupSub = new Map<string, number>();
+
+      for (const row of rowsOf(p)) {
+        const input = q<HTMLInputElement>(row, '[data-input]')!;
+        const state = q<HTMLElement>(row, '[data-state]')!;
+        const restore = q<HTMLButtonElement>(row, '[data-restore]')!;
+        const ref = refOf(row);
+        const unit = row.dataset.unit!;
+        const { ok, value } = parseAmount(input.value);
+        const changed = !ok || value !== ref;
+        const mEq = value === null ? 0 : unit === 'year' ? value / 12 : value;
+
+        input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        row.dataset.state = !ok ? 'invalid' : changed ? 'edited' : value === null ? 'pending' : 'ref';
+        if (changed) edited++;
+
+        if (ok && value !== null) {
+          if (unit === 'one-time') {
+            if (!changed && row.dataset.basis === 'estimate') estimate += value;
+            else once += value;
+          } else {
+            monthly += mEq;
+          }
+        } else if (unit !== 'one-time') {
+          pendingLabels.push(row.dataset.label!);
+        }
+        if (unit !== 'one-time') groupSub.set(row.dataset.group!, (groupSub.get(row.dataset.group!) ?? 0) + mEq);
+
+        // 行内状态:参考值与差额
+        const pendingCopy = q<HTMLElement>(row, '[data-pending-copy]');
+        if (pendingCopy) pendingCopy.hidden = changed;
+        const tag = q<HTMLElement>(row, '[data-tag-estimate]');
+        if (tag) tag.hidden = changed;
+        if (!ok) {
+          state.textContent = T('ledger.row.invalid');
+        } else if (changed) {
+          const refText = ref === null ? T('common.status.pending') : fmt(ref);
+          const delta = ref !== null && value !== null ? value - ref : null;
+          const dText = delta === null ? '' : delta === 0 ? '' : ` · ${delta > 0 ? '+' : '−'}${fmt(Math.abs(delta))}`;
+          const yr = unit === 'year' && value !== null ? ` · ${T('ledger.row.perMonth', { amount: fmt(value / 12) })}` : '';
+          state.textContent = `${T('ledger.row.ref', { amount: refText })}${dText}${yr}`;
+        } else {
+          state.textContent = unit === 'year' && value !== null ? T('ledger.row.perMonth', { amount: fmt(value / 12) }) : '';
+        }
+        restore.hidden = !changed;
+
+        const seg = p.querySelector<HTMLElement>(`[data-seg="${CSS.escape(row.dataset.row!)}"]`);
+        if (seg) seg.style.flexGrow = String(mEq);
+      }
+
+      const months = monthsOf();
+      const includeEst = saved.estimate && q(p, '[data-include-estimate]') !== null;
+      const period = monthly * months;
+      const grand = period + once + (includeEst ? estimate : 0);
+
+      setNum(q(p, '[data-num="monthly"]'), monthly, animate);
+      setNum(q(p, '[data-num="period"]'), period, animate);
+      setNum(q(p, '[data-num="once"]'), once, animate);
+      setNum(q(p, '[data-num="estimate"]'), estimate, animate);
+      setNum(q(p, '[data-num="grand"]'), grand, animate);
+      for (const [g, v] of groupSub) setNum(q(p, `[data-group-sub="${CSS.escape(g)}"]`), v, animate);
+
+      q(p, '[data-monthly-times]')!.textContent = T('ledger.settle.monthlyTimes', { months });
+      q<HTMLInputElement>(p, '[data-months]')!.value = String(months);
+      const cb = q<HTMLInputElement>(p, '[data-include-estimate]');
+      if (cb) cb.checked = saved.estimate;
+      const estLine = q(p, '[data-estimate-line]');
+      if (estLine) {
+        estLine.classList.toggle('is-off', !includeEst);
+        q(p, '[data-estimate-note]')!.textContent = T('ledger.settle.estimateNote', { state: T(includeEst ? 'ledger.settle.included' : 'ledger.settle.excluded') });
+      }
+
+      const bar = q(p, '[data-bar]')!;
+      if (monthly === 0) bar.setAttribute('data-empty', '');
+      else bar.removeAttribute('data-empty');
+
+      const note = q(p, '[data-pending-note]')!;
+      note.textContent = pendingLabels.length
+        ? T('ledger.hero.pending', { count: pendingLabels.length, items: pendingLabels.join(T('common.listSeparator')) })
+        : T('ledger.hero.allFilled');
+      const settleNote = q(p, '[data-settle-pending]');
+      if (settleNote) settleNote.textContent = pendingLabels.length ? T('ledger.settle.pendingMonthly', { count: pendingLabels.length }) : '';
+
+      const delta = Math.round(monthly) - Math.round(refMonthly);
+      const deltaText = delta === 0 ? T('ledger.delta.same') : T(delta > 0 ? 'ledger.delta.more' : 'ledger.delta.less', { amount: fmt(Math.abs(delta)) });
+      const modeEl = q(p, '.total-state')!;
+      modeEl.dataset.mode = edited > 0 ? 'sim' : 'ref';
+      q(modeEl, '[data-mode-label]')!.textContent = edited > 0 ? T('ledger.hero.modeSim', { count: edited, delta: deltaText }) : T('ledger.hero.modeRef');
+      q<HTMLButtonElement>(p, '[data-reset-all]')!.hidden = edited === 0;
+
+      if (p === active) {
+        simulated = edited > 0;
+        q<HTMLElement>(dock, '[data-dock-monthly]')!.textContent = fmt(monthly);
+        q<HTMLElement>(dock, '[data-dock-delta]')!.textContent = deltaText;
+        updateDock();
+        window.clearTimeout(statusTimer);
+        statusTimer = window.setTimeout(() => {
+          q(p, '[data-status]')!.textContent = T('ledger.status.summary', { monthly: fmt(monthly), delta: deltaText, grand: fmt(grand) });
+        }, 700);
+      }
+
+      // 草稿只保存与参考不同的行
+      const id = p.dataset.panel!;
+      const draft: Record<string, string> = {};
+      for (const row of rowsOf(p)) {
+        const raw = q<HTMLInputElement>(row, '[data-input]')!.value;
+        const { ok, value } = parseAmount(raw);
+        if (!ok || value !== refOf(row)) draft[row.dataset.row!] = raw;
+      }
+      if (Object.keys(draft).length) saved.drafts[id] = draft;
+      else delete saved.drafts[id];
+      persist();
+    }
+
+    // 浮动合计条:只在正在模拟、且页面上的合计已滚出视野、账本仍在视野里时出现
+    function updateDock() {
+      const show = simulated && !totalVisible && panelVisible;
+      dock.toggleAttribute('data-show', show);
+      dock.setAttribute('aria-hidden', String(!show));
+    }
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.target === observedTotal) totalVisible = e.isIntersecting;
+        if (e.target === observedPanel) panelVisible = e.isIntersecting;
+      }
+      updateDock();
+    });
+    let observedTotal: Element | null = null;
+    let observedPanel: Element | null = null;
+    function observeActive() {
+      io.disconnect();
+      observedTotal = q(active, '[data-total-line]');
+      observedPanel = active;
+      io.observe(observedTotal!);
+      io.observe(observedPanel);
+    }
+
+    function select(id: string, animate: boolean, updateUrl: boolean) {
+      const next = panels.find((p) => p.dataset.panel === id) ?? panels[0];
+      const apply = () => {
+        for (const p of panels) p.hidden = p !== next;
+        active = next;
+        for (const r of radios) r.checked = r.value === next.dataset.panel;
+        recompute(next, false);
+        observeActive();
+      };
+      if (animate && !reduced && 'startViewTransition' in document) (document as any).startViewTransition(apply);
+      else apply();
+      if (updateUrl) {
+        const url = new URL(location.href);
+        if (panels.length > 1) url.searchParams.set('p', next.dataset.panel!);
+        history.replaceState(null, '', url);
+      }
+    }
+
+    radios.forEach((r) => r.addEventListener('change', () => r.checked && select(r.value, true, true)));
+
+    for (const p of panels) {
+      p.addEventListener('input', (ev) => {
+        if ((ev.target as HTMLElement).matches('[data-input]')) recompute(p, true);
+      });
+      p.addEventListener('change', (ev) => {
+        const t = ev.target as HTMLInputElement;
+        if (t.matches('[data-months]')) {
+          saved.months = Math.min(120, Math.max(1, Math.round(Number(t.value)) || DEFAULT_MONTHS));
+          panels.forEach((x) => recompute(x, true));
+        } else if (t.matches('[data-include-estimate]')) {
+          saved.estimate = t.checked;
+          panels.forEach((x) => recompute(x, true));
+        }
+      });
+      p.addEventListener('click', (ev) => {
+        const target = ev.target as HTMLElement;
+        const restore = target.closest<HTMLButtonElement>('[data-restore]');
+        if (restore) {
+          const row = restore.closest<HTMLElement>('[data-row]')!;
+          const input = q<HTMLInputElement>(row, '[data-input]')!;
+          const ref = refOf(row);
+          input.value = ref === null ? '' : String(ref);
+          recompute(p, true);
+          input.focus();
+          return;
+        }
+        if (target.closest('[data-reset-all]')) {
+          for (const row of rowsOf(p)) {
+            const ref = refOf(row);
+            q<HTMLInputElement>(row, '[data-input]')!.value = ref === null ? '' : String(ref);
+          }
+          recompute(p, true);
+          return;
+        }
+        const step = target.closest<HTMLButtonElement>('[data-step]');
+        if (step) {
+          saved.months = Math.min(120, Math.max(1, monthsOf() + Number(step.dataset.step)));
+          panels.forEach((x) => recompute(x, true));
+        }
+      });
+      // 悬停/聚焦某行时,在账本条里突出对应分段
+      const bar = q(p, '[data-bar]')!;
+      const hl = (row: HTMLElement | null) => {
+        bar.querySelectorAll('.seg.is-on').forEach((s) => s.classList.remove('is-on'));
+        bar.classList.toggle('has-on', !!row);
+        if (!row) return;
+        bar.querySelector(`[data-seg="${CSS.escape(row.dataset.row!)}"]`)?.classList.add('is-on');
+      };
+      p.addEventListener('pointerover', (ev) => hl((ev.target as HTMLElement).closest<HTMLElement>('[data-row]')));
+      p.addEventListener('pointerleave', () => hl(null));
+      p.addEventListener('focusin', (ev) => hl((ev.target as HTMLElement).closest<HTMLElement>('[data-row]')));
+      p.addEventListener('focusout', () => hl(null));
+    }
+
+    // 初始:URL 的 ?p= 优先,其次默认第一份;所有账页先算一遍使状态一致,但不播放动画
+    const wanted = new URL(location.href).searchParams.get('p') ?? root.dataset.initial!;
+    panels.forEach((p) => recompute(p, false));
+    select(wanted, false, false);
+  }
+</script>

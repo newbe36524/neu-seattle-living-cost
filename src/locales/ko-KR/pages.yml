@@ -2,11 +2,6 @@ home:
   title: 홈
   intro: 노스이스턴 대학교(Northeastern University) 시애틀 캠퍼스 학생을 위해 시애틀 생활의 주요 지출을 정리해, 입학 전에 예산을 세우는 데 도움을 드립니다. 각 데이터는 학생 한 명의 실제 경험이며, 지역과 수집 시점을 함께 표기합니다.
   collected: "{{summary}} 수집 시점: {{updated}}."
-  monthlyTotal: 매월, 작성된 항목의 합계
-  pendingItems: "아직 포함되지 않은 항목: {{items}}."
-  allFilled: 매월 항목이 모두 작성되었습니다.
-  oneTime: "1회성 비용(신청비, 보증금); 이와 별도로 입주 초기 물품 구입에 약 {{estimate}}(추정치)"
-  categoriesHeading: 비용 분류
 costs:
   title: 비용 상세
   intro: 금액 단위는 미국 달러입니다. 아직 정리되지 않은 항목은 '추후 보완'으로 표시됩니다. 각 기록은 제공자 한 명의 실제 상황입니다.

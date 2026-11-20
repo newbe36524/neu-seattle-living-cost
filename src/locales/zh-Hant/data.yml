@@ -25,6 +25,8 @@ items:
     label: 水電瓦斯
   internet:
     label: 網路
+  renters-insurance:
+    label: "房屋保險"
   groceries:
     label: 超市買菜
     hint: 食品成本
@@ -81,11 +83,14 @@ profiles:
   author-downtown:
     contributor: 站點作者
     area: Downtown Seattle
-    summary: 住在 Downtown Seattle,每月交通費用為 0。
+    summary: "住在 Downtown Seattle。"
     notes:
       application-fee: 初次入住時一次性繳納。
-      transit: 提供者回報每月交通費用為 0。
-      utilities: 約數。水電瓦斯、網路、食品與日用品的合計,提供者未分項記錄。
+      transit: "提供者回報公共交通與車輛合計每月 $10。"
+      renters-insurance: "租住的公寓本身附帶的房屋保險。"
+      utilities: "約數。"
+      groceries: "約數。食品與日用品的合計,提供者未分項記錄。"
+      health: "學校強制要求購買醫療保險,這裡暫不計入。"
       dining-out: 三餐全部自己做飯,沒有外出用餐;食品開銷已包含在上面的合併項中。
       mattress: "{{estimate}}:10 吋 Queen 記憶棉床墊,常見價位約 $145–240"
       bed-frame: "{{estimate}}:金屬平台床架的常見價位"
