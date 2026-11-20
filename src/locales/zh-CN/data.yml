@@ -1,0 +1,95 @@
+# 成本项与提供者记录的文字。键与 src/data/ 里的 id 对应;金额、周期等事实留在 YAML 数据里,不在这里。
+# profiles.<提供者 id>.notes 的键是该条记录 items 里的第一个项目 id;没有对应键的估算记录显示通用的 common.estimateNote。
+categories:
+  housing:
+    title: 住房
+    description: 房租、押金、水电网络等与居住直接相关的费用。
+  food:
+    title: 饮食与日用
+    description: 日常买菜、外出就餐与日用品。
+  transport:
+    title: 交通
+    description: 通勤、公共交通、汽车相关费用。
+  other:
+    title: 其他
+    description: 手机、医疗保险、娱乐等其他常见开销。
+  setup:
+    title: 初次搬入采购
+    description: 刚搬进新住处时一次性购置的家具与用品。
+items:
+  rent:
+    label: 房租
+  application-fee:
+    label: 申请费
+  deposit:
+    label: 押金
+  utilities:
+    label: 水电燃气
+  internet:
+    label: 网络
+  groceries:
+    label: 超市买菜
+    hint: 食品成本
+  daily-supplies:
+    label: 日用品
+  dining-out:
+    label: 外出就餐
+  transit:
+    label: 公共交通
+  car:
+    label: 车辆(保险/油费/停车)
+  phone:
+    label: 手机通讯
+  health:
+    label: 医疗保险
+  leisure:
+    label: 娱乐休闲
+  mattress:
+    label: 床垫
+    hint: Queen Size
+  bed-frame:
+    label: 床架
+    hint: Queen Size
+  wardrobe:
+    label: 衣柜
+    hint: 简易布质衣柜
+  desk:
+    label: 电脑办公桌
+  chair:
+    label: 人体工学椅
+  shelf:
+    label: 置物架
+    hint: 简易
+  monitor:
+    label: 显示器
+    hint: 飞利浦 4K
+  cookware:
+    label: 厨房锅具
+    hint: 一组
+  tableware:
+    label: 碗筷
+    hint: 6 套
+  air-fryer:
+    label: 空气炸锅
+  rice-cooker:
+    label: 电饭煲
+  kettle:
+    label: 烧水壶
+  shower-head:
+    label: 花洒
+  fan:
+    label: 立式风扇
+profiles:
+  author-downtown:
+    contributor: 站点作者
+    area: Downtown Seattle
+    summary: 住在 Downtown Seattle,每月交通费用为 0。
+    notes:
+      application-fee: 初次入住时一次性缴纳。
+      transit: 提供者反馈每月交通费用为 0。
+      utilities: 约数。水电燃气、网络、食品与日用品的合计,提供者未分项记录。
+      dining-out: 三餐全部自己做饭,没有外出就餐;食品开销已包含在上面的合并项中。
+      mattress: "{{estimate}}:10 英寸 Queen 记忆棉床垫,常见价位约 $145–240"
+      bed-frame: "{{estimate}}:金属平台床架的常见价位"
+      wardrobe: "{{estimate}}:简易布衣柜,常见价位约 $25–30"
+      monitor: "{{estimate}}:27 英寸 4K,Philips 同级型号常见价位约 $200–270"

@@ -1,0 +1,27 @@
+# 通用文案:站点名、导航、表格、状态。基准语言(简体中文)——新增键先加在这里,再用 npm run i18n:sync 同步到其他语言。
+site:
+  name: 西雅图居住成本参考
+  description: 为东北大学西雅图校区学生整理的西雅图居住成本参考。
+  disclaimer: 数据仅供参考,实际费用因区域、户型与时间而异。
+nav:
+  label: 主导航
+  home: 首页
+  costs: 成本明细
+  about: 关于与数据来源
+language:
+  label: 语言
+units:
+  month: 每月
+  year: 每年
+  one-time: 一次性
+table:
+  item: 项目
+  amount: 金额
+  period: 周期
+  note: 说明
+status:
+  pending: 待补充
+  estimate: 估算
+  bundled: "含于合并项 {{amount}}"
+estimateNote: 估算(Amazon 常见价位,非实际支出)
+listSeparator: "、"

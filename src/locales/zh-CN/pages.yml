@@ -1,0 +1,21 @@
+home:
+  title: 首页
+  intro: 面向东北大学(Northeastern University)西雅图校区学生,整理在西雅图生活的主要开销,帮助你在入学前做预算。每份数据都是一位同学的真实经历,标明区域与采集时间。
+  collected: "{{summary}}采集于 {{updated}}。"
+  monthlyTotal: 每月,已填写项合计
+  pendingItems: "尚未包含:{{items}}。"
+  allFilled: 每月项目已全部填写。
+  oneTime: "一次性费用(申请费、押金);另有约 {{estimate}} 初次搬入采购,为估算值"
+  categoriesHeading: 成本分类
+costs:
+  title: 成本明细
+  intro: 金额单位为美元。尚未整理的项目显示为「待补充」。每份记录对应一位提供者的真实情况。
+about:
+  title: 关于与数据来源
+  intro: 本站为东北大学西雅图校区学生提供居住成本参考。目前所有数据与资料均来自站点作者的个人经验,不代表官方信息,也不保证适用于所有人。
+  updateHeading: 数据如何更新
+  updateBody: 所有数据集中维护在仓库的 `src/data/` 的 YAML 文件中(成本项定义一个文件,每位提供者的记录各一个文件),各语言的文字在 `src/locales/` 中,修改后推送到 `main` 分支,GitHub Pages 会自动重新构建发布。
+  languagesHeading: 语言版本
+  languagesBody: 本站提供 10 种语言。简体中文为原文,其他语言为译文(借助 AI 翻译),如有出入以简体中文为准。金额一律以美元显示。
+  futureHeading: 未来计划
+  futureBody: 后续可能加入其他同学的经验与资料,每条数据会标注提供者。
