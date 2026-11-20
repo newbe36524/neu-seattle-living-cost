@@ -1,0 +1,56 @@
+# 成本项定义:有哪些分类、哪些项目、周期是什么。与具体某个人无关,不含金额。
+# 新增项目:在对应分类的 items 里加一行;新增分类:追加一个分类。
+# unit 取值:month(每月)、year(每年)、one-time(一次性)。
+# 项目 id 一经使用请不要改名,各提供者的记录通过 id 引用它。
+
+- id: housing
+  title: 住房
+  description: 房租、押金、水电网络等与居住直接相关的费用。
+  items:
+    - { id: rent, label: 房租, unit: month }
+    - { id: application-fee, label: 申请费, unit: one-time }
+    - { id: deposit, label: 押金, unit: one-time }
+    - { id: utilities, label: 水电燃气, unit: month }
+    - { id: internet, label: 网络, unit: month }
+
+- id: food
+  title: 饮食与日用
+  description: 日常买菜、外出就餐与日用品。
+  items:
+    - { id: groceries, label: 超市买菜, unit: month, hint: 食品成本 }
+    - { id: daily-supplies, label: 日用品, unit: month }
+    - { id: dining-out, label: 外出就餐, unit: month }
+
+- id: transport
+  title: 交通
+  description: 通勤、公共交通、汽车相关费用。
+  items:
+    - { id: transit, label: 公共交通, unit: month }
+    - { id: car, label: 车辆(保险/油费/停车), unit: month }
+
+- id: other
+  title: 其他
+  description: 手机、医疗保险、娱乐等其他常见开销。
+  items:
+    - { id: phone, label: 手机通讯, unit: month }
+    - { id: health, label: 医疗保险, unit: month }
+    - { id: leisure, label: 娱乐休闲, unit: month }
+
+- id: setup
+  title: 初次搬入采购
+  description: 刚搬进新住处时一次性购置的家具与用品。
+  items:
+    - { id: mattress, label: 床垫, unit: one-time, hint: Queen Size }
+    - { id: bed-frame, label: 床架, unit: one-time, hint: Queen Size }
+    - { id: wardrobe, label: 衣柜, unit: one-time, hint: 简易布质衣柜 }
+    - { id: desk, label: 电脑办公桌, unit: one-time }
+    - { id: chair, label: 人体工学椅, unit: one-time }
+    - { id: shelf, label: 置物架, unit: one-time, hint: 简易 }
+    - { id: monitor, label: 显示器, unit: one-time, hint: 飞利浦 4K }
+    - { id: cookware, label: 厨房锅具, unit: one-time, hint: 一组 }
+    - { id: tableware, label: 碗筷, unit: one-time, hint: 6 套 }
+    - { id: air-fryer, label: 空气炸锅, unit: one-time }
+    - { id: rice-cooker, label: 电饭煲, unit: one-time }
+    - { id: kettle, label: 烧水壶, unit: one-time }
+    - { id: shower-head, label: 花洒, unit: one-time }
+    - { id: fan, label: 立式风扇, unit: one-time }
