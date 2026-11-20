@@ -25,6 +25,7 @@ auditIdenticalAllowlist:
     - units.one-time
     - status.estimate
     - listSeparator
+    - advice.neutral
   ledger.yml:
     - picker.figure
     - group.monthlySuffix
@@ -34,6 +35,8 @@ auditIdenticalAllowlist:
     - row.perMonth
     - settle.onceNote
     - settle.estimateNote
+  charts.yml:
+    - share.tooltip
   data.yml:
     - categories.housing.title
     - categories.transport.title

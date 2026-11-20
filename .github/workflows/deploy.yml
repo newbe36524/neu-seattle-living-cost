@@ -29,6 +29,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       # 站点文案的多语言审计(@hagicode/hagi18n):缺文件、缺键、多余键、占位符不一致都会让它失败。
       - run: pnpm run i18n:check
+      # 投稿表单由成本项生成,成本项改了而表单没重新生成会失败。
+      - run: pnpm run issue-template -- --check
       - run: pnpm run build
         env:
           # HagiLight 页脚的构建信息;checkout 可能是分离 HEAD,显式给出。

@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "i18n:check": "hagi18n audit",
+    "issue-template": "node scripts/gen-issue-template.mjs",
     "i18n:sync": "hagi18n sync --from zh-CN",
     "build:nd": "SITE_BASE=/ SITE_URL=http://neu-seattle-living-cost.n.pro pnpm run build",
     "preview": "astro preview",
@@ -17,6 +18,7 @@
     "@hagicode/hagilight": "0.22.0",
     "@hagicode/hagilight-core": "0.22.0",
     "astro": "^7.4.13",
+    "chart.js": "^4.6.1",
     "yaml": "^2.9.1"
   },
   "devDependencies": {
