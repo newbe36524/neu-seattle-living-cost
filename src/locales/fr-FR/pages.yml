@@ -1,0 +1,21 @@
+home:
+  title: Accueil
+  intro: Un repère pour les étudiants du campus de Seattle de la Northeastern University, qui réunit les principales dépenses de la vie à Seattle afin de vous aider à établir un budget avant la rentrée. Chaque jeu de données est l'expérience réelle d'un étudiant, avec le quartier et la date de collecte.
+  collected: "{{summary}} Collecté en {{updated}}."
+  monthlyTotal: par mois, total des postes renseignés
+  pendingItems: "Pas encore inclus : {{items}}."
+  allFilled: Tous les postes mensuels sont renseignés.
+  oneTime: "frais uniques (frais de dossier, dépôt de garantie) ; plus environ {{estimate}} d'achats pour l'installation, estimés"
+  categoriesHeading: Catégories de coûts
+costs:
+  title: Détail des coûts
+  intro: Les montants sont en dollars américains. Les postes pas encore renseignés affichent « à compléter ». Chaque fiche correspond à la situation réelle d'une personne.
+about:
+  title: À propos et sources des données
+  intro: Ce site est un repère du coût du logement et de la vie pour les étudiants du campus de Seattle de la Northeastern University. Toutes les données et tous les contenus proviennent pour l'instant de l'expérience personnelle de l'auteur du site ; ils ne constituent pas une information officielle et ne valent pas forcément pour tout le monde.
+  updateHeading: Comment les données sont mises à jour
+  updateBody: Toutes les données sont tenues dans des fichiers YAML sous `src/data/` dans le dépôt (un fichier pour la définition des postes de coût, un fichier par contributeur), et les textes de chaque langue se trouvent dans `src/locales/`. Après un push sur la branche `main`, GitHub Pages reconstruit et publie automatiquement le site.
+  languagesHeading: Versions linguistiques
+  languagesBody: Le site est disponible en 10 langues. Le chinois simplifié est la version originale ; les autres langues sont des traductions (réalisées avec l'aide de l'IA) et, en cas de différence, la version en chinois simplifié fait foi. Les montants sont toujours affichés en dollars américains.
+  futureHeading: Projets à venir
+  futureBody: Les expériences et les données d'autres étudiants pourront être ajoutées plus tard, et chaque entrée mentionnera son contributeur.

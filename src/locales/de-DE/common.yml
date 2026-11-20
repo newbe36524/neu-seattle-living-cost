@@ -1,0 +1,26 @@
+site:
+  name: Lebenshaltungskosten in Seattle
+  description: Eine Übersicht der Lebenshaltungskosten in Seattle für Studierende am Seattle-Campus der Northeastern University.
+  disclaimer: Alle Angaben dienen nur der Orientierung. Die tatsächlichen Kosten hängen von Stadtteil, Wohnungstyp und Zeitpunkt ab.
+nav:
+  label: Hauptnavigation
+  home: Startseite
+  costs: Kostendetails
+  about: Über die Seite und Datenquellen
+language:
+  label: Sprache
+units:
+  month: monatlich
+  year: jährlich
+  one-time: einmalig
+table:
+  item: Posten
+  amount: Betrag
+  period: Zeitraum
+  note: Anmerkung
+status:
+  pending: noch offen
+  estimate: geschätzt
+  bundled: "Im Sammelposten enthalten {{amount}}"
+estimateNote: Schätzung (übliche Amazon-Preise, keine tatsächlichen Ausgaben)
+listSeparator: ", "

@@ -1,0 +1,26 @@
+site:
+  name: シアトル生活費リファレンス
+  description: ノースイースタン大学シアトルキャンパスの学生向けにまとめた、シアトルの生活費リファレンスです。
+  disclaimer: 掲載データは参考情報です。実際の費用は地域・間取り・時期によって異なります。
+nav:
+  label: メインナビゲーション
+  home: ホーム
+  costs: 費用の詳細
+  about: このサイトについて・データの出典
+language:
+  label: 言語
+units:
+  month: 毎月
+  year: 毎年
+  one-time: 一回のみ
+table:
+  item: 項目
+  amount: 金額
+  period: 期間
+  note: 備考
+status:
+  pending: 未記入
+  estimate: 概算
+  bundled: "まとめ項目に含む {{amount}}"
+estimateNote: 概算(Amazon の一般的な価格帯。実際の支出ではありません)
+listSeparator: "、"

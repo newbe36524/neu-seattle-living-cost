@@ -1,0 +1,21 @@
+home:
+  title: Startseite
+  intro: Eine Übersicht für Studierende am Seattle-Campus der Northeastern University mit den wichtigsten Ausgaben des Lebens in Seattle, damit du schon vor dem Studienbeginn ein Budget planen kannst. Jeder Datensatz ist die reale Erfahrung einer Person und nennt Wohngegend und Erhebungszeitpunkt.
+  collected: "{{summary}} Erhoben im {{updated}}."
+  monthlyTotal: pro Monat, Summe der ausgefüllten Posten
+  pendingItems: "Noch nicht enthalten: {{items}}."
+  allFilled: Alle monatlichen Posten sind ausgefüllt.
+  oneTime: "einmalige Kosten (Antragsgebühr, Kaution); dazu etwa {{estimate}} für die Erstausstattung beim Einzug, als Schätzwert"
+  categoriesHeading: Kostenkategorien
+costs:
+  title: Kostendetails
+  intro: Alle Beträge sind in US-Dollar angegeben. Noch nicht erfasste Posten werden als „noch offen“ angezeigt. Jeder Datensatz entspricht der realen Situation einer Person.
+about:
+  title: Über die Seite und Datenquellen
+  intro: Diese Seite ist eine Übersicht der Wohn- und Lebenshaltungskosten für Studierende am Seattle-Campus der Northeastern University. Alle bisherigen Daten und Inhalte stammen aus den persönlichen Erfahrungen des Seitenautors; sie sind keine offiziellen Informationen und gelten nicht zwangsläufig für alle.
+  updateHeading: So werden die Daten aktualisiert
+  updateBody: Alle Daten werden als YAML-Dateien unter `src/data/` im Repository gepflegt (eine Datei für die Kostenposten, je eine Datei pro Person), die Texte der einzelnen Sprachen liegen in `src/locales/`. Nach einem Push auf den Branch `main` baut GitHub Pages die Seite automatisch neu und veröffentlicht sie.
+  languagesHeading: Sprachversionen
+  languagesBody: Die Seite ist in 10 Sprachen verfügbar. Vereinfachtes Chinesisch ist das Original, die anderen Sprachen sind Übersetzungen (mit KI-Unterstützung erstellt); bei Abweichungen gilt die vereinfacht-chinesische Fassung. Beträge werden immer in US-Dollar angezeigt.
+  futureHeading: Ausblick
+  futureBody: Später können Erfahrungen und Daten weiterer Studierender hinzukommen; jeder Eintrag nennt dann die Person, von der er stammt.

@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: Logement
+    description: Loyer, dépôt de garantie, charges, internet et autres frais directement liés à l'habitation.
+  food:
+    title: Alimentation et produits du quotidien
+    description: Courses, repas au restaurant et produits ménagers.
+  transport:
+    title: Transports
+    description: Trajets quotidiens, transports en commun et frais liés à la voiture.
+  other:
+    title: Autres
+    description: Téléphone, assurance santé, loisirs et autres dépenses courantes.
+  setup:
+    title: Achats pour l'installation
+    description: Meubles et articles achetés une seule fois en emménageant dans un nouveau logement.
+items:
+  rent:
+    label: Loyer
+  application-fee:
+    label: Frais de dossier
+  deposit:
+    label: Dépôt de garantie
+  utilities:
+    label: Eau, électricité et gaz
+  internet:
+    label: Internet
+  groceries:
+    label: Courses au supermarché
+    hint: coût de l'alimentation
+  daily-supplies:
+    label: Produits du quotidien
+  dining-out:
+    label: Restaurants
+  transit:
+    label: Transports en commun
+  car:
+    label: Voiture (assurance / carburant / parking)
+  phone:
+    label: Forfait mobile
+  health:
+    label: Assurance santé
+  leisure:
+    label: Loisirs et divertissements
+  mattress:
+    label: Matelas
+    hint: Queen Size
+  bed-frame:
+    label: Cadre de lit
+    hint: Queen Size
+  wardrobe:
+    label: Armoire
+    hint: armoire simple en tissu
+  desk:
+    label: Bureau d'ordinateur
+  chair:
+    label: Chaise ergonomique
+  shelf:
+    label: Étagère de rangement
+    hint: simple
+  monitor:
+    label: Écran
+    hint: Philips 4K
+  cookware:
+    label: Batterie de cuisine
+    hint: un ensemble
+  tableware:
+    label: Bols et baguettes
+    hint: 6 couverts
+  air-fryer:
+    label: Friteuse à air
+  rice-cooker:
+    label: Cuiseur à riz
+  kettle:
+    label: Bouilloire électrique
+  shower-head:
+    label: Pomme de douche
+  fan:
+    label: Ventilateur sur pied
+profiles:
+  author-downtown:
+    contributor: Auteur du site
+    area: Downtown Seattle
+    summary: Habite à Downtown Seattle ; les frais de transport mensuels sont de 0.
+    notes:
+      application-fee: Payés une seule fois lors de la première installation.
+      transit: Le contributeur indique que les frais de transport mensuels sont de 0.
+      utilities: Montant approximatif. Total des charges, d'internet, des courses et des produits du quotidien ; le contributeur ne les a pas notés séparément.
+      dining-out: Tous les repas sont faits maison, aucun repas au restaurant ; les dépenses alimentaires sont déjà comprises dans le poste groupé ci-dessus.
+      mattress: "{{estimate}} : matelas Queen en mousse à mémoire de forme de 10 pouces, prix courants d'environ $145–240"
+      bed-frame: "{{estimate}} : prix courant d'un cadre de lit plateforme en métal"
+      wardrobe: "{{estimate}} : armoire simple en tissu, prix courants d'environ $25–30"
+      monitor: "{{estimate}} : 27 pouces 4K ; les modèles Philips comparables coûtent couramment environ $200–270"

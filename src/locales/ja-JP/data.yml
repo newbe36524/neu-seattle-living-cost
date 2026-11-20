@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: 住居
+    description: 家賃・敷金・光熱費・ネット回線など、住まいに直接かかる費用。
+  food:
+    title: 食費・日用品
+    description: 日々の食料品、外食、日用品。
+  transport:
+    title: 交通
+    description: 通学・通勤、公共交通機関、車にかかる費用。
+  other:
+    title: その他
+    description: 携帯電話、医療保険、娯楽などのよくある支出。
+  setup:
+    title: 入居時の備品購入
+    description: 新居に引っ越した際に一度だけ購入する家具や備品。
+items:
+  rent:
+    label: 家賃
+  application-fee:
+    label: 申請料
+  deposit:
+    label: 敷金
+  utilities:
+    label: 水道・電気・ガス
+  internet:
+    label: インターネット
+  groceries:
+    label: スーパーでの食料品
+    hint: 食費
+  daily-supplies:
+    label: 日用品
+  dining-out:
+    label: 外食
+  transit:
+    label: 公共交通機関
+  car:
+    label: 車(保険・ガソリン・駐車場)
+  phone:
+    label: 携帯電話
+  health:
+    label: 医療保険
+  leisure:
+    label: 娯楽・レジャー
+  mattress:
+    label: マットレス
+    hint: Queen Size
+  bed-frame:
+    label: ベッドフレーム
+    hint: Queen Size
+  wardrobe:
+    label: ワードローブ
+    hint: 簡易的な布製ワードローブ
+  desk:
+    label: パソコンデスク
+  chair:
+    label: ワークチェア(エルゴノミクス)
+  shelf:
+    label: 収納棚
+    hint: 簡易タイプ
+  monitor:
+    label: モニター
+    hint: フィリップス 4K
+  cookware:
+    label: 調理器具
+    hint: 一式
+  tableware:
+    label: 食器・箸
+    hint: 6 セット
+  air-fryer:
+    label: エアフライヤー
+  rice-cooker:
+    label: 炊飯器
+  kettle:
+    label: 電気ケトル
+  shower-head:
+    label: シャワーヘッド
+  fan:
+    label: 扇風機(スタンド型)
+profiles:
+  author-downtown:
+    contributor: サイト運営者
+    area: Downtown Seattle
+    summary: Downtown Seattle 在住。毎月の交通費は 0 です。
+    notes:
+      application-fee: 初回入居時に一度だけ支払い。
+      transit: 提供者によると、毎月の交通費は 0 です。
+      utilities: おおよその額。水道・電気・ガス、インターネット、食料品、日用品の合計で、提供者は項目別に記録していません。
+      dining-out: 三食とも自炊で外食はなし。食費は上記のまとめ項目に含まれています。
+      mattress: "{{estimate}}:10 インチの Queen メモリーフォームマットレス。一般的な価格帯は約 $145–240"
+      bed-frame: "{{estimate}}:メタル製プラットフォームベッドフレームの一般的な価格帯"
+      wardrobe: "{{estimate}}:簡易的な布製ワードローブ。一般的な価格帯は約 $25–30"
+      monitor: "{{estimate}}:27 インチ 4K。フィリップスの同クラスのモデルの一般的な価格帯は約 $200–270"

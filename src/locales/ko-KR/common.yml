@@ -1,0 +1,26 @@
+site:
+  name: 시애틀 생활비 참고 자료
+  description: 노스이스턴 대학교 시애틀 캠퍼스 학생을 위해 정리한 시애틀 생활비 참고 자료입니다.
+  disclaimer: 데이터는 참고용이며, 실제 비용은 지역·주거 형태·시기에 따라 다릅니다.
+nav:
+  label: 주 메뉴
+  home: 홈
+  costs: 비용 상세
+  about: 소개 및 데이터 출처
+language:
+  label: 언어
+units:
+  month: 매월
+  year: 매년
+  one-time: 1회
+table:
+  item: 항목
+  amount: 금액
+  period: 주기
+  note: 설명
+status:
+  pending: 추후 보완
+  estimate: 추정
+  bundled: "묶음 항목에 포함 {{amount}}"
+estimateNote: 추정(Amazon 일반 가격대 기준, 실제 지출 아님)
+listSeparator: ", "

@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: Wohnen
+    description: Miete, Kaution, Nebenkosten, Internet und weitere Kosten, die direkt mit dem Wohnen zusammenhängen.
+  food:
+    title: Essen und Alltagsbedarf
+    description: Lebensmitteleinkauf, Essengehen und Haushaltswaren.
+  transport:
+    title: Verkehr
+    description: Pendeln, öffentliche Verkehrsmittel und Kosten rund ums Auto.
+  other:
+    title: Sonstiges
+    description: Handy, Krankenversicherung, Freizeit und andere übliche Ausgaben.
+  setup:
+    title: Erstausstattung beim Einzug
+    description: Möbel und Haushaltsgegenstände, die man beim Einzug in eine neue Wohnung einmalig anschafft.
+items:
+  rent:
+    label: Miete
+  application-fee:
+    label: Antragsgebühr
+  deposit:
+    label: Kaution
+  utilities:
+    label: Wasser, Strom und Gas
+  internet:
+    label: Internet
+  groceries:
+    label: Lebensmitteleinkauf
+    hint: Lebensmittelkosten
+  daily-supplies:
+    label: Haushaltswaren
+  dining-out:
+    label: Essengehen
+  transit:
+    label: Öffentlicher Nahverkehr
+  car:
+    label: Auto (Versicherung / Benzin / Parken)
+  phone:
+    label: Mobilfunk
+  health:
+    label: Krankenversicherung
+  leisure:
+    label: Freizeit und Unterhaltung
+  mattress:
+    label: Matratze
+    hint: Queen Size
+  bed-frame:
+    label: Bettgestell
+    hint: Queen Size
+  wardrobe:
+    label: Kleiderschrank
+    hint: einfacher Stoffschrank
+  desk:
+    label: Computerschreibtisch
+  chair:
+    label: Ergonomischer Stuhl
+  shelf:
+    label: Regal
+    hint: einfach
+  monitor:
+    label: Monitor
+    hint: Philips 4K
+  cookware:
+    label: Kochgeschirr
+    hint: ein Set
+  tableware:
+    label: Schalen und Essstäbchen
+    hint: 6 Sets
+  air-fryer:
+    label: Heißluftfritteuse
+  rice-cooker:
+    label: Reiskocher
+  kettle:
+    label: Wasserkocher
+  shower-head:
+    label: Duschkopf
+  fan:
+    label: Standventilator
+profiles:
+  author-downtown:
+    contributor: Seitenautor
+    area: Downtown Seattle
+    summary: Wohnt in Downtown Seattle; die monatlichen Verkehrskosten betragen 0.
+    notes:
+      application-fee: Einmalig beim ersten Einzug gezahlt.
+      transit: Laut der Person betragen die monatlichen Verkehrskosten 0.
+      utilities: Ungefährer Wert. Gesamtsumme aus Nebenkosten, Internet, Lebensmitteln und Haushaltswaren; die Person hat sie nicht einzeln erfasst.
+      dining-out: Alle Mahlzeiten werden selbst gekocht, es wird nicht auswärts gegessen; die Lebensmittelausgaben sind im obigen Sammelposten bereits enthalten.
+      mattress: "{{estimate}}: 10-Zoll-Queen-Matratze aus Memory-Schaum, übliche Preise etwa $145–240"
+      bed-frame: "{{estimate}}: üblicher Preis für ein Plattform-Bettgestell aus Metall"
+      wardrobe: "{{estimate}}: einfacher Stoffkleiderschrank, übliche Preise etwa $25–30"
+      monitor: "{{estimate}}: 27 Zoll, 4K; vergleichbare Philips-Modelle kosten üblicherweise etwa $200–270"

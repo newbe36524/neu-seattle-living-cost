@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: 주거
+    description: 월세, 보증금, 공과금, 인터넷 등 주거와 직접 관련된 비용.
+  food:
+    title: 식비 및 생필품
+    description: 일상 장보기, 외식, 생필품.
+  transport:
+    title: 교통
+    description: 통학·통근, 대중교통, 자동차 관련 비용.
+  other:
+    title: 기타
+    description: 휴대전화, 의료보험, 여가 등 그 밖의 흔한 지출.
+  setup:
+    title: 입주 초기 물품 구입
+    description: 새 거처로 이사했을 때 한 번에 구입하는 가구와 물품.
+items:
+  rent:
+    label: 월세
+  application-fee:
+    label: 신청비
+  deposit:
+    label: 보증금
+  utilities:
+    label: 수도·전기·가스
+  internet:
+    label: 인터넷
+  groceries:
+    label: 마트 장보기
+    hint: 식재료 비용
+  daily-supplies:
+    label: 생필품
+  dining-out:
+    label: 외식
+  transit:
+    label: 대중교통
+  car:
+    label: 차량(보험/유류비/주차)
+  phone:
+    label: 휴대전화 통신비
+  health:
+    label: 의료보험
+  leisure:
+    label: 여가·오락
+  mattress:
+    label: 매트리스
+    hint: Queen Size
+  bed-frame:
+    label: 침대 프레임
+    hint: Queen Size
+  wardrobe:
+    label: 옷장
+    hint: 간이 천 옷장
+  desk:
+    label: 컴퓨터 책상
+  chair:
+    label: 인체공학 의자
+  shelf:
+    label: 수납 선반
+    hint: 간이형
+  monitor:
+    label: 모니터
+    hint: 필립스 4K
+  cookware:
+    label: 주방 냄비류
+    hint: 1세트
+  tableware:
+    label: 그릇과 젓가락
+    hint: 6인조
+  air-fryer:
+    label: 에어프라이어
+  rice-cooker:
+    label: 전기밥솥
+  kettle:
+    label: 전기 주전자
+  shower-head:
+    label: 샤워기 헤드
+  fan:
+    label: 스탠드 선풍기
+profiles:
+  author-downtown:
+    contributor: 사이트 운영자
+    area: Downtown Seattle
+    summary: Downtown Seattle에 거주하며, 월 교통비는 0입니다.
+    notes:
+      application-fee: 처음 입주할 때 1회 납부.
+      transit: 제공자 말로는 월 교통비가 0입니다.
+      utilities: 대략적인 금액. 공과금, 인터넷, 식비, 생필품의 합계이며 제공자가 항목별로 기록하지 않았습니다.
+      dining-out: 세 끼 모두 직접 해 먹고 외식은 하지 않음. 식비는 위의 묶음 항목에 이미 포함되어 있습니다.
+      mattress: "{{estimate}}: 10인치 Queen 메모리폼 매트리스, 일반적인 가격대는 약 $145–240"
+      bed-frame: "{{estimate}}: 금속 플랫폼 침대 프레임의 일반적인 가격대"
+      wardrobe: "{{estimate}}: 간이 천 옷장, 일반적인 가격대는 약 $25–30"
+      monitor: "{{estimate}}: 27인치 4K, 필립스 동급 모델의 일반적인 가격대는 약 $200–270"
