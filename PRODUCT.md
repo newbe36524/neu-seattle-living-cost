@@ -22,11 +22,11 @@ web
 ## Operating Context
 - 数据只存放在 `src/data/` 的 YAML 中(`categories.yaml` 定义成本项,`profiles/*.yaml` 每位提供者一个文件),页面经 `src/data/costs.ts` 读取;修改后推送 `main`,GitHub Pages 自动重新构建发布。
 - 站点部署在 `https://newbe36524.github.io/neu-seattle-living-cost/`(子路径 `/neu-seattle-living-cost/`)。
-- 目前页面:首页(合计与分类入口)、成本明细(按分类的表格)、关于与数据来源。
+- 目前页面:首页(房租与「搬入时要备」两个关键数字、每月合计、按分类展开的逐项明细与口径说明、图表、结算)、关于与数据来源。逐项明细不再有单独页面,旧 `/<语言>/costs/` 链接会转到首页。
 - 当前绝大多数金额为 `null`,页面显示「待补充」。
 
 ## Capabilities and Constraints
-- 技术栈:Astro 静态站点 + TypeScript,无前端框架、无 UI 组件库;唯一的运行时库是 Chart.js(只按需引入环形图与面积图所需模块,图表接近视口时才懒加载),用于首页账本与成本明细页的图表;样式集中在 `src/styles/global.css`,只有亮色主题(与东北大学官网一致)。
+- 技术栈:Astro 静态站点 + TypeScript,无前端框架、无 UI 组件库;唯一的运行时库是 Chart.js(只按需引入环形图与面积图所需模块,图表接近视口时才懒加载),用于首页账本的图表;样式集中在 `src/styles/global.css`,只有亮色主题(与东北大学官网一致)。
 - 内容提供 HagiLight 支持的 10 种语言(默认显示语言为英文 `en-US`;`zh-CN` 为原文,其余为 AI 辅助译文,以简体中文为准),文案在 `src/locales/`,由 `@hagicode/hagi18n` 审计;金额单位美元,各语言一致。
 - 数据模型:分类 → 项目;每项含 `amount`(`null` 表示待补充)、`unit`(每月/每年/一次性)、可选 `note`、`contributor`、`updated`。
 - 每月合计只统计已填写、非一次性的项目;年费折算为月,一次性费用不计入。

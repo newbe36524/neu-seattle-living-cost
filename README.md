@@ -16,7 +16,7 @@ src/
   locales/<语言>/      # 站点文案:common.yml(通用)、pages.yml(页面)、data.yml(成本项与提供者的文字)
   i18n/index.ts        # 运行时加载:语言清单、t()、路径生成
   layouts/             # 页面布局(含语言切换器与 hreflang)
-  components/          # CostTable 与 components/pages/ 下的页面内容
+  components/          # 首页账本等组件与 components/pages/ 下的页面内容
   pages/index.astro    # 根路径:HagiLight 默认语言引导页,转到 /en-US/
   pages/[lang]/        # index / costs / about 的路由,每种语言在 /<语言>/ 下
   styles/global.css    # 基础样式(含深色模式)
@@ -45,7 +45,7 @@ pnpm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运
 
 ## 投稿(提交我的数据)
 
-首页和「成本明细」页的「提交我的数据」按钮会跳到 GitHub issue 表单
+首页的「提交我的数据」按钮会跳到 GitHub issue 表单
 (`.github/ISSUE_TEMPLATE/submit-data.yml`),表单里每个金额字段对应 `categories.yaml` 的一个成本项。
 
 - 表单由 `scripts/gen-issue-template.mjs` 根据 `categories.yaml` 和 `en-US` 的 `data.yml` 生成,表单只有英文,**不要手改**。
@@ -56,18 +56,19 @@ pnpm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运
 
 ## 通勤时间与提供者建议
 
-除了金额,每份提供者记录还可以带两个可选的非金额字段(见 `profiles/*.yaml` 顶部注释):
+除了金额,每份提供者记录还可以带几个可选的非金额字段(见 `profiles/*.yaml` 顶部注释):
 
-- `commuteMinutes`:住处到校园的单程通勤分钟数。时间也是成本,但不是美元,页面单独显示一行,**不计入任何美元合计**;没提供时显示「待补充」。
+- `housingType`:住房类型,`apartment`(公寓)/ `studio`(单间)/ `shared`(合租)/ `house`(独栋或联排)/ `dorm`(学生宿舍)。显示为带图标的徽标;名称在各语言 `common.yml` 的 `housing.type.<id>`。新增类型要同时改 `src/data/costs.ts` 的 `HOUSING_TYPES`、`Glyph.astro` 的图标、各语言文案和 `scripts/gen-issue-template.mjs` 的下拉选项。
+- `commute`:住处到校园的单程通勤,按行程顺序分段,每段 `{ mode, minutes }`,`mode` 为 `drive`(开车)/ `transit`(公共交通)/ `ferry`(轮渡)/ `walk`(步行);总分钟数由各段相加。页面把它画成「住处 → 各段 → 校园」的路线,每种方式的动效节奏不同。时间也是成本,但不是美元,页面单独显示,**不计入任何美元合计**;没提供时显示「待补充」。
 - `advice`:提供者本人的主观建议,每条 `{ kind, id }`,`kind` 为 `positive`(积极)/ `negative`(消极)/ `neutral`(中性);
-  正文写在各语言 `data.yml` 的 `profiles.<id>.advice.<id>` 下。页面按 积极、消极、中性 的顺序显示,没有建议就不显示这一块。
+  标题(一句话概括)和正文写在各语言 `data.yml` 的 `profiles.<id>.advice.<id>.title` / `.text` 下。页面按 积极、消极、中性 的顺序显示,没有建议就不显示这一块。该区域排在首页合计之后、通勤与各分类明细之前,积极与消极两组并排显示(各带数量)。
 
-投稿表单里对应「通勤时间」和三个「建议」文本框(一行一条),维护者整理时拆成 `advice` 条目。
+投稿表单里对应「住房类型」下拉、按通勤方式分开的四个分钟数输入框(步行/公共交通/轮渡/开车,行程顺序写在备注里)和三个「建议」文本框(一行一条),维护者整理时拆成 `advice` 条目。
 
 ## 多语言
 
 站点提供 HagiLight 支持的全部 10 种语言:`en-US`(默认显示语言)、`zh-CN`、`zh-Hant`、`ja-JP`、`ko-KR`、
-`de-DE`、`fr-FR`、`es-ES`、`pt-BR`、`ru-RU`,页面都在 `/<语言>/` 下,例如 `/en-US/costs/`。根路径 `/` 是 HagiLight 的默认语言引导页(`RootTransit`),稍后自动转到 `/en-US/`,并列出其他语言入口。
+`de-DE`、`fr-FR`、`es-ES`、`pt-BR`、`ru-RU`,页面都在 `/<语言>/` 下,例如 `/en-US/about/`。根路径 `/` 是 HagiLight 的默认语言引导页(`RootTransit`),稍后自动转到 `/en-US/`,并列出其他语言入口。
 
 - 文案只在 `src/locales/<语言>/*.yml`,按 `文件名.键路径` 取用(如 `common.nav.home`)。**简体中文是基准语言**。
 - `hagi18n.yaml` 配置 [`@hagicode/hagi18n`](https://www.npmjs.com/package/@hagicode/hagi18n):`pnpm run i18n:check`
