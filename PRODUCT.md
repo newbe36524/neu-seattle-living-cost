@@ -27,7 +27,7 @@ web
 
 ## Capabilities and Constraints
 - 技术栈:Astro 静态站点 + TypeScript,无前端框架、无 UI 库;样式集中在 `src/styles/global.css`,含系统深色模式。
-- 内容语言为简体中文(`lang="zh-CN"`),金额单位美元。
+- 内容提供 HagiLight 支持的 10 种语言(`zh-CN` 为原文与默认,其余为 AI 辅助译文,以简体中文为准),文案在 `src/locales/`,由 `@hagicode/hagi18n` 审计;金额单位美元,各语言一致。
 - 数据模型:分类 → 项目;每项含 `amount`(`null` 表示待补充)、`unit`(每月/每年/一次性)、可选 `note`、`contributor`、`updated`。
 - 每月合计只统计已填写、非一次性的项目;年费折算为月,一次性费用不计入。
 - 作者个人数据为主,后续可能加入其他同学的资料,届时每条需标注提供者。
