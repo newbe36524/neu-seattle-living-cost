@@ -24,6 +24,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # 站点文案的多语言审计(@hagicode/hagi18n):缺文件、缺键、多余键、占位符不一致都会让它失败。
+      - run: npm run i18n:check
       - run: npm run build
         env:
           # HagiLight 页脚的构建信息;checkout 可能是分离 HEAD,显式给出。

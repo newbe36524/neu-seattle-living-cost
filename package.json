@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
+    "i18n:check": "hagi18n audit",
+    "i18n:sync": "hagi18n sync --from zh-CN",
     "build:nd": "SITE_BASE=/ SITE_URL=http://neu-seattle-living-cost.n.pro npm run build",
     "preview": "astro preview",
     "astro": "astro"
