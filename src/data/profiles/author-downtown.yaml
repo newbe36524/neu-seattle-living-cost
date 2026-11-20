@@ -40,7 +40,7 @@ entries:
   - { items: [phone], amount: 15 }
   - { items: [internet], amount: 10 }
   - { items: [renters-insurance], amount: 10 }
-  - { items: [utilities], amount: 100 }
+  - { items: [utilities], amount: 150 }
   - { items: [groceries, daily-supplies], amount: 500 }
   - { items: [dining-out], amount: 0 }
   - { items: [health], amount: null }
