@@ -17,7 +17,8 @@ src/
   i18n/index.ts        # 运行时加载:语言清单、t()、路径生成
   layouts/             # 页面布局(含语言切换器与 hreflang)
   components/          # CostTable 与 components/pages/ 下的页面内容
-  pages/[...lang]/     # index / costs / about 的路由;默认语言在根路径,其余在 /<语言>/
+  pages/index.astro    # 根路径:HagiLight 默认语言引导页,转到 /en-US/
+  pages/[lang]/        # index / costs / about 的路由,每种语言在 /<语言>/ 下
   styles/global.css    # 基础样式(含深色模式)
 .github/workflows/deploy.yml   # 推送 main 后自动发布 Pages
 ```
@@ -44,8 +45,8 @@ pnpm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运
 
 ## 多语言
 
-站点提供 HagiLight 支持的全部 10 种语言:`zh-CN`(默认,不带前缀)、`zh-Hant`、`en-US`、`ja-JP`、`ko-KR`、
-`de-DE`、`fr-FR`、`es-ES`、`pt-BR`、`ru-RU`,页面在 `/<语言>/` 下,例如 `/en-US/costs/`。
+站点提供 HagiLight 支持的全部 10 种语言:`en-US`(默认显示语言)、`zh-CN`、`zh-Hant`、`ja-JP`、`ko-KR`、
+`de-DE`、`fr-FR`、`es-ES`、`pt-BR`、`ru-RU`,页面都在 `/<语言>/` 下,例如 `/en-US/costs/`。根路径 `/` 是 HagiLight 的默认语言引导页(`RootTransit`),稍后自动转到 `/en-US/`,并列出其他语言入口。
 
 - 文案只在 `src/locales/<语言>/*.yml`,按 `文件名.键路径` 取用(如 `common.nav.home`)。**简体中文是基准语言**。
 - `hagi18n.yaml` 配置 [`@hagicode/hagi18n`](https://www.npmjs.com/package/@hagicode/hagi18n):`pnpm run i18n:check`
