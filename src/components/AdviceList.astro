@@ -1,0 +1,29 @@
+---
+/** 提供者本人的主观建议:积极 / 消极 / 中性三类。没有建议就不渲染。类别用文字标签 + 符号区分,不只靠颜色。 */
+import type { LedgerProfile } from '../data/ledger';
+import { createT, type Locale } from '../i18n';
+
+interface Props {
+  ledger: LedgerProfile;
+  locale: Locale;
+}
+
+const { ledger, locale } = Astro.props;
+const t = createT(locale);
+const glyph = { positive: '+', negative: '−', neutral: '○' } as const;
+---
+
+{ledger.advice.length > 0 && (
+  <section class="advice" aria-labelledby={`advice-${ledger.id}`}>
+    <h3 id={`advice-${ledger.id}`}>{t('common.advice.heading')}</h3>
+    <p class="muted">{t('common.advice.intro', { contributor: ledger.contributor })}</p>
+    <ul class="advice-list">
+      {ledger.advice.map((a) => (
+        <li data-kind={a.kind}>
+          <span class="advice-kind"><span aria-hidden="true">{glyph[a.kind]}</span> {t(`common.advice.${a.kind}`)}</span>
+          <span>{a.text}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

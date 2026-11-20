@@ -96,3 +96,7 @@ profiles:
       bed-frame: "{{estimate}} : prix courant d'un cadre de lit plateforme en métal"
       wardrobe: "{{estimate}} : armoire simple en tissu, prix courants d'environ $25–30"
       monitor: "{{estimate}} : 27 pouces 4K ; les modèles Philips comparables coûtent couramment environ $200–270"
+    advice:
+      close-to-campus: "Très proche du campus : il suffit de 3 minutes pour rejoindre n'importe quel endroit du campus, d'où largement le temps de profiter de presque toute la vie du campus et de tous les cours."
+      time-saved: "Aucun temps perdu en trajet : par rapport à un logement plus éloigné, on économise au moins une heure de transport chaque jour."
+      far-supermarkets: "Les grands supermarchés sont plutôt loin, sauf Target. Whole Foods est aussi proche, mais ses prix sont relativement élevés ; Trader Joe's et Walmart sont plus éloignés. Pour Walmart, le contributeur commande généralement en ligne et se fait livrer."

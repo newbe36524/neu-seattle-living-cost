@@ -24,3 +24,17 @@ status:
   bundled: "Incluído no item agrupado {{amount}}"
 estimateNote: Estimativa (preços comuns na Amazon, não é gasto real)
 listSeparator: ", "
+submit:
+  button: Enviar meus dados
+  hint: "Abre um formulário no GitHub; é necessária uma conta do GitHub."
+  newTab: "abre em nova aba"
+commute:
+  label: "Tempo de deslocamento"
+  value: "Cerca de {{minutes}} min por trajeto"
+  hint: "Tempo também é custo: quanto menor o trajeto, mais folga sobra para a vida no campus e para as atividades da região. Este valor não entra nos totais em dólares."
+advice:
+  heading: "Conselhos do colaborador"
+  intro: "Estas são as impressões e opiniões pessoais de {{contributor}}, não conclusões estatísticas."
+  positive: "Positivo"
+  negative: "Negativo"
+  neutral: "Neutro"

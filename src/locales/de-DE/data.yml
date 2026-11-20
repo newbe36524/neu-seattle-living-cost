@@ -96,3 +96,7 @@ profiles:
       bed-frame: "{{estimate}}: üblicher Preis für ein Plattform-Bettgestell aus Metall"
       wardrobe: "{{estimate}}: einfacher Stoffkleiderschrank, übliche Preise etwa $25–30"
       monitor: "{{estimate}}: 27 Zoll, 4K; vergleichbare Philips-Modelle kosten üblicherweise etwa $200–270"
+    advice:
+      close-to-campus: "Sehr nah am Campus: Jeder Ort auf dem Campus ist in nur 3 Minuten erreichbar, daher bleibt genug Zeit für fast das gesamte Campusleben und alle Lehrveranstaltungen."
+      time-saved: "Kein Zeitaufwand fürs Pendeln: Im Vergleich zu einer weiter entfernten Wohnung spart man jeden Tag mindestens eine Stunde Fahrzeit."
+      far-supermarkets: "Große Supermärkte sind recht weit entfernt, außer Target. Whole Foods ist ebenfalls nah, aber vergleichsweise teuer; Trader Joe's und Walmart liegen weiter weg. Bei Walmart bestellt die Person in der Regel nur online und lässt sich liefern."

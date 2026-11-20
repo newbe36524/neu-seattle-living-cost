@@ -1,0 +1,20 @@
+# 图表(每月占比环、年度累计图)的文案。基准语言为简体中文。
+share:
+  heading: "每月开销占比"
+  center: "每月合计"
+  note: "按分类统计已填写的每月项目(年费折算为月);一次性费用不计入。"
+  tooltip: "{{label}}:{{amount}} · {{percent}}%"
+year:
+  heading: "{{months}} 个月累计开销"
+  first: "第一个月要备"
+  monthly: "之后每月"
+  grand: "{{months}} 个月合计"
+  once: "一次性费用"
+  recurring: "每月开销累计"
+  estimate: "搬入采购估算"
+  axisMonth: "第几个月"
+  tooltipTitleStart: "搬入时"
+  tooltipTitle: "第 {{month}} 个月"
+  tooltipTotal: "累计 {{amount}}"
+  note: "假设一次性费用在搬入时一次付清;每月开销按已填写的数字逐月累加,不含待补充的项目。"
+  alt: "{{months}} 个月累计开销曲线:搬入时 {{upfront}},此后每月增加 {{monthly}},{{months}} 个月合计 {{grand}}。"

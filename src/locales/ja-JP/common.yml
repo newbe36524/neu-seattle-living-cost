@@ -24,3 +24,17 @@ status:
   bundled: "まとめ項目に含む {{amount}}"
 estimateNote: 概算(Amazon の一般的な価格帯。実際の支出ではありません)
 listSeparator: "、"
+submit:
+  button: 自分のデータを送る
+  hint: "GitHub のフォームが開きます。GitHub アカウントが必要です。"
+  newTab: "新しいタブで開きます"
+commute:
+  label: "通勤時間"
+  value: "片道およそ {{minutes}} 分"
+  hint: "時間もコストです。通勤が短いほど、キャンパスでの活動や周辺での活動に参加する余裕が生まれます。この項目はドル建ての合計には含まれません。"
+advice:
+  heading: "提供者のアドバイス"
+  intro: "以下は{{contributor}}本人の主観的な感想と評価であり、統計的な結論ではありません。"
+  positive: "ポジティブ"
+  negative: "ネガティブ"
+  neutral: "中立"

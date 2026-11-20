@@ -7,6 +7,11 @@
  * 所有数字来自 src/data(经 ledger.ts);组件不产生、不估算任何金额。
  */
 import { ledgersFor, periodTotal, DEFAULT_MONTHS, type LedgerLine, type LedgerProfile } from '../data/ledger';
+import ShareChart from './ShareChart.astro';
+import YearChart from './YearChart.astro';
+import SubmitDataLink from './SubmitDataLink.astro';
+import CommuteLine from './CommuteLine.astro';
+import AdviceList from './AdviceList.astro';
 import { createT, localePath, type Locale } from '../i18n';
 
 interface Props {
@@ -66,6 +71,7 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
         ? t('ledger.picker.noteOne')
         : t('ledger.picker.noteMany', { count: ledgers.length })}
     </p>
+    <SubmitDataLink locale={locale} />
   </fieldset>
 
   {ledgers.map((p, pi) => {
@@ -99,6 +105,10 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
         <p class="edit-hint muted" data-js-only hidden>
           {t('ledger.hero.hint')}
         </p>
+
+        <CommuteLine ledger={p} locale={locale} />
+
+        <ShareChart ledger={p} locale={locale} />
 
         {p.groups.map((g) => (
           <details class="group" open={g.recurring}>
@@ -188,6 +198,8 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
             )}
           </div>
 
+          <YearChart ledger={p} locale={locale} />
+
           <div class="sum-line">
             <span class="sum-label" data-monthly-times>{t('ledger.settle.monthlyTimes', { months: DEFAULT_MONTHS })}</span>
             <span class="sum-leader" aria-hidden="true"></span>
@@ -214,6 +226,8 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
             {t('ledger.settle.note')} {p.pendingRecurring.length > 0 && <span data-settle-pending>{t('ledger.settle.pendingMonthly', { count: p.pendingRecurring.length })}</span>}
           </p>
         </div>
+
+        <AdviceList ledger={p} locale={locale} />
 
         <p class="provenance muted">
           {t('ledger.source.text', { contributor: p.contributor, area: p.area, updated: p.updated })}
@@ -401,6 +415,10 @@ const hasEstimate = (p: LedgerProfile) => p.oneTime.estimate > 0;
         estLine.classList.toggle('is-off', !includeEst);
         q(p, '[data-estimate-note]')!.textContent = T('ledger.settle.estimateNote', { state: T(includeEst ? 'ledger.settle.included' : 'ledger.settle.excluded') });
       }
+
+      // 图表只读这一份状态(见 src/scripts/charts.ts):先存下来再通知,晚加载的图表也能取到
+      p.dataset.live = JSON.stringify({ groups: Object.fromEntries(groupSub), once, estimate, includeEstimate: includeEst, months });
+      p.dispatchEvent(new CustomEvent('ledger:state'));
 
       const bar = q(p, '[data-bar]')!;
       if (monthly === 0) bar.setAttribute('data-empty', '');

@@ -1,0 +1,26 @@
+---
+/** 通勤时间:住处到校园的单程分钟数。时间也是成本,但不是美元,所以单独一行,不进任何合计。 */
+import type { LedgerProfile } from '../data/ledger';
+import { createT, type Locale } from '../i18n';
+
+interface Props {
+  ledger: LedgerProfile;
+  locale: Locale;
+}
+
+const { ledger, locale } = Astro.props;
+const t = createT(locale);
+---
+
+<div class="commute">
+  <div class="sum-line">
+    <span class="sum-label">{t('common.commute.label')}</span>
+    <span class="sum-leader" aria-hidden="true"></span>
+    <span class="sum-value">
+      {ledger.commuteMinutes === null
+        ? <span class="pending">{t('common.status.pending')}</span>
+        : t('common.commute.value', { minutes: ledger.commuteMinutes })}
+    </span>
+  </div>
+  <p class="muted commute-note">{t('common.commute.hint')}</p>
+</div>

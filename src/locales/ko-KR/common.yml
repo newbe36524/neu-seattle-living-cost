@@ -24,3 +24,17 @@ status:
   bundled: "묶음 항목에 포함 {{amount}}"
 estimateNote: 추정(Amazon 일반 가격대 기준, 실제 지출 아님)
 listSeparator: ", "
+submit:
+  button: 내 데이터 제출하기
+  hint: "GitHub 양식이 열립니다. GitHub 계정이 필요합니다."
+  newTab: "새 탭에서 열림"
+commute:
+  label: "통학 시간"
+  value: "편도 약 {{minutes}}분"
+  hint: "시간도 비용입니다. 통학 시간이 짧을수록 캠퍼스 활동과 주변 활동에 참여할 여유가 생깁니다. 이 항목은 달러 합계에 포함되지 않습니다."
+advice:
+  heading: "제공자의 조언"
+  intro: "아래는 {{contributor}} 본인의 주관적인 느낌과 평가이며 통계적 결론이 아닙니다."
+  positive: "긍정"
+  negative: "부정"
+  neutral: "중립"

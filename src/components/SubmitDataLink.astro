@@ -1,0 +1,16 @@
+---
+/** 「提交我的数据」:跳到 GitHub issue 表单,不需要站内后端。 */
+import { createT, type Locale } from '../i18n';
+import { submitDataUrl } from '../site';
+
+interface Props {
+  locale: Locale;
+}
+
+const t = createT(Astro.props.locale);
+---
+
+<p class="submit-data">
+  <a class="btn" href={submitDataUrl} target="_blank" rel="noopener">{t('common.submit.button')}<span class="sr-only"> ({t('common.submit.newTab')})</span></a>
+  <span class="muted">{t('common.submit.hint')}</span>
+</p>

@@ -24,3 +24,17 @@ status:
   bundled: "Im Sammelposten enthalten {{amount}}"
 estimateNote: Schätzung (übliche Amazon-Preise, keine tatsächlichen Ausgaben)
 listSeparator: ", "
+submit:
+  button: Meine Daten einreichen
+  hint: "Öffnet ein Formular auf GitHub; ein GitHub-Konto ist erforderlich."
+  newTab: "öffnet in neuem Tab"
+commute:
+  label: "Pendelzeit"
+  value: "Etwa {{minutes}} Min. pro Strecke"
+  hint: "Zeit ist auch ein Kostenfaktor: Je kürzer der Weg, desto mehr Spielraum bleibt für das Campusleben und Aktivitäten in der Umgebung. Dieser Wert ist in den Dollar-Summen nicht enthalten."
+advice:
+  heading: "Empfehlungen der Datengeberin bzw. des Datengebers"
+  intro: "Das sind die persönlichen Eindrücke und Einschätzungen von {{contributor}}, keine statistischen Schlussfolgerungen."
+  positive: "Positiv"
+  negative: "Negativ"
+  neutral: "Neutral"

@@ -107,6 +107,13 @@ input { caret-color: var(--accent); }
 .picker-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
 .picker-note { margin: 0.75rem 0 0; font-size: 0.9rem; }
 
+.submit-data { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin: 1rem 0 0; font-size: 0.9rem; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 2.5rem; padding: 0 1rem; border: 1px solid var(--accent);
+  border-radius: 0.5rem; background: var(--accent); color: var(--accent-fg); font-weight: 600; text-decoration: none;
+}
+.btn:hover { background: var(--accent-wash); color: var(--accent); }
+
 .pick { position: relative; display: block; cursor: pointer; }
 .pick input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
 .pick-body {
@@ -220,6 +227,20 @@ input { caret-color: var(--accent); }
 .settle-note { margin: 0.5rem 0 0; font-size: 0.9rem; }
 .provenance { margin: 2rem 0 0; font-size: 0.9rem; }
 
+/* 通勤时间(时间成本,不计入美元合计)与提供者的主观建议 */
+.commute { margin: 1.25rem 0 0; }
+.commute-note { margin: 0; font-size: 0.9rem; }
+.advice { margin: 2rem 0 0; }
+.advice h3 { margin: 0 0 0.25rem; }
+.advice > .muted { margin: 0 0 0.75rem; font-size: 0.9rem; }
+.advice-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.advice-list li { display: grid; gap: 0.15rem 0.75rem; grid-template-columns: 5.5rem 1fr; align-items: baseline; padding: 0.6rem 0.75rem; background: var(--card); border: 1px solid var(--border); border-left-width: 4px; }
+.advice-list li[data-kind='positive'] { border-left-color: var(--fg); }
+.advice-list li[data-kind='negative'] { border-left-color: var(--accent); }
+.advice-list li[data-kind='neutral'] { border-left-style: dashed; border-left-color: var(--muted); }
+.advice-kind { font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+@media (max-width: 36rem) { .advice-list li { grid-template-columns: 1fr; } }
+
 .dock {
   position: fixed; inset: auto 0 0 0; z-index: 10; background: var(--bg); border-top: 3px solid var(--accent);
   padding: 0.6rem 0 calc(0.6rem + env(safe-area-inset-bottom)); transform: translateY(100%); visibility: hidden;
@@ -239,5 +260,78 @@ input { caret-color: var(--accent); }
 }
 
 @media print {
-  .dock, .picker-note, .edit-hint, .link-button, .stepper button { display: none !important; }
+  .dock, .picker-note, .edit-hint, .link-button, .stepper button, .submit-data { display: none !important; }
+}
+
+/* ───────── 图表:每月占比环 + 年度累计图(Chart.js 只负责画布,颜色与版式都在这里) ───────── */
+:root {
+  /* 分类色阶:NU Red 与品牌中性色交替,相邻色块靠 2px 白缝与直接标注区分。src/scripts/charts.ts 里有同一套公式 */
+  --cat-0: var(--accent);
+  --cat-1: color-mix(in srgb, var(--accent) 55%, var(--bg));
+  --cat-2: var(--muted);
+  --cat-3: color-mix(in srgb, var(--muted) 50%, var(--bg));
+  --cat-4: color-mix(in srgb, var(--accent) 30%, var(--bg));
+  --cat-5: color-mix(in srgb, var(--muted) 28%, var(--bg));
+}
+
+.chart-card {
+  container-type: inline-size; margin: 0;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem 1.25rem;
+}
+.chart-card h3 { margin: 0 0 0.75rem; font-size: 1.17rem; }
+.chart-note { margin: 0.75rem 0 0; font-size: 0.9rem; }
+.ledger > .chart-card { margin-top: 1.5rem; }
+.settle .chart-card { margin: 0.75rem 0 1rem; }
+.charts { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); margin: 1rem 0 1.5rem; }
+.chart-card[data-failed] .donut, .chart-card[data-failed] .year-plot, .chart-card[data-failed] .legend-inline { display: none; }
+
+.share-body { display: grid; gap: 1.25rem; align-items: center; }
+@container (min-width: 32rem) {
+  .share-body { grid-template-columns: 13rem minmax(0, 1fr); gap: 2rem; }
+}
+
+.donut { position: relative; width: min(100%, 13rem); aspect-ratio: 1; margin-inline: auto; }
+.donut canvas { position: relative; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 0.3s ease; }
+.donut[data-ready] canvas { opacity: 1; }
+.donut-ring { position: absolute; inset: 6px; border-radius: 50%; border: 1.35rem solid var(--card); transition: opacity 0.3s ease; }
+.donut[data-ready] .donut-ring { opacity: 0; }
+.donut-center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; pointer-events: none; line-height: 1.25; }
+.donut-center span { font-size: 0.9rem; }
+.donut-center strong { font-size: 1.5rem; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+.legend { list-style: none; margin: 0; padding: 0; }
+.legend li {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto 3.5ch; column-gap: 0.6rem; row-gap: 0.3rem; align-items: baseline;
+  padding: 0.55rem 0 0.6rem; border-bottom: 1px solid var(--border); transition: opacity 0.18s ease;
+}
+.legend li:last-child { border-bottom: 0; }
+.lg-swatch { width: 0.75rem; height: 0.75rem; background: var(--cat, var(--accent)); transform: translateY(0.05em); }
+.lg-name { font-weight: 600; }
+.lg-amount, .lg-pct { font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.lg-pct { font-weight: 700; }
+.lg-bar { grid-column: 2 / -1; height: 0.4rem; background: var(--card); }
+.lg-bar::before { content: ''; display: block; height: 100%; width: max(var(--w, 0%), var(--m, 0px)); background: var(--cat, var(--accent)); transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.share[data-has-on] .legend li:not([data-on]) { opacity: 0.45; }
+.legend li[data-on] .lg-name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+
+.year-stats { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; margin: 0 0 0.75rem; }
+.year-stats div { display: grid; gap: 0; }
+.year-stats dt { font-size: 0.9rem; color: var(--muted); }
+.year-stats dd { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.3; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.legend-inline { display: flex; flex-wrap: wrap; gap: 0.15rem 1.25rem; list-style: none; margin: 0 0 0.5rem; padding: 0; font-size: 0.9rem; color: var(--muted); }
+.legend-inline li { display: inline-flex; gap: 0.45rem; align-items: center; }
+.legend-inline .lg-swatch { transform: none; box-sizing: border-box; }
+.lg-swatch.is-once { background: color-mix(in srgb, var(--muted) 22%, var(--bg)); border: 1.5px solid var(--muted); }
+.lg-swatch.is-estimate { background: color-mix(in srgb, var(--muted) 10%, var(--bg)); border: 1.5px dashed var(--muted); }
+.lg-swatch.is-recurring { background: color-mix(in srgb, var(--accent) 18%, var(--bg)); border: 2px solid var(--accent); }
+.year-plot { position: relative; height: 16rem; }
+.year-plot canvas { max-width: 100%; }
+
+@media (max-width: 30rem) {
+  .chart-card { padding: 1rem; }
+  .year-plot { height: 14rem; }
+  .year-stats dd { font-size: 1.17rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .donut canvas, .donut-ring, .legend li, .lg-bar::before { transition: none; }
 }

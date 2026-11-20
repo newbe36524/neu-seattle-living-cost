@@ -1,0 +1,144 @@
+// 由成本项定义生成 GitHub issue 表单:.github/ISSUE_TEMPLATE/submit-data.yml
+//
+// 表单里的每个金额字段对应 src/data/categories.yaml 里的一个项目,名称与说明取自 en-US 的 data.yml,
+// 所以新增成本项后只需重新运行本脚本,表单就跟着更新,不会和站点数据脱节。
+//   pnpm run issue-template           写入模板
+//   pnpm run issue-template -- --check  只检查是否已是最新(CI 使用)
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parse, stringify } from 'yaml';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const read = (p) => readFileSync(resolve(root, p), 'utf8');
+const categories = parse(read('src/data/categories.yaml'));
+const en = parse(read('src/locales/en-US/data.yml'));
+const outPath = resolve(root, '.github/ISSUE_TEMPLATE/submit-data.yml');
+
+const unitText = { month: 'per month', year: 'per year', 'one-time': 'one-time' };
+
+const md = (value) => ({ type: 'markdown', attributes: { value } });
+const input = (id, label, description, placeholder, required = false) => ({
+  type: 'input',
+  id,
+  attributes: { label, description, ...(placeholder ? { placeholder } : {}) },
+  validations: { required },
+});
+
+const body = [
+  md(
+    [
+      'Thanks for sharing what you actually pay in Seattle! A maintainer will review your submission and turn it into a new reference data set, credited to your nickname and the month it was collected.',
+      '',
+      '**Ground rules**',
+      '- Fill in what you **actually paid** (USD). Leave unknown items **blank**; the site shows them as "To be added". Please do not guess.',
+      '- If you only know a combined total, put it in one field and say which items it covers in the notes at the end.',
+      '- **This issue is public.** Do not include your real name, email, phone number, exact address or lease text.',
+    ].join('\n'),
+  ),
+  input('contributor', 'Display name', 'Shown on the site; a nickname or "anonymous student" is fine.', 'e.g. Anonymous student', true),
+  input('area', 'Area', 'Neighbourhood level only, no street number.', 'Downtown Seattle / Capitol Hill / Bellevue ...', true),
+  input('updated', 'Month of the data', 'Format YYYY-MM: the month these amounts refer to.', '2026-11', true),
+  {
+    type: 'textarea',
+    id: 'summary',
+    attributes: {
+      label: 'Living situation',
+      description: 'Unit type, roommates, lease length, car or not, in a sentence or two.',
+      placeholder: 'Studio, living alone, 12-month lease, no car',
+    },
+    validations: { required: true },
+  },
+  {
+    type: 'dropdown',
+    id: 'basis',
+    attributes: {
+      label: 'Where do the numbers come from',
+      description: 'Estimates are labelled separately on the site and never mixed with actual spending.',
+      options: ['All amounts are what I actually paid', 'Some are estimates, explained in the notes'],
+    },
+    validations: { required: true },
+  },
+];
+
+for (const cat of categories) {
+  body.push(md(`## ${en.categories[cat.id].title}\n${en.categories[cat.id].description}`));
+  for (const item of cat.items) {
+    const hint = en.items[item.id].hint;
+    body.push(
+      input(
+        item.id,
+        `${en.items[item.id].label} (USD)`,
+        `${unitText[item.unit]}${hint ? ` · ${hint}` : ''}`,
+        'e.g. 100; leave blank if unknown',
+      ),
+    );
+  }
+}
+
+const adviceBox = (kind, label, description) => ({
+  type: 'textarea',
+  id: `advice-${kind}`,
+  attributes: { label, description },
+  validations: { required: false },
+});
+
+body.push(
+  md('## Commute time'),
+  input(
+    'commute',
+    'Commute time (minutes, one way)',
+    'Minutes one way from home to campus. Time is a cost too: the site shows it on its own line and does not add it to the dollar totals.',
+    'e.g. 3; leave blank if unknown',
+  ),
+  md('## Your advice\nYour own impressions of living here. They are subjective and every box may be left blank. Write one point per line.'),
+  adviceBox('positive', 'Positives', 'What you like about living here.'),
+  adviceBox('negative', 'Negatives', 'What is inconvenient or disappointing.'),
+  adviceBox('neutral', 'Neutral observations', 'Neither good nor bad, but worth knowing or a trade-off to be aware of.'),
+  md('## Notes and consent'),
+  {
+    type: 'textarea',
+    id: 'notes',
+    attributes: {
+      label: 'Notes',
+      description: 'Which items a combined total covers, which numbers are estimates and why, any other assumptions.',
+    },
+    validations: { required: false },
+  },
+  {
+    type: 'checkboxes',
+    id: 'consent',
+    attributes: {
+      label: 'Confirmation',
+      options: [
+        { label: 'I agree this data may be published on the site under the nickname above, and it contains no private personal information.', required: true },
+      ],
+    },
+  },
+);
+
+const template = {
+  name: 'Submit my data',
+  description: 'Share what you actually pay in Seattle to add a reference data set.',
+  title: '[Data] ',
+  labels: ['data-submission'],
+  body,
+};
+
+const header =
+  '# Generated by scripts/gen-issue-template.mjs from src/data/categories.yaml and src/locales/en-US/data.yml. Do not edit by hand.\n' +
+  '# After changing cost items, run: pnpm run issue-template\n';
+const output = header + stringify(template, { lineWidth: 0 });
+
+if (process.argv.includes('--check')) {
+  const current = existsSync(outPath) ? readFileSync(outPath, 'utf8') : '';
+  if (current !== output) {
+    console.error('[issue-template] .github/ISSUE_TEMPLATE/submit-data.yml 不是最新:运行 pnpm run issue-template 并提交。');
+    process.exit(1);
+  }
+  console.log('[issue-template] 已是最新。');
+} else {
+  mkdirSync(dirname(outPath), { recursive: true });
+  writeFileSync(outPath, output);
+  console.log(`[issue-template] 已写入 ${outPath}`);
+}

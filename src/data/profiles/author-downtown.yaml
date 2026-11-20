@@ -10,9 +10,21 @@
 #   basis   reported(提供者所报,默认)或 estimate(参考价格估算,非实际支出,页面会标「估算」)。
 #   备注    写在 data.yml 的 profiles.<id>.notes.<该条 items 的第一个项目 id>;estimate 条目没写备注时
 #           显示通用的「估算(…非实际支出)」。
+#
+# 除金额外还有两个可选的非金额字段(没提供就不写,页面会显示「待补充」或不显示):
+#   commuteMinutes  从住处到校园的单程通勤分钟数(时间也是成本)。
+#   advice          提供者本人的主观建议,每条 { kind, id }:kind 为 positive(积极)/ negative(消极)/ neutral(中性),
+#                   正文在 data.yml 的 profiles.<id>.advice.<id>。这是个人感受,不是统计结论。
 
 id: author-downtown
 updated: "2026-11"
+
+commuteMinutes: 3
+
+advice:
+  - { kind: positive, id: close-to-campus }
+  - { kind: positive, id: time-saved }
+  - { kind: negative, id: far-supermarkets }
 
 entries:
   - { items: [rent], amount: 1600 }

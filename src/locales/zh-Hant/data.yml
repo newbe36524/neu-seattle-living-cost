@@ -96,3 +96,7 @@ profiles:
       bed-frame: "{{estimate}}:金屬平台床架的常見價位"
       wardrobe: "{{estimate}}:簡易布衣櫃,常見價位約 $25–30"
       monitor: "{{estimate}}:27 吋 4K,Philips 同級型號常見價位約 $200–270"
+    advice:
+      close-to-campus: "距離校園非常近,只要短短 3 分鐘就能到達校園的任何區域,因此有足夠的時間參加幾乎所有的校園生活和所有的校園課程。"
+      time-saved: "沒有通勤的時間成本:相比住得較遠的情況,每天至少可以省下一個小時的交通時間。"
+      far-supermarkets: "離大型超市比較遠,除了 Target 之外都不近。Whole Foods 也很近,但價格相對高一些;Trader Joe's 和 Walmart 就更遠一些。Walmart 通常只在線上下單、送貨到府。"

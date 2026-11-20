@@ -45,6 +45,15 @@ export interface CostEntry {
   basis?: 'reported' | 'estimate';
 }
 
+export const ADVICE_KINDS = ['positive', 'negative', 'neutral'] as const;
+export type AdviceKind = (typeof ADVICE_KINDS)[number];
+
+/** 提供者的一条主观建议;正文在 data.yml 的 profiles.<id>.advice.<id>。 */
+export interface AdviceEntry {
+  kind: AdviceKind;
+  id: string;
+}
+
 /** 一位数据提供者及其生活情境 */
 export interface Profile {
   /** 来源文件(加载时自动填入,不写在 YAML 里) */
@@ -53,6 +62,10 @@ export interface Profile {
   /** 数据采集时间,YYYY-MM */
   updated: string;
   entries: CostEntry[];
+  /** 住处到校园的单程通勤分钟数;没提供就缺省(页面显示「待补充」) */
+  commuteMinutes?: number;
+  /** 提供者本人的主观建议(积极/消极/中性),没有就缺省 */
+  advice?: AdviceEntry[];
 }
 
 const categoryFiles = import.meta.glob('./categories.yaml', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
@@ -119,6 +132,19 @@ function validate() {
     if (!isStr(p.updated) || !/^\d{4}-(0[1-9]|1[0-2])$/.test(p.updated))
       fail(where, `updated 应为带引号的 "YYYY-MM":${JSON.stringify(p.updated)}`);
     if (!Array.isArray(p.entries)) fail(where, 'entries 应为列表');
+    if (p.commuteMinutes !== undefined && !(typeof p.commuteMinutes === 'number' && Number.isFinite(p.commuteMinutes) && p.commuteMinutes >= 0))
+      fail(where, `commuteMinutes 应为非负数字(分钟):${JSON.stringify(p.commuteMinutes)}`);
+    if (p.advice !== undefined) {
+      if (!Array.isArray(p.advice)) fail(where, 'advice 应为列表');
+      const adviceIds = new Set<string>();
+      for (const a of p.advice!) {
+        if (!ADVICE_KINDS.includes(a?.kind) || !isStr(a?.id))
+          fail(where, `advice 每条需要 kind(${ADVICE_KINDS.join('/')})和 id:${JSON.stringify(a)}`);
+        if (adviceIds.has(a.id)) fail(where, `advice id "${a.id}" 重复`);
+        adviceIds.add(a.id);
+        needText(where, `data.profiles.${p.id}.advice.${a.id}`);
+      }
+    }
 
     const seen = new Set<string>();
     for (const e of p.entries) {

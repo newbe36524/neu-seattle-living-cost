@@ -24,3 +24,17 @@ status:
   bundled: "Included in bundled amount {{amount}}"
 estimateNote: Estimate (typical Amazon prices, not actual spending)
 listSeparator: ", "
+submit:
+  button: Submit my data
+  hint: "Opens a form on GitHub; a GitHub account is required."
+  newTab: "opens in a new tab"
+commute:
+  label: "Commute time"
+  value: "About {{minutes}} min one way"
+  hint: "Time is a cost too: a shorter commute leaves more room for campus life and activities around town. This is not included in the dollar totals."
+advice:
+  heading: "Contributor's advice"
+  intro: "These are {{contributor}}'s own impressions and opinions, not statistical conclusions."
+  positive: "Positive"
+  negative: "Negative"
+  neutral: "Neutral"

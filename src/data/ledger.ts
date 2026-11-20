@@ -8,7 +8,7 @@
  * 所有文字(项目名、说明、分类名、提供者信息)按 locale 从 src/locales 取;locale 缺省为默认语言。
  */
 
-import { categories, profiles, monthlyTotal, oneTimeTotal, entryNote, unitLabel, type CostUnit, type Profile } from './costs';
+import { categories, profiles, monthlyTotal, oneTimeTotal, entryNote, unitLabel, ADVICE_KINDS, type AdviceKind, type CostUnit, type Profile } from './costs';
 import { createT, defaultLocale, hasMessage, type Locale } from '../i18n';
 
 export interface LedgerLine {
@@ -34,6 +34,11 @@ export interface LedgerGroup {
   recurring: boolean;
 }
 
+export interface LedgerAdvice {
+  kind: AdviceKind;
+  text: string;
+}
+
 export interface LedgerProfile {
   id: string;
   contributor: string;
@@ -47,6 +52,10 @@ export interface LedgerProfile {
   pendingRecurring: string[];
   /** 一次性费用:所报 vs 估算 */
   oneTime: { reported: number; estimate: number };
+  /** 住处到校园的单程通勤分钟数;null = 待补充。时间成本,不计入任何美元合计 */
+  commuteMinutes: number | null;
+  /** 提供者的主观建议,按 积极、消极、中性 排序(同类保持 YAML 里的顺序) */
+  advice: LedgerAdvice[];
 }
 
 export { unitLabel };
@@ -102,6 +111,10 @@ export function buildLedger(profile: Profile, locale: Locale = defaultLocale): L
     monthly: total,
     pendingRecurring: pending.map((id) => t(`data.items.${id}.label`)),
     oneTime: oneTimeTotal(profile),
+    commuteMinutes: profile.commuteMinutes ?? null,
+    advice: ADVICE_KINDS.flatMap((kind) =>
+      (profile.advice ?? []).filter((a) => a.kind === kind).map((a) => ({ kind, text: t(`data.profiles.${profile.id}.advice.${a.id}`) })),
+    ),
   };
 }
 

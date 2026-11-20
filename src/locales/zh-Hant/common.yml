@@ -24,3 +24,17 @@ status:
   bundled: "含於合併項 {{amount}}"
 estimateNote: 估算(Amazon 常見價位,非實際支出)
 listSeparator: "、"
+submit:
+  button: 提交我的資料
+  hint: "在 GitHub 上開啟表單提交,需要 GitHub 帳號。"
+  newTab: "在新分頁開啟"
+commute:
+  label: "通勤時間"
+  value: "單程約 {{minutes}} 分鐘"
+  hint: "時間也是成本:通勤越短,越有餘力參加校園活動和周邊活動。這一項不計入美元合計。"
+advice:
+  heading: "提供者的建議"
+  intro: "以下是{{contributor}}本人的主觀感受與評價,不是統計結論。"
+  positive: "積極"
+  negative: "消極"
+  neutral: "中性"

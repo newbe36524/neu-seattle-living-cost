@@ -1,0 +1,65 @@
+---
+/**
+ * 年度累计开销:三个关键数字 + 堆叠面积图(搬入时一次性费用 + 逐月累加的每月开销)。
+ *
+ * 数据里没有逐月数字,所以这里画的是累计曲线,不是逐月柱状图(每月都一样,画出来只会误导)。
+ * 没有 JS 时三个数字和说明文字就是完整的答案;图由 Chart.js 在进入视口后才加载。
+ */
+import { chartStateOf, yearFigures } from '../data/charts';
+import type { LedgerProfile } from '../data/ledger';
+import { DEFAULT_MONTHS } from '../data/ledger';
+import { createT, type Locale } from '../i18n';
+
+interface Props {
+  ledger: LedgerProfile;
+  locale: Locale;
+  /** 总月数可由用户在账本里调整(首页);成本明细页固定为默认值 */
+  months?: number;
+}
+
+const { ledger, locale, months = DEFAULT_MONTHS } = Astro.props;
+const t = createT(locale);
+const state = chartStateOf(ledger, months);
+const fig = yearFigures(state);
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const money = (n: number) => usd.format(Math.round(n));
+const headingId = `year-${ledger.id}`;
+const clientKeys = [
+  'charts.year.heading', 'charts.year.grand', 'charts.year.once', 'charts.year.recurring', 'charts.year.estimate',
+  'charts.year.axisMonth', 'charts.year.tooltipTitleStart', 'charts.year.tooltipTitle', 'charts.year.tooltipTotal', 'charts.year.alt',
+];
+const i18n = Object.fromEntries(clientKeys.map((k) => [k, t(k)]));
+const alt = t('charts.year.alt', { months, upfront: money(state.once), monthly: money(fig.monthly), grand: money(fig.grand) });
+---
+
+<section class="chart-card year" data-year data-chart={JSON.stringify(state)} data-i18n={JSON.stringify(i18n)} aria-labelledby={headingId}>
+  <h3 id={headingId} data-year-heading>{t('charts.year.heading', { months })}</h3>
+  <dl class="year-stats">
+    <div>
+      <dt>{t('charts.year.first')}</dt>
+      <dd data-y="first">{money(fig.first)}</dd>
+    </div>
+    <div>
+      <dt>{t('charts.year.monthly')}</dt>
+      <dd data-y="monthly">{money(fig.monthly)}</dd>
+    </div>
+    <div>
+      <dt data-y-grand-label>{t('charts.year.grand', { months })}</dt>
+      <dd data-y="grand">{money(fig.grand)}</dd>
+    </div>
+  </dl>
+  <ul class="legend-inline" aria-hidden="true">
+    <li><span class="lg-swatch is-once"></span>{t('charts.year.once')}</li>
+    <li data-legend-estimate hidden><span class="lg-swatch is-estimate"></span>{t('charts.year.estimate')}</li>
+    <li><span class="lg-swatch is-recurring"></span>{t('charts.year.recurring')}</li>
+  </ul>
+  <div class="year-plot" data-year-plot>
+    <canvas data-canvas role="img" aria-label={alt}></canvas>
+  </div>
+  <p class="muted chart-note">{t('charts.year.note')}</p>
+</section>
+
+<noscript><style>.year-plot, .legend-inline { display: none; }</style></noscript>
+<script>
+  import '../scripts/charts';
+</script>
