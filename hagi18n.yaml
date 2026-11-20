@@ -1,7 +1,7 @@
 # @hagicode/hagi18n 配置:站点自己的多语言文案由它审计与同步(运行时加载在 src/i18n/)。
 # 以简体中文为基准语言,其余 9 种语言必须与它的文件、键、占位符完全一致。
-#   npm run i18n:check   审计(缺文件/缺键/多余键/占位符不一致),CI 与构建前都会跑
-#   npm run i18n:sync    预演:把基准语言新增的键补到其他语言(加 -- --write 才写入)
+#   pnpm run i18n:check   审计(缺文件/缺键/多余键/占位符不一致),CI 与构建前都会跑
+#   pnpm run i18n:sync    预演:把基准语言新增的键补到其他语言(加 -- --write 才写入)
 localesRoot: src/locales
 repoRoot: .
 baseLocale: zh-CN
@@ -25,8 +25,15 @@ auditIdenticalAllowlist:
     - units.one-time
     - status.estimate
     - listSeparator
-  pages.yml:
-    - home.pendingItems
+  ledger.yml:
+    - picker.figure
+    - group.monthlySuffix
+    - row.unitMonth
+    - row.unitYear
+    - row.unitOneTime
+    - row.perMonth
+    - settle.onceNote
+    - settle.estimateNote
   data.yml:
     - categories.housing.title
     - categories.transport.title
@@ -42,3 +49,4 @@ auditIdenticalAllowlist:
     - items.mattress.hint
     - items.bed-frame.hint
     - profiles.author-downtown.area
+    - profiles.author-downtown.summary

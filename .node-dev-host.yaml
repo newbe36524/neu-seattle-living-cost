@@ -7,8 +7,7 @@ name: neu-seattle-living-cost
 description: 西雅图居住成本参考(Astro 静态站点)
 
 build:
-  # 项目用 npm 与 package-lock.json;ND 节点在域名根路径提供站点,所以用 build:nd 把 base 改成 /。
-  install: npm ci
-  command: npm run build:nd
+  # 项目用 pnpm 与 pnpm-lock.yaml(install 缺省即 pnpm install --frozen-lockfile);ND 节点在域名根路径提供站点,所以用 build:nd 把 base 改成 /。
+  command: pnpm run build:nd
   distDir: dist
   spa: false

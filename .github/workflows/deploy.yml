@@ -19,14 +19,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       # 站点文案的多语言审计(@hagicode/hagi18n):缺文件、缺键、多余键、占位符不一致都会让它失败。
-      - run: npm run i18n:check
-      - run: npm run build
+      - run: pnpm run i18n:check
+      - run: pnpm run build
         env:
           # HagiLight 页脚的构建信息;checkout 可能是分离 HEAD,显式给出。
           HAGILIGHT_BUILD_BRANCH: ${{ github.ref_name }}
