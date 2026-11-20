@@ -1,0 +1,26 @@
+site:
+  name: Seattle Living Cost Guide
+  description: A Seattle cost-of-living reference compiled for students at Northeastern University's Seattle campus.
+  disclaimer: For reference only. Actual costs vary by neighborhood, unit type and time.
+nav:
+  label: Main navigation
+  home: Home
+  costs: Cost details
+  about: About and sources
+language:
+  label: Language
+units:
+  month: Monthly
+  year: Yearly
+  one-time: One-time
+table:
+  item: Item
+  amount: Amount
+  period: Period
+  note: Notes
+status:
+  pending: To be added
+  estimate: estimate
+  bundled: "Included in bundled amount {{amount}}"
+estimateNote: Estimate (typical Amazon prices, not actual spending)
+listSeparator: ", "

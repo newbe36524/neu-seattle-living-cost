@@ -1,0 +1,21 @@
+home:
+  title: 首頁
+  intro: 面向東北大學(Northeastern University)西雅圖校區學生,整理在西雅圖生活的主要開銷,幫助你在入學前做預算。每份資料都是一位同學的真實經歷,並標明區域與採集時間。
+  collected: "{{summary}}採集於 {{updated}}。"
+  monthlyTotal: 每月,已填寫項目合計
+  pendingItems: "尚未包含:{{items}}。"
+  allFilled: 每月項目已全部填寫。
+  oneTime: "一次性費用(申請費、押金);另有約 {{estimate}} 的初次搬入採購,為估算值"
+  categoriesHeading: 成本分類
+costs:
+  title: 成本明細
+  intro: 金額單位為美元。尚未整理的項目顯示為「待補充」。每份記錄對應一位提供者的真實情況。
+about:
+  title: 關於與資料來源
+  intro: 本站為東北大學西雅圖校區學生提供居住成本參考。目前所有資料與內容均來自站點作者的個人經驗,不代表官方資訊,也不保證適用於所有人。
+  updateHeading: 資料如何更新
+  updateBody: 所有資料集中維護在儲存庫 `src/data/` 的 YAML 檔案中(成本項定義一個檔案,每位提供者的記錄各一個檔案),各語言的文字在 `src/locales/` 中,修改後推送到 `main` 分支,GitHub Pages 會自動重新建置並發布。
+  languagesHeading: 語言版本
+  languagesBody: 本站提供 10 種語言。簡體中文為原文,其他語言為譯文(借助 AI 翻譯),如有出入以簡體中文為準。金額一律以美元顯示。
+  futureHeading: 未來計畫
+  futureBody: 之後可能加入其他同學的經驗與資料,每筆資料都會標註提供者。

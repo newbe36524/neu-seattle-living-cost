@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: Housing
+    description: Rent, deposits, utilities, internet and other costs tied directly to where you live.
+  food:
+    title: Food and daily supplies
+    description: Groceries, eating out and household supplies.
+  transport:
+    title: Transportation
+    description: Commuting, public transit and car-related costs.
+  other:
+    title: Other
+    description: Phone, health insurance, entertainment and other common expenses.
+  setup:
+    title: First-move purchases
+    description: Furniture and supplies bought once when moving into a new place.
+items:
+  rent:
+    label: Rent
+  application-fee:
+    label: Application fee
+  deposit:
+    label: Deposit
+  utilities:
+    label: Water, electricity and gas
+  internet:
+    label: Internet
+  groceries:
+    label: Groceries
+    hint: food cost
+  daily-supplies:
+    label: Household supplies
+  dining-out:
+    label: Eating out
+  transit:
+    label: Public transit
+  car:
+    label: Car (insurance / gas / parking)
+  phone:
+    label: Phone service
+  health:
+    label: Health insurance
+  leisure:
+    label: Entertainment and leisure
+  mattress:
+    label: Mattress
+    hint: Queen Size
+  bed-frame:
+    label: Bed frame
+    hint: Queen Size
+  wardrobe:
+    label: Wardrobe
+    hint: simple fabric wardrobe
+  desk:
+    label: Computer desk
+  chair:
+    label: Ergonomic chair
+  shelf:
+    label: Storage shelf
+    hint: simple
+  monitor:
+    label: Monitor
+    hint: Philips 4K
+  cookware:
+    label: Cookware
+    hint: one set
+  tableware:
+    label: Bowls and chopsticks
+    hint: 6 sets
+  air-fryer:
+    label: Air fryer
+  rice-cooker:
+    label: Rice cooker
+  kettle:
+    label: Electric kettle
+  shower-head:
+    label: Shower head
+  fan:
+    label: Standing fan
+profiles:
+  author-downtown:
+    contributor: Site author
+    area: Downtown Seattle
+    summary: Lives in Downtown Seattle; monthly transportation cost is 0.
+    notes:
+      application-fee: Paid once when first moving in.
+      transit: The contributor reports a monthly transportation cost of 0.
+      utilities: Approximate. Combined total of utilities, internet, groceries and household supplies; the contributor did not record them separately.
+      dining-out: Cooks every meal at home and does not eat out; food spending is already included in the bundled amount above.
+      mattress: "{{estimate}}: 10-inch Queen memory foam mattress, typically about $145–240"
+      bed-frame: "{{estimate}}: typical price of a metal platform bed frame"
+      wardrobe: "{{estimate}}: simple fabric wardrobe, typically about $25–30"
+      monitor: "{{estimate}}: 27-inch 4K; comparable Philips models typically cost about $200–270"

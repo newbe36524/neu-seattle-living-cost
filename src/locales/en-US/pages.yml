@@ -1,0 +1,21 @@
+home:
+  title: Home
+  intro: A reference for students at Northeastern University's Seattle campus, listing the main costs of living in Seattle so you can budget before you arrive. Each data set is one student's real experience, with the area and the date it was collected.
+  collected: "{{summary}} Collected {{updated}}."
+  monthlyTotal: per month, total of the items filled in
+  pendingItems: "Not yet included: {{items}}."
+  allFilled: All monthly items are filled in.
+  oneTime: "one-time costs (application fee, deposit); plus about {{estimate}} for first-move purchases, which is an estimate"
+  categoriesHeading: Cost categories
+costs:
+  title: Cost details
+  intro: Amounts are in US dollars. Items not yet collected show "To be added". Each record reflects one contributor's real situation.
+about:
+  title: About and sources
+  intro: This site is a living-cost reference for students at Northeastern University's Seattle campus. All data and content so far come from the site author's own experience; they are not official information and may not apply to everyone.
+  updateHeading: How the data is updated
+  updateBody: All data is kept in YAML files under `src/data/` in the repository (one file for the cost item definitions and one file per contributor), and the text for each language lives in `src/locales/`. Pushing to the `main` branch makes GitHub Pages rebuild and publish the site automatically.
+  languagesHeading: Languages
+  languagesBody: The site is available in 10 languages. Simplified Chinese is the original; the other languages are translations (made with AI assistance), and if they differ, the Simplified Chinese version prevails. Amounts are always shown in US dollars.
+  futureHeading: Future plans
+  futureBody: Experiences and data from other students may be added later, and each entry will name its contributor.

@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: 住房
+    description: 房租、押金、水電網路等與居住直接相關的費用。
+  food:
+    title: 飲食與日用
+    description: 日常買菜、外出用餐與日用品。
+  transport:
+    title: 交通
+    description: 通勤、大眾運輸、汽車相關費用。
+  other:
+    title: 其他
+    description: 手機、醫療保險、娛樂等其他常見開銷。
+  setup:
+    title: 初次搬入採購
+    description: 剛搬進新住處時一次性購置的家具與用品。
+items:
+  rent:
+    label: 房租
+  application-fee:
+    label: 申請費
+  deposit:
+    label: 押金
+  utilities:
+    label: 水電瓦斯
+  internet:
+    label: 網路
+  groceries:
+    label: 超市買菜
+    hint: 食品成本
+  daily-supplies:
+    label: 日用品
+  dining-out:
+    label: 外出用餐
+  transit:
+    label: 大眾運輸
+  car:
+    label: 車輛(保險/油費/停車)
+  phone:
+    label: 手機通訊
+  health:
+    label: 醫療保險
+  leisure:
+    label: 娛樂休閒
+  mattress:
+    label: 床墊
+    hint: Queen Size
+  bed-frame:
+    label: 床架
+    hint: Queen Size
+  wardrobe:
+    label: 衣櫃
+    hint: 簡易布質衣櫃
+  desk:
+    label: 電腦辦公桌
+  chair:
+    label: 人體工學椅
+  shelf:
+    label: 置物架
+    hint: 簡易
+  monitor:
+    label: 顯示器
+    hint: 飛利浦 4K
+  cookware:
+    label: 廚房鍋具
+    hint: 一組
+  tableware:
+    label: 碗筷
+    hint: 6 套
+  air-fryer:
+    label: 氣炸鍋
+  rice-cooker:
+    label: 電鍋
+  kettle:
+    label: 快煮壺
+  shower-head:
+    label: 蓮蓬頭
+  fan:
+    label: 立扇
+profiles:
+  author-downtown:
+    contributor: 站點作者
+    area: Downtown Seattle
+    summary: 住在 Downtown Seattle,每月交通費用為 0。
+    notes:
+      application-fee: 初次入住時一次性繳納。
+      transit: 提供者回報每月交通費用為 0。
+      utilities: 約數。水電瓦斯、網路、食品與日用品的合計,提供者未分項記錄。
+      dining-out: 三餐全部自己做飯,沒有外出用餐;食品開銷已包含在上面的合併項中。
+      mattress: "{{estimate}}:10 吋 Queen 記憶棉床墊,常見價位約 $145–240"
+      bed-frame: "{{estimate}}:金屬平台床架的常見價位"
+      wardrobe: "{{estimate}}:簡易布衣櫃,常見價位約 $25–30"
+      monitor: "{{estimate}}:27 吋 4K,Philips 同級型號常見價位約 $200–270"

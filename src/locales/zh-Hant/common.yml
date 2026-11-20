@@ -1,0 +1,26 @@
+site:
+  name: 西雅圖居住成本參考
+  description: 為東北大學西雅圖校區學生整理的西雅圖居住成本參考。
+  disclaimer: 資料僅供參考,實際費用會因區域、房型與時間而異。
+nav:
+  label: 主導覽
+  home: 首頁
+  costs: 成本明細
+  about: 關於與資料來源
+language:
+  label: 語言
+units:
+  month: 每月
+  year: 每年
+  one-time: 一次性
+table:
+  item: 項目
+  amount: 金額
+  period: 週期
+  note: 說明
+status:
+  pending: 待補充
+  estimate: 估算
+  bundled: "含於合併項 {{amount}}"
+estimateNote: 估算(Amazon 常見價位,非實際支出)
+listSeparator: "、"
