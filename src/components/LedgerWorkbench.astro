@@ -13,6 +13,7 @@ import YearChart from './YearChart.astro';
 import SubmitDataLink from './SubmitDataLink.astro';
 import CommuteLine from './CommuteLine.astro';
 import HousingBadge from './HousingBadge.astro';
+import ItemIcon from './ItemIcon.astro';
 import AdviceList from './AdviceList.astro';
 import { createT, type Locale } from '../i18n';
 
@@ -96,7 +97,7 @@ const yearOf = (p: LedgerProfile) => periodTotal(p.monthly, p.oneTime.reported, 
 
         <dl class="keyfigs" data-reveal="rise">
           <div class="keyfig" data-keyfig="rent">
-            <dt>{t('ledger.keyfig.rent')}</dt>
+            <dt><ItemIcon name="rent" size={22} />{t('ledger.keyfig.rent')}</dt>
             <dd>
               {rentOf(p)?.amount != null
                 ? <><strong data-num="rent">{money(rentOf(p)!.amount!)}</strong><span class="muted"> {t('ledger.row.unitMonth')}</span></>
@@ -104,7 +105,7 @@ const yearOf = (p: LedgerProfile) => periodTotal(p.monthly, p.oneTime.reported, 
             </dd>
           </div>
           <div class="keyfig" data-keyfig="first">
-            <dt>{t('ledger.first.label')}</dt>
+            <dt><ItemIcon name="cat-setup" size={22} />{t('ledger.first.label')}</dt>
             <dd>
               <strong data-num="first">{money(firstMoveOf(p))}</strong>
             </dd>
@@ -162,6 +163,7 @@ const yearOf = (p: LedgerProfile) => periodTotal(p.monthly, p.oneTime.reported, 
         {p.groups.map((g, gi) => (
           <details class="group" open data-reveal="rise" style={`--i:${gi % 3}`}>
             <summary>
+              <span class="group-icon"><ItemIcon name={`cat-${g.id}`} size={22} /></span>
               <span class="group-title">{g.title}</span>
               <span class="group-sub muted">
                 {g.recurring ? <><span data-group-sub={g.id}>{money(groupSubtotal(g))}</span> {t('ledger.group.monthlySuffix')}</> : t('ledger.group.oneTimeCount', { count: g.lines.length })}
@@ -186,6 +188,7 @@ const yearOf = (p: LedgerProfile) => periodTotal(p.monthly, p.oneTime.reported, 
                   >
                     <label class="row-name" for={`${rid}-in`}>
                       {shade !== null ? <span class="swatch" style={`--s:${shade}%`} aria-hidden="true"></span> : <span class="swatch is-none" aria-hidden="true"></span>}
+                      <ItemIcon name={l.key} size={20} />
                       <span>
                         {l.label}
                         {l.hint && <span class="muted"> · {l.hint}</span>}
