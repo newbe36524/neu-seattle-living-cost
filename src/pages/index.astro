@@ -1,0 +1,11 @@
+---
+// 站点根路径:HagiLight 默认语言引导页。默认显示语言是英文,稍后自动转到 /en-US/;
+// 页面上同时列出其他语言入口。destination 相对 Astro 的 BASE_URL。
+// 引导页的提示文字沿用 HagiLight 自带的英文(与默认语言一致)。
+import RootTransit from '@hagicode/hagilight-core/RootTransit';
+import { defaultLocale, localeNames, locales, t } from '../i18n';
+
+const links = locales.map((l) => ({ destination: `/${l}/`, label: localeNames[l], lang: l }));
+---
+
+<RootTransit destination={`/${defaultLocale}/`} locale={defaultLocale} siteName={t(defaultLocale, 'common.site.name')} links={links} />

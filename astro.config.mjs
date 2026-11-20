@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import { hagilight, hagilightFavicon } from '@hagicode/hagilight/integration';
 
 // 站点语言:与 HagiLight 支持的 10 种语言一致。运行时清单在 src/i18n/index.ts,改动要两处同步。
-// 默认语言(简体中文)不带路径前缀,其余语言在 /<语言>/ 下。
+// 默认显示语言是英文;所有语言都在 /<语言>/ 下,根路径 / 是 HagiLight 的默认语言引导页(src/pages/index.astro)。
 const locales = ['zh-CN', 'zh-Hant', 'en-US', 'ja-JP', 'ko-KR', 'de-DE', 'fr-FR', 'es-ES', 'pt-BR', 'ru-RU'];
 
 // GitHub Pages project site: https://newbe36524.github.io/neu-seattle-living-cost/
@@ -16,13 +16,14 @@ export default defineConfig({
   base: process.env.SITE_BASE || '/neu-seattle-living-cost',
   trailingSlash: 'always',
   i18n: {
-    defaultLocale: 'zh-CN',
+    defaultLocale: 'en-US',
     locales,
-    routing: { prefixDefaultLocale: false },
+    // 根路径由引导页自己提供,不要让 Astro 再生成指向默认语言的重定向。
+    routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
   },
   integrations: [
     // 自己声明 sitemap,为每个页面加上各语言版本的 hreflang;hagilight() 检测到后不再重复添加。
-    sitemap({ i18n: { defaultLocale: 'zh-CN', locales: Object.fromEntries(locales.map((l) => [l, l])) } }),
+    sitemap({ i18n: { defaultLocale: 'en-US', locales: Object.fromEntries(locales.map((l) => [l, l])) } }),
     hagilight({
       // 本站不展示隐私同意弹窗:PostHog 在生产构建中直接加载。
       analytics: { consent: { enabled: false } },

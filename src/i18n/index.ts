@@ -3,7 +3,7 @@
  * 这里只负责:语言清单、按键取文案、生成各语言的路径。
  *
  * 键 = 文件名(不含扩展名)+ YAML 中的点分路径,例如 common.nav.home、pages.home.title。
- * 基准语言是简体中文;其他语言缺键时回退到它并在构建日志里警告(i18n:check 会把缺键当作错误)。
+ * 文案以简体中文为原文(hagi18n 基准),运行时缺键回退到默认显示语言(英文)并在构建日志里警告(i18n:check 会把缺键当作错误)。
  */
 
 import { parse } from 'yaml';
@@ -24,8 +24,11 @@ export const locales = [
 
 export type Locale = (typeof locales)[number];
 
-/** 默认语言:不带路径前缀(保持原有 URL 不变),其余语言放在 /<语言>/ 下。 */
-export const defaultLocale: Locale = 'zh-CN';
+/**
+ * 默认显示语言:英文。所有语言(含默认语言)都在 /<语言>/ 下;
+ * 站点根路径 / 是 HagiLight 的默认语言引导页,自动转到默认语言,并列出其他语言入口。
+ */
+export const defaultLocale: Locale = 'en-US';
 
 /** 语言切换器里显示的本语种名称。 */
 export const localeNames: Record<Locale, string> = {
@@ -73,12 +76,12 @@ for (const [path, raw] of Object.entries(files)) {
 
 const warned = new Set<string>();
 
-/** 取文案并替换 {{占位符}}。基准语言缺键直接抛错,让构建失败。 */
+/** 取文案并替换 {{占位符}}。默认显示语言缺键直接抛错,让构建失败。 */
 export function t(locale: Locale, key: string, vars: Record<string, string | number> = {}): string {
   let text = messages.get(locale)!.get(key);
   if (text === undefined) {
     text = messages.get(defaultLocale)!.get(key);
-    if (text === undefined) throw new Error(`[i18n] 缺少文案 "${key}"(基准语言 ${defaultLocale} 中也没有)`);
+    if (text === undefined) throw new Error(`[i18n] 缺少文案 "${key}"(默认语言 ${defaultLocale} 中也没有)`);
     const id = `${locale}:${key}`;
     if (!warned.has(id)) {
       warned.add(id);
@@ -107,13 +110,13 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 /** 站内路径(不含语言)→ 某语言下的路径。path 以 / 开头并以 / 结尾,例如 "/costs/"。 */
 export function localePath(locale: Locale, path = '/'): string {
-  return `${BASE}${locale === defaultLocale ? '' : `/${locale}`}${path}`;
+  return `${BASE}/${locale}${path}`;
 }
 
-/** 供 [...lang] 路由的 getStaticPaths 使用:默认语言的 lang 参数为 undefined。 */
+/** 供 [lang] 路由的 getStaticPaths 使用:每种语言一份页面。 */
 export function localeStaticPaths() {
   return locales.map((locale) => ({
-    params: { lang: locale === defaultLocale ? undefined : locale },
+    params: { lang: locale },
     props: { locale },
   }));
 }
