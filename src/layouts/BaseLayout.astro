@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Footer from '@hagicode/hagilight/Footer';
+import SEOHead from '@hagicode/hagilight/SEOHead';
 
 interface Props {
   title: string;
@@ -9,6 +11,9 @@ interface Props {
 const { title, description = '为东北大学西雅图校区学生整理的西雅图居住成本参考。' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const current = Astro.url.pathname;
+const siteName = '西雅图居住成本参考';
+const fullTitle = `${title} · ${siteName}`;
+const locale = 'zh-CN';
 
 const nav = [
   { href: `${base}/`, label: '首页' },
@@ -18,12 +23,19 @@ const nav = [
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <title>{title} · 西雅图居住成本参考</title>
+    <title>{fullTitle}</title>
+    <SEOHead
+      site={Astro.site}
+      siteSeo={{ title: siteName, description }}
+      page={{ url: Astro.url, title: fullTitle, description }}
+      locale={locale}
+      defaultStructuredData={false}
+    />
   </head>
   <body>
     <header class="site-header">
@@ -39,10 +51,11 @@ const nav = [
     <main class="container">
       <slot />
     </main>
-    <footer class="site-footer">
+    <div class="site-disclaimer">
       <div class="container muted">
         数据仅供参考,实际费用因区域、户型与时间而异。
       </div>
-    </footer>
+    </div>
+    <Footer locale={locale} />
   </body>
 </html>
