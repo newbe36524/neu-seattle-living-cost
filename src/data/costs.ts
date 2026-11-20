@@ -6,26 +6,25 @@
  *  - profiles/*.yaml:每位提供者的「真实记录」,只引用项目 id 并给出金额。
  *    新增一位同学 = 在 profiles/ 里新增一个 .yaml 文件,无需改动定义或页面。
  *
+ * 这里的数据不含任何语言的文字:分类名、项目名、提供者名称、备注等都在
+ * src/locales/<语言>/data.yml(由 hagi18n 审计),页面用 src/i18n 按 id 取。
+ *
  * 诚实原则:没有提供的数字保持缺省(页面显示「待补充」),不得估算或填充。
  */
 
 import { parse } from 'yaml';
+import { defaultLocale, hasMessage, createT, type Locale } from '../i18n';
 
 export type CostUnit = 'month' | 'year' | 'one-time';
 
-/** 成本项定义(不含金额) */
+/** 成本项定义(不含金额、不含文字) */
 export interface CostItem {
   id: string;
-  label: string;
   unit: CostUnit;
-  /** 对项目本身的说明(范围、口径) */
-  hint?: string;
 }
 
 export interface CostCategory {
   id: string;
-  title: string;
-  description: string;
   items: CostItem[];
 }
 
@@ -44,8 +43,6 @@ export interface CostEntry {
    * 页面会把估算值标出来,合计也分开统计。
    */
   basis?: 'reported' | 'estimate';
-  /** 口径、假设等补充说明 */
-  note?: string;
 }
 
 /** 一位数据提供者及其生活情境 */
@@ -53,12 +50,6 @@ export interface Profile {
   /** 来源文件(加载时自动填入,不写在 YAML 里) */
   file?: string;
   id: string;
-  /** 数据提供者,用于署名 */
-  contributor: string;
-  /** 居住区域 */
-  area: string;
-  /** 一句话情境说明 */
-  summary: string;
   /** 数据采集时间,YYYY-MM */
   updated: string;
   entries: CostEntry[];
@@ -81,11 +72,10 @@ export const profiles: Profile[] = Object.entries(profileFiles)
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([f, raw]) => ({ ...load<Profile>(f, raw), file: f }));
 
-export const unitLabel: Record<CostUnit, string> = {
-  month: '每月',
-  year: '每年',
-  'one-time': '一次性',
-};
+/** 周期在某语言下的名称 */
+export function unitLabel(locale: Locale, unit: CostUnit): string {
+  return createT(locale)(`common.units.${unit}`);
+}
 
 const itemById = new Map(categories.flatMap((c) => c.items).map((i) => [i.id, i]));
 
@@ -97,19 +87,23 @@ function validate() {
   const fail = (where: string, msg: string): never => {
     throw new Error(`[costs] ${where}: ${msg}`);
   };
+  /** 基准语言(简体中文)必须有这些文案;其他语言缺了由 hagi18n 审计报告,页面回退到基准语言。 */
+  const needText = (where: string, ...keys: string[]) => {
+    for (const k of keys) if (!hasMessage(defaultLocale, k)) fail(where, `缺少文案 "${k}"(在 src/locales/${defaultLocale}/ 中添加)`);
+  };
 
   if (!Array.isArray(categories) || categories.length === 0) fail('categories.yaml', '应为非空的分类列表');
   const categoryIds = new Set<string>();
   const itemIds = new Set<string>();
   for (const c of categories) {
-    if (!isStr(c?.id) || !isStr(c.title) || !isStr(c.description) || !Array.isArray(c.items))
-      fail('categories.yaml', `分类缺少 id/title/description/items:${JSON.stringify(c)}`);
+    if (!isStr(c?.id) || !Array.isArray(c.items)) fail('categories.yaml', `分类缺少 id/items:${JSON.stringify(c)}`);
+    needText(`categories.yaml 分类 "${c.id}"`, `data.categories.${c.id}.title`, `data.categories.${c.id}.description`);
     if (categoryIds.has(c.id)) fail('categories.yaml', `分类 id "${c.id}" 重复`);
     categoryIds.add(c.id);
     for (const i of c.items) {
-      if (!isStr(i?.id) || !isStr(i.label) || !UNITS.includes(i.unit))
-        fail('categories.yaml', `项目需要 id、label 和合法的 unit(${UNITS.join('/')}):${JSON.stringify(i)}`);
-      if (i.hint !== undefined && !isStr(i.hint)) fail('categories.yaml', `项目 "${i.id}" 的 hint 应为字符串`);
+      if (!isStr(i?.id) || !UNITS.includes(i.unit))
+        fail('categories.yaml', `项目需要 id 和合法的 unit(${UNITS.join('/')}):${JSON.stringify(i)}`);
+      needText(`categories.yaml 项目 "${i.id}"`, `data.items.${i.id}.label`);
       if (itemIds.has(i.id)) fail('categories.yaml', `项目 id "${i.id}" 重复`);
       itemIds.add(i.id);
     }
@@ -118,8 +112,8 @@ function validate() {
   const profileIds = new Set<string>();
   for (const p of profiles) {
     const where = p.file ?? p.id;
-    if (!isStr(p.id) || !isStr(p.contributor) || !isStr(p.area) || !isStr(p.summary))
-      fail(where, '需要 id、contributor、area、summary');
+    if (!isStr(p.id)) fail(where, '需要 id');
+    needText(where, `data.profiles.${p.id}.contributor`, `data.profiles.${p.id}.area`, `data.profiles.${p.id}.summary`);
     if (profileIds.has(p.id)) fail(where, `提供者 id "${p.id}" 重复`);
     profileIds.add(p.id);
     if (!isStr(p.updated) || !/^\d{4}-(0[1-9]|1[0-2])$/.test(p.updated))
@@ -133,7 +127,6 @@ function validate() {
         fail(where, `amount 应为非负数字或 null:${JSON.stringify(e)}`);
       if (e.basis !== undefined && e.basis !== 'reported' && e.basis !== 'estimate')
         fail(where, `basis 只能是 reported 或 estimate:${JSON.stringify(e)}`);
-      if (e.note !== undefined && !isStr(e.note)) fail(where, `note 应为字符串:${JSON.stringify(e)}`);
       const units = new Set<CostUnit>();
       for (const id of e.items) {
         const item = itemById.get(id);
@@ -173,7 +166,7 @@ export function monthlyTotal(profile: Profile) {
   }
   const recurring = [...itemById.values()].filter((i) => i.unit !== 'one-time');
   const pending = recurring.filter((i) => itemStatus(profile, i.id).kind === 'pending');
-  return { total, pending: pending.map((i) => i.label) };
+  return { total, pending: pending.map((i) => i.id) };
 }
 
 /** 一次性费用合计,按数字来源分开:提供者所报 vs 估算 */
@@ -186,4 +179,16 @@ export function oneTimeTotal(profile: Profile) {
     else reported += e.amount;
   }
   return { reported, estimate };
+}
+
+/**
+ * 一条记录在某语言下的备注。备注文字在 data.yml 的 profiles.<id>.notes.<该条 items 的第一个项目 id>;
+ * 估算记录没写备注时显示通用的估算说明。
+ */
+export function entryNote(locale: Locale, profile: Profile, entry: CostEntry): string | undefined {
+  const t = createT(locale);
+  const estimate = t('common.estimateNote');
+  const key = `data.profiles.${profile.id}.notes.${entry.items[0]}`;
+  if (hasMessage(defaultLocale, key)) return t(key, { estimate });
+  return entry.basis === 'estimate' ? estimate : undefined;
 }
