@@ -1,0 +1,14 @@
+# Project settings for node-dev-host (nd-neu-seattle-living-cost). Read at the start of every build.
+# Register and start it from repos/nd-console:
+#   node nd-console/scripts/register-node.mjs <abs path to this repo> nd-neu-seattle-living-cost <port> --start
+# The site is then served at http://neu-seattle-living-cost.n.pro
+version: 1
+name: neu-seattle-living-cost
+description: 西雅图居住成本参考(Astro 静态站点)
+
+build:
+  # 项目用 npm 与 package-lock.json;ND 节点在域名根路径提供站点,所以用 build:nd 把 base 改成 /。
+  install: npm ci
+  command: npm run build:nd
+  distDir: dist
+  spa: false
