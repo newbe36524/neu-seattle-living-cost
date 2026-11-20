@@ -11,10 +11,14 @@ const locales = ['zh-CN', 'zh-Hant', 'en-US', 'ja-JP', 'ko-KR', 'de-DE', 'fr-FR'
 // 本地 ND Console 节点在域名根路径提供站点,构建时用 SITE_BASE=/、SITE_URL=<节点地址> 覆盖(见 build:nd)。
 // hagilight() 默认生成 sitemap、robots.txt、RSS、llms.txt、站点元数据,
 // 并注入 PostHog(HagiCode 共享项目,仅生产构建)。
+const base = process.env.SITE_BASE || '/neu-seattle-living-cost';
+
 export default defineConfig({
   site: process.env.SITE_URL || 'https://newbe36524.github.io',
-  base: process.env.SITE_BASE || '/neu-seattle-living-cost',
+  base,
   trailingSlash: 'always',
+  // 「成本明细」页已并入首页账本:旧链接转到对应语言的首页。
+  redirects: Object.fromEntries(locales.map((l) => [`/${l}/costs`, `${base.replace(/\/$/, '')}/${l}/`])),
   i18n: {
     defaultLocale: 'en-US',
     locales,

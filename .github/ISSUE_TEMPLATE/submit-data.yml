@@ -39,12 +39,26 @@ body:
       placeholder: 2026-11
     validations:
       required: true
+  - type: dropdown
+    id: housing-type
+    attributes:
+      label: Housing type
+      description: The site shows this next to your numbers with its own icon. Pick the closest one; if none fits, choose "Other" and describe it below.
+      options:
+        - Apartment
+        - Studio (one-room unit)
+        - Shared housing (a room in a shared apartment or house)
+        - House or townhouse
+        - Dorm or student housing
+        - Other (describe below)
+    validations:
+      required: true
   - type: textarea
     id: summary
     attributes:
       label: Living situation
-      description: Unit type, roommates, lease length, car or not, in a sentence or two.
-      placeholder: Studio, living alone, 12-month lease, no car
+      description: Roommates, lease length, car or not, in a sentence or two.
+      placeholder: Living alone, 12-month lease, no car
     validations:
       required: true
   - type: dropdown
@@ -308,13 +322,39 @@ body:
       required: false
   - type: markdown
     attributes:
-      value: "## Commute time"
+      value: |-
+        ## Commute time
+        Minutes one way from home to campus. Time is a cost too: the site draws your route and shows it on its own line, and does not add it to the dollar totals. Fill in only the ways you use; if your trip has several parts, fill in each one and write the order of the trip in the notes (for example "ferry, then bus, then walk").
   - type: input
-    id: commute
+    id: commute-walk
     attributes:
-      label: Commute time (minutes, one way)
-      description: "Minutes one way from home to campus. Time is a cost too: the site shows it on its own line and does not add it to the dollar totals."
-      placeholder: e.g. 3; leave blank if unknown
+      label: Walking (minutes, one way)
+      description: Minutes spent walking, including the walk to a stop or dock.
+      placeholder: e.g. 3; leave blank if you do not walk
+    validations:
+      required: false
+  - type: input
+    id: commute-transit
+    attributes:
+      label: Public transit (minutes, one way)
+      description: Bus, light rail or streetcar.
+      placeholder: e.g. 20; leave blank if you do not use it
+    validations:
+      required: false
+  - type: input
+    id: commute-ferry
+    attributes:
+      label: Ferry (minutes, one way)
+      description: Washington State Ferries or other passenger ferry.
+      placeholder: e.g. 35; leave blank if you do not use it
+    validations:
+      required: false
+  - type: input
+    id: commute-drive
+    attributes:
+      label: Driving (minutes, one way)
+      description: Driving or being driven, door to door including parking.
+      placeholder: e.g. 15; leave blank if you do not drive
     validations:
       required: false
   - type: markdown

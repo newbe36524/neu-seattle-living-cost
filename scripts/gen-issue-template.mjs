@@ -40,12 +40,29 @@ const body = [
   input('area', 'Area', 'Neighbourhood level only, no street number.', 'Downtown Seattle / Capitol Hill / Bellevue ...', true),
   input('updated', 'Month of the data', 'Format YYYY-MM: the month these amounts refer to.', '2026-11', true),
   {
+    type: 'dropdown',
+    id: 'housing-type',
+    attributes: {
+      label: 'Housing type',
+      description: 'The site shows this next to your numbers with its own icon. Pick the closest one; if none fits, choose "Other" and describe it below.',
+      options: [
+        'Apartment',
+        'Studio (one-room unit)',
+        'Shared housing (a room in a shared apartment or house)',
+        'House or townhouse',
+        'Dorm or student housing',
+        'Other (describe below)',
+      ],
+    },
+    validations: { required: true },
+  },
+  {
     type: 'textarea',
     id: 'summary',
     attributes: {
       label: 'Living situation',
-      description: 'Unit type, roommates, lease length, car or not, in a sentence or two.',
-      placeholder: 'Studio, living alone, 12-month lease, no car',
+      description: 'Roommates, lease length, car or not, in a sentence or two.',
+      placeholder: 'Living alone, 12-month lease, no car',
     },
     validations: { required: true },
   },
@@ -84,13 +101,13 @@ const adviceBox = (kind, label, description) => ({
 });
 
 body.push(
-  md('## Commute time'),
-  input(
-    'commute',
-    'Commute time (minutes, one way)',
-    'Minutes one way from home to campus. Time is a cost too: the site shows it on its own line and does not add it to the dollar totals.',
-    'e.g. 3; leave blank if unknown',
+  md(
+    '## Commute time\nMinutes one way from home to campus. Time is a cost too: the site draws your route and shows it on its own line, and does not add it to the dollar totals. Fill in only the ways you use; if your trip has several parts, fill in each one and write the order of the trip in the notes (for example "ferry, then bus, then walk").',
   ),
+  input('commute-walk', 'Walking (minutes, one way)', 'Minutes spent walking, including the walk to a stop or dock.', 'e.g. 3; leave blank if you do not walk'),
+  input('commute-transit', 'Public transit (minutes, one way)', 'Bus, light rail or streetcar.', 'e.g. 20; leave blank if you do not use it'),
+  input('commute-ferry', 'Ferry (minutes, one way)', 'Washington State Ferries or other passenger ferry.', 'e.g. 35; leave blank if you do not use it'),
+  input('commute-drive', 'Driving (minutes, one way)', 'Driving or being driven, door to door including parking.', 'e.g. 15; leave blank if you do not drive'),
   md('## Your advice\nYour own impressions of living here. They are subjective and every box may be left blank. Write one point per line.'),
   adviceBox('positive', 'Positives', 'What you like about living here.'),
   adviceBox('negative', 'Negatives', 'What is inconvenient or disappointing.'),

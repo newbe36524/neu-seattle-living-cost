@@ -26,8 +26,13 @@ auditIdenticalAllowlist:
     - status.estimate
     - listSeparator
     - advice.neutral
+    - commute.mode.walk
+    - commute.mode.transit
+    - housing.type.apartment
+    - housing.type.shared
   ledger.yml:
     - picker.figure
+    - keyfig.rent
     - group.monthlySuffix
     - row.unitMonth
     - row.unitYear
