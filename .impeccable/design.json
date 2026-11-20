@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-20T18:34:43Z",
+  "title": "Design System: 西雅图居住成本参考",
+  "extensions": {
+    "colorMeta": {
+      "husky-red": {
+        "role": "primary",
+        "displayName": "Husky Red 东北大学红",
+        "canonical": "#c8102e",
+        "tonalRamp": [
+          "oklch(15% 0.096 22)",
+          "oklch(26% 0.148 22)",
+          "oklch(38% 0.201 22)",
+          "oklch(49% 0.207 22)",
+          "oklch(61% 0.207 22)",
+          "oklch(72% 0.201 22)",
+          "oklch(84% 0.148 22)",
+          "oklch(95% 0.096 22)"
+        ]
+      },
+      "husky-red-night": {
+        "role": "primary",
+        "displayName": "Husky Red Night 夜间东北大学红",
+        "canonical": "#ff5c72",
+        "tonalRamp": [
+          "oklch(15% 0.091 16)",
+          "oklch(26% 0.141 16)",
+          "oklch(38% 0.191 16)",
+          "oklch(49% 0.197 16)",
+          "oklch(61% 0.197 16)",
+          "oklch(72% 0.191 16)",
+          "oklch(84% 0.141 16)",
+          "oklch(95% 0.091 16)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper 纸白",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(26% 0.000 90)",
+          "oklch(38% 0.000 90)",
+          "oklch(49% 0.000 90)",
+          "oklch(61% 0.000 90)",
+          "oklch(72% 0.000 90)",
+          "oklch(84% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "night-paper": {
+        "role": "neutral",
+        "displayName": "Night Paper 夜纸",
+        "canonical": "#12171d",
+        "tonalRamp": [
+          "oklch(15% 0.011 253)",
+          "oklch(26% 0.011 253)",
+          "oklch(38% 0.011 253)",
+          "oklch(49% 0.011 253)",
+          "oklch(61% 0.011 253)",
+          "oklch(72% 0.011 253)",
+          "oklch(84% 0.011 253)",
+          "oklch(95% 0.011 253)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink 墨蓝",
+        "canonical": "#1c2530",
+        "tonalRamp": [
+          "oklch(15% 0.011 254)",
+          "oklch(26% 0.017 254)",
+          "oklch(38% 0.024 254)",
+          "oklch(49% 0.024 254)",
+          "oklch(61% 0.024 254)",
+          "oklch(72% 0.024 254)",
+          "oklch(84% 0.017 254)",
+          "oklch(95% 0.011 254)"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink 夜间墨",
+        "canonical": "#e7ecf1",
+        "tonalRamp": [
+          "oklch(15% 0.007 248)",
+          "oklch(26% 0.007 248)",
+          "oklch(38% 0.007 248)",
+          "oklch(49% 0.007 248)",
+          "oklch(61% 0.007 248)",
+          "oklch(72% 0.007 248)",
+          "oklch(84% 0.007 248)",
+          "oklch(95% 0.007 248)"
+        ]
+      },
+      "slate-muted": {
+        "role": "neutral",
+        "displayName": "Slate Muted 灰蓝",
+        "canonical": "#5d6b7a",
+        "tonalRamp": [
+          "oklch(15% 0.013 250)",
+          "oklch(26% 0.021 250)",
+          "oklch(38% 0.028 250)",
+          "oklch(49% 0.029 250)",
+          "oklch(61% 0.029 250)",
+          "oklch(72% 0.028 250)",
+          "oklch(84% 0.021 250)",
+          "oklch(95% 0.013 250)"
+        ]
+      },
+      "night-slate-muted": {
+        "role": "neutral",
+        "displayName": "Night Slate Muted 夜间灰蓝",
+        "canonical": "#9aa8b6",
+        "tonalRamp": [
+          "oklch(15% 0.012 248)",
+          "oklch(26% 0.018 248)",
+          "oklch(38% 0.025 248)",
+          "oklch(49% 0.026 248)",
+          "oklch(61% 0.026 248)",
+          "oklch(72% 0.025 248)",
+          "oklch(84% 0.018 248)",
+          "oklch(95% 0.012 248)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline 发丝线",
+        "canonical": "#dde3ea",
+        "tonalRamp": [
+          "oklch(15% 0.009 252)",
+          "oklch(26% 0.009 252)",
+          "oklch(38% 0.009 252)",
+          "oklch(49% 0.009 252)",
+          "oklch(61% 0.009 252)",
+          "oklch(72% 0.009 252)",
+          "oklch(84% 0.009 252)",
+          "oklch(95% 0.009 252)"
+        ]
+      },
+      "night-hairline": {
+        "role": "neutral",
+        "displayName": "Night Hairline 夜间发丝线",
+        "canonical": "#2a343f",
+        "tonalRamp": [
+          "oklch(15% 0.011 251)",
+          "oklch(26% 0.017 251)",
+          "oklch(38% 0.023 251)",
+          "oklch(49% 0.024 251)",
+          "oklch(61% 0.024 251)",
+          "oklch(72% 0.023 251)",
+          "oklch(84% 0.017 251)",
+          "oklch(95% 0.011 251)"
+        ]
+      },
+      "ledger-card": {
+        "role": "neutral",
+        "displayName": "Ledger Card 账页底",
+        "canonical": "#f6f8fa",
+        "tonalRamp": [
+          "oklch(15% 0.003 248)",
+          "oklch(26% 0.003 248)",
+          "oklch(38% 0.003 248)",
+          "oklch(49% 0.003 248)",
+          "oklch(61% 0.003 248)",
+          "oklch(72% 0.003 248)",
+          "oklch(84% 0.003 248)",
+          "oklch(95% 0.003 248)"
+        ]
+      },
+      "night-ledger-card": {
+        "role": "neutral",
+        "displayName": "Night Ledger Card 夜间账页底",
+        "canonical": "#1a2129",
+        "tonalRamp": [
+          "oklch(15% 0.015 252)",
+          "oklch(26% 0.015 252)",
+          "oklch(38% 0.015 252)",
+          "oklch(49% 0.015 252)",
+          "oklch(61% 0.015 252)",
+          "oklch(72% 0.015 252)",
+          "oklch(84% 0.015 252)",
+          "oklch(95% 0.015 252)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "页面 h1,每页一个;字号目前来自浏览器默认。"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "分类标题 h2。"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "卡片标题 h3。"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "正文与表格单元格,行高 1.7。"
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "表头 th(0.9rem / 600)。"
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Site Nav",
+      "kind": "nav",
+      "refersTo": "site-nav-link",
+      "description": "页头导航:当前页墨蓝加粗,其余灰蓝。",
+      "html": "<nav class=\"ds-nav\" aria-label=\"主导航\"><a class=\"ds-nav-brand\" href=\"#\">西雅图居住成本参考</a><span class=\"ds-nav-links\"><a href=\"#\" aria-current=\"page\">首页</a><a href=\"#\">成本明细</a><a href=\"#\">关于与数据来源</a></span></nav>",
+      "css": ".ds-nav{font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-bottom:1px solid var(--border,#dde3ea);color:var(--fg,#1c2530)}.ds-nav-brand{font-weight:700;color:var(--fg,#1c2530);text-decoration:none}.ds-nav-links{display:flex;gap:1.25rem}.ds-nav-links a{color:var(--muted,#5d6b7a);text-decoration:none}.ds-nav-links a[aria-current=page]{color:var(--fg,#1c2530);font-weight:600}.ds-nav-links a:hover{color:var(--fg,#1c2530)}.ds-nav-links a:focus-visible,.ds-nav-brand:focus-visible{outline:2px solid var(--accent,#c8102e);outline-offset:2px}"
+    },
+    {
+      "name": "Summary Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "首页「每月合计」汇总卡,含待补充状态。",
+      "html": "<div class=\"ds-card\"><h3>每月合计(已填写项)</h3><p><span class=\"ds-pending\">数据整理中</span></p><p class=\"ds-muted\">已填写 0 项,待补充 9 项。</p></div>",
+      "css": ".ds-card{font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif;background:var(--card,#f6f8fa);border:1px solid var(--border,#dde3ea);border-radius:.75rem;padding:1rem 1.25rem;color:var(--fg,#1c2530);line-height:1.7}.ds-card h3{margin:0 0 .5rem;font-size:1.17rem;line-height:1.3}.ds-card p{margin:0 0 .5rem}.ds-muted{color:var(--muted,#5d6b7a)}.ds-pending{color:var(--muted,#5d6b7a);font-style:italic}"
+    },
+    {
+      "name": "Category Link Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "首页分类入口卡:整块可点,文字色继承、无下划线。",
+      "html": "<a class=\"ds-cat-card\" href=\"#\"><h3>住房</h3><p class=\"ds-muted\">房租、押金、水电网络等与居住直接相关的费用。</p></a>",
+      "css": ".ds-cat-card{font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif;display:block;background:var(--card,#f6f8fa);border:1px solid var(--border,#dde3ea);border-radius:.75rem;padding:1rem 1.25rem;color:var(--fg,#1c2530);text-decoration:none;line-height:1.7}.ds-cat-card h3{margin:0 0 .5rem;font-size:1.17rem;line-height:1.3}.ds-cat-card p{margin:0}.ds-muted{color:var(--muted,#5d6b7a)}.ds-cat-card:hover{border-color:var(--accent,#c8102e)}.ds-cat-card:focus-visible{outline:2px solid var(--accent,#c8102e);outline-offset:2px}"
+    },
+    {
+      "name": "Cost Table",
+      "kind": "custom",
+      "refersTo": "table-cell",
+      "description": "分类成本表:细线行、等宽数字金额、斜体「待补充」。",
+      "html": "<table class=\"ds-table\"><thead><tr><th>项目</th><th>金额</th><th>周期</th><th>说明</th></tr></thead><tbody><tr><td>房租</td><td class=\"ds-amount\"><span class=\"ds-pending\">待补充</span></td><td>每月</td><td class=\"ds-muted\"></td></tr><tr><td>押金</td><td class=\"ds-amount\">$1,200</td><td>一次性</td><td class=\"ds-muted\">示意数字</td></tr></tbody></table>",
+      "css": ".ds-table{font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif;width:100%;border-collapse:collapse;color:var(--fg,#1c2530);line-height:1.7}.ds-table th,.ds-table td{text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--border,#dde3ea)}.ds-table th{color:var(--muted,#5d6b7a);font-weight:600;font-size:.9rem}.ds-amount{font-variant-numeric:tabular-nums;white-space:nowrap}.ds-muted{color:var(--muted,#5d6b7a)}.ds-pending{color:var(--muted,#5d6b7a);font-style:italic}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "husky-red",
+      "description": "唯一使用强调红的元素:文字链接。",
+      "html": "<p class=\"ds-body\">数据保存在 <a class=\"ds-link\" href=\"#\">src/data/costs.ts</a>,推送后自动发布。</p>",
+      "css": ".ds-body{font-family:system-ui,-apple-system,'Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif;color:var(--fg,#1c2530);line-height:1.7;margin:0}.ds-link{color:var(--accent,#c8102e)}.ds-link:hover{text-decoration-thickness:2px}.ds-link:focus-visible{outline:2px solid var(--accent,#c8102e);outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "学长学姐的账本",
+    "overview": "这是一本摊开的个人账本,不是一个品牌网站。每个数字背后都有一个真实的人、一个时间、一种假设,界面的工作就是让这些东西清楚、对齐、好扫读,然后退后。气质是工具感、精确:表格里的数字右对齐成列(tabular-nums),标题只用字重与字号分级,颜色几乎全部是蓝灰中性色。\n\n密度中等偏疏:正文行高 1.7,单列最大宽度 56rem,适合中文长句阅读。层次不靠阴影或动效,而靠细边框(1px hairline)与一层极浅的底色(ledger-card)。浅色与深色两套主题是同一套角色的两种取值,而不是两个设计。\n\n强调色只有一个:东北大学红(Husky Red)。它出现得极少,只负责链接和少数需要被找到的东西;「待补充」这类缺失状态不用红色,而是用弱化的斜体灰,因为缺数据是正常状态而不是警告。",
+    "keyCharacteristics": [
+      "单一系统字体栈(含 PingFang SC / Noto Sans CJK SC),无 webfont。",
+      "扁平:无阴影、无渐变、无动效;层次靠 1px 细边框与浅底色。",
+      "一个强调色,深色模式下换成更亮的同色相取值。",
+      "数字列使用等宽数字(font-variant-numeric: tabular-nums)且不换行。",
+      "缺失数据以斜体弱化文字「待补充」呈现,不使用占位数字。"
+    ],
+    "rules": [
+      {
+        "name": "The One Red Rule",
+        "body": "红色只给链接。不要把它用在警告、徽章、按钮底色或装饰条上;缺数据不是错误。",
+        "section": "colors"
+      },
+      {
+        "name": "The Paired Theme Rule",
+        "body": "每个新颜色必须同时给出浅色与深色取值,并保持文字对比度不低于现有最低值(5.1:1)。",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "金额列必须使用 tabular-nums 且 white-space: nowrap,保证数字按位对齐、不被换行拆开。",
+        "section": "typography"
+      },
+      {
+        "name": "The One Column Rule",
+        "body": "不新增侧栏或多栏正文;需要对比时,用表格列或网格卡片,而不是并排的文章栏。",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "不引入阴影。需要强调某个区域时,改变底色层级或加一条细线,不要抬高它。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 保持金额右侧的数字用 tabular-nums 并不换行。",
+      "Do 用「待补充」表示缺失数据,并保持斜体灰蓝的弱化样式。",
+      "Do 为每个新增颜色同时提供浅色与深色取值,并验证文字对比度 ≥ 5.1:1。",
+      "Do 保持强调红只用于链接这一件事(The One Red Rule)。",
+      "Do 让每个数字旁边在需要时能出现提供者、采集时间与假设(contributor / updated / note)。"
+    ],
+    "donts": [
+      "Don't 引入阴影、渐变、模糊或动效来制造层次。",
+      "Don't 用估算值、均值或占位数字填充「待补充」。",
+      "Don't 用红色表示缺失、错误或警告。",
+      "Don't 增加第二款字体或 webfont。",
+      "Don't 增加侧栏、多栏正文,或把表格压缩到窄屏不可读。"
+    ]
+  }
+}
