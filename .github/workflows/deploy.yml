@@ -25,6 +25,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # HagiLight 页脚的构建信息;checkout 可能是分离 HEAD,显式给出。
+          HAGILIGHT_BUILD_BRANCH: ${{ github.ref_name }}
+          HAGILIGHT_BUILD_COMMIT: ${{ github.sha }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
