@@ -4,7 +4,6 @@ import Footer from '@hagicode/hagilight/Footer';
 import SEOHead from '@hagicode/hagilight/SEOHead';
 import GoogleAnalytics from '@hagicode/hagilight-core/GoogleAnalytics';
 import Analytics51LA from '@hagicode/hagilight-core/Analytics51LA';
-import CookieConsent from '@hagicode/hagilight-core/CookieConsent';
 
 interface Props {
   title: string;
@@ -17,7 +16,7 @@ const current = Astro.url.pathname;
 const siteName = '西雅图居住成本参考';
 const fullTitle = `${title} · ${siteName}`;
 const locale = 'zh-CN';
-// HagiCode 共享的统计项目;仅生产构建渲染,访客同意后才加载。
+// HagiCode 共享的统计项目;仅生产构建渲染。本站不展示隐私同意弹窗,统计直接加载。
 const GOOGLE_ANALYTICS_ID = 'G-EN03FMT2Q4';
 const FIFTY_ONE_LA_ID = 'L6b88a5yK4h2Xnci';
 
@@ -41,8 +40,8 @@ const nav = [
       page={{ url: Astro.url, title: fullTitle, description }}
       locale={locale}
     />
-    <GoogleAnalytics measurementId={GOOGLE_ANALYTICS_ID} consent={true} />
-    <Analytics51LA siteId={FIFTY_ONE_LA_ID} consent={true} />
+    <GoogleAnalytics measurementId={GOOGLE_ANALYTICS_ID} />
+    <Analytics51LA siteId={FIFTY_ONE_LA_ID} />
   </head>
   <body>
     <header class="site-header">
@@ -63,7 +62,6 @@ const nav = [
         数据仅供参考,实际费用因区域、户型与时间而异。
       </div>
     </div>
-    <Footer locale={locale} consent={true} links={{ siteId: 'neu-seattle-living-cost' }} />
-    <CookieConsent providers={['googleAnalytics', 'fiftyOneLa', 'posthog']} locale={locale} />
+    <Footer locale={locale} links={{ siteId: 'neu-seattle-living-cost' }} />
   </body>
 </html>
