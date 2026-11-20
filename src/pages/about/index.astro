@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于与数据来源">
+  <h1>关于与数据来源</h1>
+  <p>
+    本站为东北大学西雅图校区学生提供居住成本参考。目前所有数据与资料均来自站点作者的个人经验,
+    不代表官方信息,也不保证适用于所有人。
+  </p>
+  <h2>数据如何更新</h2>
+  <p>
+    所有金额集中维护在仓库的 <code>src/data/costs.ts</code> 中,修改后推送到 <code>main</code> 分支,
+    GitHub Pages 会自动重新构建发布。
+  </p>
+  <h2>未来计划</h2>
+  <p class="muted">后续可能加入其他同学的经验与资料,每条数据会标注提供者。</p>
+</BaseLayout>

@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CostTable from '../../components/CostTable.astro';
+import { categories } from '../../data/costs';
+---
+
+<BaseLayout title="成本明细">
+  <h1>成本明细</h1>
+  <p class="muted">金额单位为美元。尚未整理的项目显示为「待补充」。</p>
+  {categories.map((c) => <CostTable category={c} />)}
+</BaseLayout>

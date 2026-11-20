@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = '为东北大学西雅图校区学生整理的西雅图居住成本参考。' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const current = Astro.url.pathname;
+
+const nav = [
+  { href: `${base}/`, label: '首页' },
+  { href: `${base}/costs/`, label: '成本明细' },
+  { href: `${base}/about/`, label: '关于与数据来源' },
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} · 西雅图居住成本参考</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href={`${base}/`}>西雅图居住成本参考</a>
+        <nav class="site-nav" aria-label="主导航">
+          {nav.map((n) => (
+            <a href={n.href} aria-current={current === n.href ? 'page' : undefined}>{n.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container muted">
+        数据仅供参考,实际费用因区域、户型与时间而异。
+      </div>
+    </footer>
+  </body>
+</html>

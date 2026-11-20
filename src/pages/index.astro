@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { categories, monthlyTotal } from '../data/costs';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { total, filled, pending } = monthlyTotal();
+const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+---
+
+<BaseLayout title="首页">
+  <h1>西雅图居住成本参考</h1>
+  <p>
+    面向东北大学(Northeastern University)西雅图校区学生,整理在西雅图生活的主要开销,
+    帮助你在入学前做预算。数据与经验目前来自站点作者的亲身经历。
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>每月合计(已填写项)</h3>
+      <p>
+        {filled === 0 ? <span class="pending">数据整理中</span> : <strong>{usd.format(total)}</strong>}
+      </p>
+      <p class="muted">已填写 {filled} 项,待补充 {pending} 项。</p>
+    </div>
+    {categories.map((c) => (
+      <a class="card" href={`${base}/costs/#${c.id}`} style="text-decoration:none;color:inherit">
+        <h3>{c.title}</h3>
+        <p class="muted">{c.description}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
