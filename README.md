@@ -43,6 +43,27 @@ pnpm run i18n:check   # 多语言审计(@hagicode/hagi18n),CI 里在构建前运
 - 参考价格推算的数字写 `basis: estimate`,页面会标「估算」并与实报分开统计。
 - 字段写错、引用不存在的项目、重复记录、基准语言缺文案都会让 `pnpm run build` 失败,并指出文件与原因。
 
+## 投稿(提交我的数据)
+
+首页和「成本明细」页的「提交我的数据」按钮会跳到 GitHub issue 表单
+(`.github/ISSUE_TEMPLATE/submit-data.yml`),表单里每个金额字段对应 `categories.yaml` 的一个成本项。
+
+- 表单由 `scripts/gen-issue-template.mjs` 根据 `categories.yaml` 和 `en-US` 的 `data.yml` 生成,表单只有英文,**不要手改**。
+  新增/改名成本项后运行 `pnpm run issue-template` 并提交;CI 里 `pnpm run issue-template -- --check` 会在表单过期时失败。
+- 收到带 `data-submission` 标签的 issue 后,维护者核对,再按「填写数据」一节新增 `profiles/<id>.yaml` 和各语言 `data.yml` 的 `profiles.<id>` 文案。
+  没填的项目不写;合并项和估算按 issue 里的「备注」「数字来源」处理。
+- 首次启用前请在仓库里建一个 `data-submission` 标签(没有的话模板仍可用,只是不会自动打标签)。
+
+## 通勤时间与提供者建议
+
+除了金额,每份提供者记录还可以带两个可选的非金额字段(见 `profiles/*.yaml` 顶部注释):
+
+- `commuteMinutes`:住处到校园的单程通勤分钟数。时间也是成本,但不是美元,页面单独显示一行,**不计入任何美元合计**;没提供时显示「待补充」。
+- `advice`:提供者本人的主观建议,每条 `{ kind, id }`,`kind` 为 `positive`(积极)/ `negative`(消极)/ `neutral`(中性);
+  正文写在各语言 `data.yml` 的 `profiles.<id>.advice.<id>` 下。页面按 积极、消极、中性 的顺序显示,没有建议就不显示这一块。
+
+投稿表单里对应「通勤时间」和三个「建议」文本框(一行一条),维护者整理时拆成 `advice` 条目。
+
 ## 多语言
 
 站点提供 HagiLight 支持的全部 10 种语言:`en-US`(默认显示语言)、`zh-CN`、`zh-Hant`、`ja-JP`、`ko-KR`、
