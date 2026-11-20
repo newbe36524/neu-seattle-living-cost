@@ -1,0 +1,26 @@
+site:
+  name: Стоимость жизни в Сиэтле
+  description: Справочник по стоимости жизни в Сиэтле для студентов кампуса Northeastern University в Сиэтле.
+  disclaimer: Данные носят справочный характер. Фактические расходы зависят от района, типа жилья и времени.
+nav:
+  label: Основная навигация
+  home: Главная
+  costs: Подробности расходов
+  about: О сайте и источниках данных
+language:
+  label: Язык
+units:
+  month: в месяц
+  year: в год
+  one-time: разово
+table:
+  item: Статья
+  amount: Сумма
+  period: Период
+  note: Примечание
+status:
+  pending: будет добавлено
+  estimate: оценка
+  bundled: "Входит в объединённую статью {{amount}}"
+estimateNote: Оценка (обычные цены на Amazon, не фактические расходы)
+listSeparator: ", "

@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: Жильё
+    description: Аренда, залог, коммунальные услуги, интернет и другие расходы, напрямую связанные с проживанием.
+  food:
+    title: Питание и предметы быта
+    description: Продукты, походы в кафе и рестораны, бытовые мелочи.
+  transport:
+    title: Транспорт
+    description: Дорога на учёбу и работу, общественный транспорт и расходы на автомобиль.
+  other:
+    title: Прочее
+    description: Телефон, медицинская страховка, развлечения и другие обычные расходы.
+  setup:
+    title: Покупки при заселении
+    description: Мебель и вещи, которые покупают один раз при переезде на новое место.
+items:
+  rent:
+    label: Аренда
+  application-fee:
+    label: Плата за заявку
+  deposit:
+    label: Залог
+  utilities:
+    label: Вода, электричество и газ
+  internet:
+    label: Интернет
+  groceries:
+    label: Продукты в супермаркете
+    hint: расходы на еду
+  daily-supplies:
+    label: Предметы быта
+  dining-out:
+    label: Питание вне дома
+  transit:
+    label: Общественный транспорт
+  car:
+    label: Автомобиль (страховка / бензин / парковка)
+  phone:
+    label: Мобильная связь
+  health:
+    label: Медицинская страховка
+  leisure:
+    label: Развлечения и досуг
+  mattress:
+    label: Матрас
+    hint: Queen Size
+  bed-frame:
+    label: Каркас кровати
+    hint: Queen Size
+  wardrobe:
+    label: Шкаф для одежды
+    hint: простой тканевый шкаф
+  desk:
+    label: Компьютерный стол
+  chair:
+    label: Эргономичное кресло
+  shelf:
+    label: Стеллаж для хранения
+    hint: простой
+  monitor:
+    label: Монитор
+    hint: Philips 4K
+  cookware:
+    label: Кухонная посуда
+    hint: один набор
+  tableware:
+    label: Миски и палочки
+    hint: 6 комплектов
+  air-fryer:
+    label: Аэрофритюрница
+  rice-cooker:
+    label: Рисоварка
+  kettle:
+    label: Электрочайник
+  shower-head:
+    label: Лейка для душа
+  fan:
+    label: Напольный вентилятор
+profiles:
+  author-downtown:
+    contributor: Автор сайта
+    area: Downtown Seattle
+    summary: Живёт в Downtown Seattle; ежемесячные расходы на транспорт равны 0.
+    notes:
+      application-fee: Платится один раз при первом заселении.
+      transit: Участник сообщает, что ежемесячные расходы на транспорт равны 0.
+      utilities: Примерная сумма. Общий итог по коммунальным услугам, интернету, продуктам и предметам быта; участник не вёл их учёт по отдельности.
+      dining-out: Все блюда готовит дома, в кафе и ресторанах не ест; расходы на еду уже входят в объединённую статью выше.
+      mattress: "{{estimate}}: 10-дюймовый матрас Queen из пены с эффектом памяти, обычная цена около $145–240"
+      bed-frame: "{{estimate}}: обычная цена металлического каркаса кровати-платформы"
+      wardrobe: "{{estimate}}: простой тканевый шкаф, обычная цена около $25–30"
+      monitor: "{{estimate}}: 27 дюймов 4K; сопоставимые модели Philips обычно стоят около $200–270"

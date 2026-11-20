@@ -1,0 +1,21 @@
+home:
+  title: Inicio
+  intro: Una referencia para estudiantes del campus de Seattle de la Northeastern University que recoge los principales gastos de vivir en Seattle, para ayudarte a hacer tu presupuesto antes de empezar. Cada conjunto de datos es la experiencia real de un estudiante e indica la zona y la fecha en que se recogió.
+  collected: "{{summary}} Recogido en {{updated}}."
+  monthlyTotal: al mes, total de los conceptos rellenados
+  pendingItems: "Aún no incluidos: {{items}}."
+  allFilled: Todos los conceptos mensuales están rellenados.
+  oneTime: "costos únicos (tasa de solicitud, fianza); además, unos {{estimate}} en compras de instalación inicial, como valor estimado"
+  categoriesHeading: Categorías de costos
+costs:
+  title: Detalle de costos
+  intro: Los importes están en dólares estadounidenses. Los conceptos aún no recopilados aparecen como «Por completar». Cada registro corresponde a la situación real de una persona.
+about:
+  title: Acerca de y fuentes de datos
+  intro: Este sitio es una referencia del costo de la vivienda y la vida para estudiantes del campus de Seattle de la Northeastern University. Por ahora, todos los datos y contenidos proceden de la experiencia personal del autor del sitio; no son información oficial ni se garantiza que valgan para todos.
+  updateHeading: Cómo se actualizan los datos
+  updateBody: Todos los datos se mantienen en archivos YAML dentro de `src/data/` en el repositorio (un archivo con la definición de los conceptos de costo y uno por cada colaborador), y los textos de cada idioma están en `src/locales/`. Al hacer push a la rama `main`, GitHub Pages vuelve a compilar y publicar el sitio automáticamente.
+  languagesHeading: Versiones por idioma
+  languagesBody: El sitio está disponible en 10 idiomas. El chino simplificado es el original; los demás idiomas son traducciones (hechas con ayuda de IA) y, si hay diferencias, prevalece la versión en chino simplificado. Los importes se muestran siempre en dólares estadounidenses.
+  futureHeading: Planes futuros
+  futureBody: Más adelante podrían añadirse experiencias y datos de otros estudiantes, y cada dato indicará quién lo aportó.

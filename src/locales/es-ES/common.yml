@@ -1,0 +1,26 @@
+site:
+  name: Costo de vida en Seattle
+  description: Una referencia del costo de vida en Seattle, elaborada para estudiantes del campus de Seattle de la Northeastern University.
+  disclaimer: Los datos son solo orientativos. Los costos reales varían según la zona, el tipo de vivienda y la época.
+nav:
+  label: Navegación principal
+  home: Inicio
+  costs: Detalle de costos
+  about: Acerca de y fuentes de datos
+language:
+  label: Idioma
+units:
+  month: Mensual
+  year: Anual
+  one-time: Único
+table:
+  item: Concepto
+  amount: Importe
+  period: Periodicidad
+  note: Notas
+status:
+  pending: Por completar
+  estimate: estimado
+  bundled: "Incluido en el concepto agrupado {{amount}}"
+estimateNote: Estimación (precios habituales en Amazon, no un gasto real)
+listSeparator: ", "

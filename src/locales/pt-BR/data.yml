@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: Moradia
+    description: Aluguel, caução, contas de consumo, internet e outros custos diretamente ligados à moradia.
+  food:
+    title: Alimentação e itens do dia a dia
+    description: Compras de mercado, refeições fora de casa e itens de uso doméstico.
+  transport:
+    title: Transporte
+    description: Deslocamentos diários, transporte público e custos com carro.
+  other:
+    title: Outros
+    description: Celular, seguro-saúde, lazer e outros gastos comuns.
+  setup:
+    title: Compras da instalação inicial
+    description: Móveis e itens comprados uma única vez ao se mudar para um novo lugar.
+items:
+  rent:
+    label: Aluguel
+  application-fee:
+    label: Taxa de inscrição
+  deposit:
+    label: Caução
+  utilities:
+    label: Água, luz e gás
+  internet:
+    label: Internet
+  groceries:
+    label: Compras no mercado
+    hint: custo com alimentos
+  daily-supplies:
+    label: Itens de uso doméstico
+  dining-out:
+    label: Refeições fora de casa
+  transit:
+    label: Transporte público
+  car:
+    label: Carro (seguro / combustível / estacionamento)
+  phone:
+    label: Plano de celular
+  health:
+    label: Seguro-saúde
+  leisure:
+    label: Lazer e entretenimento
+  mattress:
+    label: Colchão
+    hint: Queen Size
+  bed-frame:
+    label: Estrado de cama
+    hint: Queen Size
+  wardrobe:
+    label: Guarda-roupa
+    hint: guarda-roupa simples de tecido
+  desk:
+    label: Mesa de computador
+  chair:
+    label: Cadeira ergonômica
+  shelf:
+    label: Estante de armazenamento
+    hint: simples
+  monitor:
+    label: Monitor
+    hint: Philips 4K
+  cookware:
+    label: Panelas e utensílios de cozinha
+    hint: um conjunto
+  tableware:
+    label: Tigelas e hashis
+    hint: 6 conjuntos
+  air-fryer:
+    label: Air fryer
+  rice-cooker:
+    label: Panela de arroz elétrica
+  kettle:
+    label: Chaleira elétrica
+  shower-head:
+    label: Chuveiro (ducha)
+  fan:
+    label: Ventilador de coluna
+profiles:
+  author-downtown:
+    contributor: Autor do site
+    area: Downtown Seattle
+    summary: Mora em Downtown Seattle; o custo mensal com transporte é 0.
+    notes:
+      application-fee: Paga uma única vez na primeira mudança.
+      transit: O colaborador informa que o custo mensal com transporte é 0.
+      utilities: Valor aproximado. Soma de contas de consumo, internet, alimentos e itens de uso doméstico; o colaborador não os registrou separadamente.
+      dining-out: Faz todas as refeições em casa e não come fora; o gasto com alimentos já está incluído no item agrupado acima.
+      mattress: "{{estimate}}: colchão Queen de espuma viscoelástica de 10 polegadas, preço comum de cerca de $145–240"
+      bed-frame: "{{estimate}}: preço comum de um estrado de cama plataforma de metal"
+      wardrobe: "{{estimate}}: guarda-roupa simples de tecido, preço comum de cerca de $25–30"
+      monitor: "{{estimate}}: 27 polegadas 4K; modelos Philips equivalentes costumam custar cerca de $200–270"

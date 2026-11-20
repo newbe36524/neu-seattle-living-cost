@@ -1,0 +1,93 @@
+categories:
+  housing:
+    title: Vivienda
+    description: Alquiler, fianza, suministros, internet y otros costos directamente ligados a la vivienda.
+  food:
+    title: Alimentación y artículos del hogar
+    description: Compra diaria, comidas fuera de casa y artículos del hogar.
+  transport:
+    title: Transporte
+    description: Desplazamientos diarios, transporte público y costos relacionados con el coche.
+  other:
+    title: Otros
+    description: Teléfono, seguro médico, ocio y otros gastos habituales.
+  setup:
+    title: Compras de instalación inicial
+    description: Muebles y artículos que se compran una sola vez al mudarse a una nueva vivienda.
+items:
+  rent:
+    label: Alquiler
+  application-fee:
+    label: Tasa de solicitud
+  deposit:
+    label: Fianza
+  utilities:
+    label: Agua, electricidad y gas
+  internet:
+    label: Internet
+  groceries:
+    label: Compra en el supermercado
+    hint: costo de alimentos
+  daily-supplies:
+    label: Artículos del hogar
+  dining-out:
+    label: Comidas fuera de casa
+  transit:
+    label: Transporte público
+  car:
+    label: Coche (seguro / gasolina / aparcamiento)
+  phone:
+    label: Telefonía móvil
+  health:
+    label: Seguro médico
+  leisure:
+    label: Ocio y entretenimiento
+  mattress:
+    label: Colchón
+    hint: Queen Size
+  bed-frame:
+    label: Estructura de cama
+    hint: Queen Size
+  wardrobe:
+    label: Armario
+    hint: armario sencillo de tela
+  desk:
+    label: Escritorio para ordenador
+  chair:
+    label: Silla ergonómica
+  shelf:
+    label: Estantería
+    hint: sencilla
+  monitor:
+    label: Monitor
+    hint: Philips 4K
+  cookware:
+    label: Utensilios de cocina
+    hint: un juego
+  tableware:
+    label: Cuencos y palillos
+    hint: 6 juegos
+  air-fryer:
+    label: Freidora de aire
+  rice-cooker:
+    label: Arrocera
+  kettle:
+    label: Hervidor eléctrico
+  shower-head:
+    label: Alcachofa de ducha
+  fan:
+    label: Ventilador de pie
+profiles:
+  author-downtown:
+    contributor: Autor del sitio
+    area: Downtown Seattle
+    summary: Vive en Downtown Seattle; el costo mensual de transporte es 0.
+    notes:
+      application-fee: Pagada una sola vez al instalarse por primera vez.
+      transit: El colaborador indica que el costo mensual de transporte es 0.
+      utilities: Cifra aproximada. Suma de suministros, internet, alimentos y artículos del hogar; el colaborador no los registró por separado.
+      dining-out: Cocina todas las comidas en casa y no come fuera; el gasto en alimentos ya está incluido en el concepto agrupado de arriba.
+      mattress: "{{estimate}}: colchón Queen de espuma viscoelástica de 10 pulgadas, precio habitual de unos $145–240"
+      bed-frame: "{{estimate}}: precio habitual de una estructura de cama de plataforma metálica"
+      wardrobe: "{{estimate}}: armario sencillo de tela, precio habitual de unos $25–30"
+      monitor: "{{estimate}}: 27 pulgadas 4K; los modelos Philips equivalentes cuestan habitualmente unos $200–270"

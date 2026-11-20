@@ -1,0 +1,21 @@
+home:
+  title: Início
+  intro: Uma referência para estudantes do campus de Seattle da Northeastern University com os principais gastos de viver em Seattle, para ajudar você a montar um orçamento antes de chegar. Cada conjunto de dados é a experiência real de um estudante, com a região e a data da coleta.
+  collected: "{{summary}} Coletado em {{updated}}."
+  monthlyTotal: por mês, total dos itens preenchidos
+  pendingItems: "Ainda não incluídos: {{items}}."
+  allFilled: Todos os itens mensais estão preenchidos.
+  oneTime: "custos únicos (taxa de inscrição, caução); além de cerca de {{estimate}} em compras da instalação inicial, como valor estimado"
+  categoriesHeading: Categorias de custo
+costs:
+  title: Detalhes dos custos
+  intro: Os valores estão em dólares americanos. Itens ainda não levantados aparecem como "A preencher". Cada registro corresponde à situação real de uma pessoa.
+about:
+  title: Sobre e fontes dos dados
+  intro: Este site é uma referência de custo de moradia e de vida para estudantes do campus de Seattle da Northeastern University. Por enquanto, todos os dados e conteúdos vêm da experiência pessoal do autor do site; não são informações oficiais e não há garantia de que valham para todos.
+  updateHeading: Como os dados são atualizados
+  updateBody: Todos os dados são mantidos em arquivos YAML em `src/data/` no repositório (um arquivo com a definição dos itens de custo e um para cada colaborador), e os textos de cada idioma ficam em `src/locales/`. Ao fazer push na branch `main`, o GitHub Pages recompila e publica o site automaticamente.
+  languagesHeading: Versões por idioma
+  languagesBody: O site está disponível em 10 idiomas. O chinês simplificado é o original; os demais idiomas são traduções (feitas com ajuda de IA) e, havendo divergência, prevalece a versão em chinês simplificado. Os valores são sempre exibidos em dólares americanos.
+  futureHeading: Planos futuros
+  futureBody: Experiências e dados de outros estudantes poderão ser adicionados depois, e cada dado indicará quem o forneceu.
